@@ -3,6 +3,8 @@
 
 #include <string>
 
+class StateMachine;
+
 /**
  * Each scene is a game state, provided in the game state machine.
  * Each State has a list of objects and of renderable objects.
@@ -14,7 +16,7 @@
 class State {
 	public:
 	virtual	~State() {}
-	virtual void update() = 0;
+	virtual void update(StateMachine &stateMachine) = 0;
 	virtual void render();
 	virtual bool onEnter();
 	virtual bool onExit();
