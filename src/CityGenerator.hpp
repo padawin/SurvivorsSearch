@@ -36,7 +36,7 @@ class CityGenerator {
 	void _buildInterior(City& city, S_CityBlock& block);
 
 	public:
-	void generate(City& city);
+	void generate(City& city, int *startX = 0, int *startY = 0);
 };
 
 #endif

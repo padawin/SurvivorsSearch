@@ -32,9 +32,14 @@ void CityGenerator::addCellType(int type, int index) {
 	m_mTypeCells[type].push_back(index);
 }
 
-void CityGenerator::generate(City& city) {
+void CityGenerator::generate(City& city, int *startX, int *startY) {
 	m_mTypeCells.empty();
 	_generateGridCity(city);
+	if (startX != 0 && startY != 0) {
+		int startCell = m_mTypeCells[CAN_BE_START][(unsigned) rand() % m_mTypeCells[CAN_BE_START].size()];
+		*startX = startCell % city.width;
+		*startY = startCell / city.width;
+	}
 }
 
 void CityGenerator::_generateGridCity(City& city) {
