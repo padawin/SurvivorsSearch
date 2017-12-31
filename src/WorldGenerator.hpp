@@ -6,6 +6,7 @@
 class WorldGenerator {
 	private:
 	void _generateCities(World& world);
+	void _linkCities();
 	void _loadCities(std::vector<std::pair<std::string, std::string>> &cities);
 
 	public:

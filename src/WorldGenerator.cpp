@@ -8,6 +8,7 @@ const int WORLD_HEIGHT = 35;
 
 void WorldGenerator::generate(World& world) {
 	_generateCities(world);
+	_linkCities();
 }
 
 void WorldGenerator::_generateCities(World& world) {
@@ -38,6 +39,10 @@ void WorldGenerator::_generateCities(World& world) {
 		cityCoordinates.insert(c);
 		++cityIndex;
 	} while (cityIndex < nbCities);
+}
+
+void WorldGenerator::_linkCities() {
+	// @TODO Implement
 }
 
 void WorldGenerator::_loadCities(std::vector<std::pair<std::string, std::string>> &cities) {
