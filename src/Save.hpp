@@ -13,6 +13,7 @@ class Save {
 	static bool exists();
 	static void clean();
 	static void create();
+	static bool saveWorld(World &world);
 };
 
 #endif
