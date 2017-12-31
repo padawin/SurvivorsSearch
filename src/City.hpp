@@ -9,6 +9,8 @@ const int CITY_SIZE = 121900;
 const char WALL_TILE = 0;
 const char ROAD_TILE = 1;
 const char PAVEMENT_TILE = 2;
+const char GRASS_TILE = 3;
+const char TREE_TILE = 4;
 
 class City {
 	friend class CityGenerator;
