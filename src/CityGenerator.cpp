@@ -14,6 +14,9 @@ const int BLOCK_INTERIOR = 1;
 const int BLOCK_POOL = 2;
 const int BLOCK_PARK = 3;
 
+const int MIN_PROBA_PARK = 0;
+const int MAX_PROBA_PARK = 4;
+
 void CityGenerator::generate(City& city) {
 	_generateGridCity(city);
 }
@@ -26,6 +29,8 @@ void CityGenerator::_generateGridCity(City& city) {
 	std::vector<S_CityBlock> blocks;
 	// make horizontal roads
 	_generateHorizontalRoads(city, blocks);
+	// transform blocks into interiors, parcs or pools
+	_transformBlocks(city, blocks);
 }
 
 void CityGenerator::_generateVerticalRoads(City& city) {
@@ -121,6 +126,24 @@ void CityGenerator::_findCityBlocks(City& city, std::vector<S_CityBlock>& blocks
 		}
 		else if (city.grid[x] == PAVEMENT_TILE && state == STATE_ROAD) {
 			state = STATE_PAVEMENT_RIGHT;
+		}
+	}
+}
+
+void CityGenerator::_transformBlocks(City& city, std::vector<S_CityBlock>& blocks) {
+	for (auto block : blocks) {
+		int proba = rand() % 100;
+		if (MIN_PROBA_PARK <= proba && proba < MAX_PROBA_PARK) {
+			_buildPark(city, block);
+		}
+	}
+}
+
+void CityGenerator::_buildPark(City& city, S_CityBlock& block) {
+	block.type = BLOCK_PARK;
+	for (int y = block.y; y < block.y + block.height; ++y) {
+		for (int x = block.x; x < block.x + block.width; ++x) {
+			city.grid[y * city.width + x] = (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE;
 		}
 	}
 }
