@@ -76,11 +76,15 @@ void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vecto
 	int widthRoad = MIN_WIDTH_ROAD + rand() % (MAX_WIDTH_ROAD - MIN_WIDTH_ROAD + 1);
 	int divideIndex = block.index + MIN_HEIGHT_BLOCK + rand() % (block.size - 2 * MIN_HEIGHT_BLOCK);
 	for (int i = divideIndex * CITY_WIDTH; i < (1 + divideIndex) * CITY_WIDTH; ++i) {
-		city.grid[i] = PAVEMENT_TILE;
+		if (city.grid[i] == WALL_TILE) {
+			city.grid[i] = PAVEMENT_TILE;
+		}
 		for (int r = 1; r <= widthRoad; ++r) {
 			city.grid[i + r * CITY_WIDTH] = ROAD_TILE;
 		}
-		city.grid[i + (widthRoad + 1) * CITY_WIDTH] = PAVEMENT_TILE;
+		if (city.grid[i + (widthRoad + 1) * CITY_WIDTH] == WALL_TILE) {
+			city.grid[i + (widthRoad + 1) * CITY_WIDTH] = PAVEMENT_TILE;
+		}
 	}
 
 	S_Block bUp = block;
