@@ -14,6 +14,13 @@ const int BLOCK_INTERIOR = 1;
 const int BLOCK_POOL = 2;
 const int BLOCK_PARK = 3;
 
+const int MIN_PROBA_PARK = 0;
+const int MAX_PROBA_PARK = 4;
+const int MIN_PROBA_WATER = 5;
+const int MAX_PROBA_WATER = 7;
+const int MIN_PROBA_INTERIOR = 8;
+const int MAX_PROBA_INTERIOR = 23;
+
 void CityGenerator::generate(City& city) {
 	_generateGridCity(city);
 }
@@ -26,6 +33,8 @@ void CityGenerator::_generateGridCity(City& city) {
 	std::vector<S_CityBlock> blocks;
 	// make horizontal roads
 	_generateHorizontalRoads(city, blocks);
+	// transform blocks into interiors, parcs or pools
+	_transformBlocks(city, blocks);
 }
 
 void CityGenerator::_generateVerticalRoads(City& city) {
@@ -69,7 +78,7 @@ void CityGenerator::_divideVerticalBlock(City& city, S_Block block) {
 void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vector<S_CityBlock>& blocks) {
 	if (block.size < MIN_DIVIDABLE_HEIGHT) {
 		// for each block of the line, create a city block and add it to blocks
-		_findCityBlocks(city, blocks, block.index * CITY_WIDTH, block.size);
+		_findCityBlocks(city, blocks, block.index, block.size);
 		return;
 	}
 
@@ -123,4 +132,94 @@ void CityGenerator::_findCityBlocks(City& city, std::vector<S_CityBlock>& blocks
 			state = STATE_PAVEMENT_RIGHT;
 		}
 	}
+}
+
+void CityGenerator::_transformBlocks(City& city, std::vector<S_CityBlock>& blocks) {
+	for (auto block : blocks) {
+		int proba = rand() % 100;
+		if (MIN_PROBA_PARK <= proba && proba < MAX_PROBA_PARK) {
+			_buildPark(city, block);
+		}
+		else if (MIN_PROBA_WATER <= proba && proba < MAX_PROBA_WATER) {
+			_buildPool(city, block);
+		}
+		else if (
+			MIN_PROBA_INTERIOR <= proba && proba < MAX_PROBA_INTERIOR
+			&& block.width >= 3 && block.height >= 3
+		) {
+			_buildInterior(city, block);
+		}
+	}
+}
+
+void CityGenerator::_buildPark(City& city, S_CityBlock& block) {
+	block.type = BLOCK_PARK;
+	for (int y = block.y; y < block.y + block.height; ++y) {
+		for (int x = block.x; x < block.x + block.width; ++x) {
+			city.grid[y * city.width + x] = (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE;
+		}
+	}
+}
+
+void CityGenerator::_buildPool(City& city, S_CityBlock& block) {
+	block.type = BLOCK_POOL;
+	for (int y = block.y; y < block.y + block.height; ++y) {
+		for (int x = block.x; x < block.x + block.width; ++x) {
+			city.grid[y * city.width + x] = WATER_TILE;
+		}
+	}
+}
+
+void CityGenerator::_buildInterior(City& city, S_CityBlock& block) {
+	block.type = BLOCK_INTERIOR;
+	// add floor
+	for (int y = block.y + 1; y < block.y + block.height - 1; ++y) {
+		for (int x = block.x + 1; x < block.x + block.width - 1; ++x) {
+			city.grid[y * city.width + x] = INTERIOR_TILE;
+		}
+	}
+
+	// add door
+	int side = rand() % 4;
+	char tile;
+	int x, y;
+	if (side <= 1) {
+		x = block.x + 1 + rand() % (block.width - 2);
+		// 0 is up, 1 is down
+		// set the door on the upper side if side is 0 and if the block is not
+		// at the top of the map, or the room will be unreachable
+		// or set it at the top if the room *is* at the bottom of the map
+		if ((side == 0 && block.y > 0)
+			|| (
+				side == 1 &&
+				(block.y + block.height) * city.width > (signed) city.size
+		   )
+		) {
+			y = block.y;
+		}
+		else {
+			y = block.y + block.height - 1;
+		}
+		tile = HORIZ_DOOR_TILE;
+	}
+	else {
+		y = block.y + 1 + rand() % (block.height - 2);
+		// 2 is left, 3 is right
+		// set the door on the upper side if side is 0 and if the block is not
+		// at the top of the map, or the room will be unreachable
+		// or set it at the top if the room *is* at the bottom of the map
+		if ((side == 2 && block.x > 0)
+			|| (
+				side == 3 &&
+				block.x + block.width > city.width
+		   )
+		) {
+			x = block.x;
+		}
+		else {
+			x = block.x + block.width - 1;
+		}
+		tile = VERTIC_DOOR_TILE;
+	}
+	city.grid[y * city.width + x] = tile;
 }

@@ -25,6 +25,10 @@ class CityGenerator {
 	void _divideVerticalBlock(City& city, S_Block block);
 	void _divideHorizontalBlock(City& city, S_Block block, std::vector<S_CityBlock> &blocks);
 	void _findCityBlocks(City& city, std::vector<S_CityBlock>& blocks, int y, int height);
+	void _transformBlocks(City& city, std::vector<S_CityBlock>& blocks);
+	void _buildPark(City& city, S_CityBlock& block);
+	void _buildPool(City& city, S_CityBlock& block);
+	void _buildInterior(City& city, S_CityBlock& block);
 
 	public:
 	void generate(City& city);
