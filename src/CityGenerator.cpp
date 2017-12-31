@@ -16,6 +16,8 @@ const int BLOCK_PARK = 3;
 
 const int MIN_PROBA_PARK = 0;
 const int MAX_PROBA_PARK = 4;
+const int MIN_PROBA_WATER = 5;
+const int MAX_PROBA_WATER = 7;
 
 void CityGenerator::generate(City& city) {
 	_generateGridCity(city);
@@ -136,6 +138,9 @@ void CityGenerator::_transformBlocks(City& city, std::vector<S_CityBlock>& block
 		if (MIN_PROBA_PARK <= proba && proba < MAX_PROBA_PARK) {
 			_buildPark(city, block);
 		}
+		else if (MIN_PROBA_WATER <= proba && proba < MAX_PROBA_WATER) {
+			_buildPool(city, block);
+		}
 	}
 }
 
@@ -144,6 +149,15 @@ void CityGenerator::_buildPark(City& city, S_CityBlock& block) {
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
 			city.grid[y * city.width + x] = (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE;
+		}
+	}
+}
+
+void CityGenerator::_buildPool(City& city, S_CityBlock& block) {
+	block.type = BLOCK_POOL;
+	for (int y = block.y; y < block.y + block.height; ++y) {
+		for (int x = block.x; x < block.x + block.width; ++x) {
+			city.grid[y * city.width + x] = WATER_TILE;
 		}
 	}
 }

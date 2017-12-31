@@ -11,6 +11,7 @@ const char ROAD_TILE = 1;
 const char PAVEMENT_TILE = 2;
 const char GRASS_TILE = 3;
 const char TREE_TILE = 4;
+const char WATER_TILE = 5;
 
 class City {
 	friend class CityGenerator;
