@@ -13,6 +13,7 @@ typedef struct {
 	char internalName[20];
 	S_Coordinates location = S_Coordinates();
 	bool visited = false;
+	char count_survivors = 0;
 } S_CityInfo;
 
 typedef struct {

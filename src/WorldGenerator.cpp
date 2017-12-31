@@ -6,6 +6,7 @@
 
 const int WORLD_WIDTH = 80;
 const int WORLD_HEIGHT = 35;
+const char MAX_SURVIVORS_PER_CITY = 5;
 
 void WorldGenerator::generate(World& world) {
 	_generateCities(world);
@@ -28,6 +29,7 @@ void WorldGenerator::_generateCities(World& world) {
 	do {
 		auto currCity = cities[cityIndex];
 		int c = minCoord + rand() % (maxCoord - minCoord);
+		int nbSurvivors = 1 + rand() % MAX_SURVIVORS_PER_CITY;
 		if (cityCoordinates.find(c) != cityCoordinates.end()) {
 			continue;
 		}
@@ -38,6 +40,7 @@ void WorldGenerator::_generateCities(World& world) {
 		strncpy(city.internalName, currCity.second.c_str(), currCity.second.size());
 		city.location.x = c % WORLD_WIDTH;
 		city.location.y = c / WORLD_WIDTH;
+		city.count_survivors = (char) nbSurvivors;
 		cityCoordinates.insert(c);
 		++cityIndex;
 	} while (cityIndex < nbCities);

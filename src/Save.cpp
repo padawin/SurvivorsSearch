@@ -36,12 +36,13 @@ bool Save::saveWorld(World &world) {
 	for (auto city : world.m_vCities) {
 		fprintf(
 			mapFile,
-			"c %s %s %d %d %d\n",
+			"c %s %s %d %d %d %d\n",
 			city.name,
 			city.internalName,
 			city.location.x,
 			city.location.y,
-			city.visited
+			city.visited,
+			city.count_survivors
 		);
 	}
 
