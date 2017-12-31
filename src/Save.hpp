@@ -5,6 +5,7 @@
 
 class World;
 class City;
+class Player;
 
 class Save {
 	public:
@@ -15,6 +16,7 @@ class Save {
 	static void create();
 	static bool saveWorld(World &world);
 	static bool saveCity(City &city);
+	static bool savePlayer(Player &player);
 };
 
 #endif

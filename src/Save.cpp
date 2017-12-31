@@ -1,10 +1,12 @@
 #include "Save.hpp"
+#include <string.h>
 #include <sys/stat.h>
 #include "Utils.hpp"
 #include "World.hpp"
 #include "WorldGenerator.hpp"
 #include "City.hpp"
 #include "CityGenerator.hpp"
+#include "Player.hpp"
 
 const char* WORLD_FILE = "world.dat";
 const char* PLAYER_FILE = "player.dat";
@@ -32,6 +34,13 @@ void Save::create() {
 		startY = 0;
 	cityGenerator.generate(city, &startX, &startY);
 	saveCity(city);
+
+	// Create player save file
+	Player p;
+	strncpy(p.m_sCity, city.m_info.internalName, 20);
+	p.m_location.x = startX;
+	p.m_location.y = startY;
+	savePlayer(p);
 }
 
 bool Save::saveWorld(World &world) {
@@ -75,5 +84,20 @@ bool Save::saveCity(City &city) {
 	}
 
 	fclose(mapFile);
+	return true;
+}
+
+bool Save::savePlayer(Player &player) {
+	std::string playerPath = Utils::getDataPath() + "/" + PLAYER_FILE;
+	FILE *playerFile = fopen(playerPath.c_str(), "w");
+	if (playerFile == NULL) {
+		return false;
+	}
+
+	fprintf(playerFile, "city %s\n", player.m_sCity);
+	fprintf(playerFile, "location %d %d\n", player.m_location.x, player.m_location.y);
+	fprintf(playerFile, "health %d\n", player.m_iHealth);
+
+	fclose(playerFile);
 	return true;
 }
