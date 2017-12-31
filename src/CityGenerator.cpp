@@ -158,6 +158,7 @@ void CityGenerator::_findCityBlocks(City& city, std::vector<S_CityBlock>& blocks
 }
 
 void CityGenerator::_transformBlocks(City& city, std::vector<S_CityBlock>& blocks) {
+	int nbInteriors = 0;
 	for (auto block : blocks) {
 		int proba = rand() % 100;
 		if (MIN_PROBA_PARK <= proba && proba < MAX_PROBA_PARK) {
@@ -170,8 +171,18 @@ void CityGenerator::_transformBlocks(City& city, std::vector<S_CityBlock>& block
 			MIN_PROBA_INTERIOR <= proba && proba < MAX_PROBA_INTERIOR
 			&& block.width >= 3 && block.height >= 3
 		) {
+			++nbInteriors;
 			_buildInterior(city, block);
 		}
+	}
+
+	unsigned long indexBlock = (unsigned) rand() % blocks.size();
+	while (nbInteriors < 2) {
+		if (blocks[indexBlock].type == BLOCK_BUILDING) {
+			_buildInterior(city, blocks[indexBlock]);
+		}
+		indexBlock = (indexBlock + 1) % blocks.size();
+		++nbInteriors;
 	}
 }
 
