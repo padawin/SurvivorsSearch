@@ -74,7 +74,7 @@ void CityGenerator::_divideVerticalBlock(City& city, S_Block block) {
 void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vector<S_CityBlock>& blocks) {
 	if (block.size < MIN_DIVIDABLE_HEIGHT) {
 		// for each block of the line, create a city block and add it to blocks
-		_findCityBlocks(city, blocks, block.index * CITY_WIDTH, block.size);
+		_findCityBlocks(city, blocks, block.index, block.size);
 		return;
 	}
 
