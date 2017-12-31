@@ -24,8 +24,6 @@ Game& Game::operator=(const Game &g) {
 
 bool Game::init() {
 	bool res;
-	time_t t;
-	srand((unsigned int) time(&t));
 	res = m_renderer->init();
 	m_bIsRunning = res;
 	return res;
