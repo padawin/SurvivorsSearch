@@ -6,9 +6,9 @@
 const int CITY_WIDTH = 530;
 const int CITY_SIZE = 121900;
 
-const char WALL_TILE = '#';
-const char ROAD_TILE = '.';
-const char PAVEMENT_TILE = ',';
+const char WALL_TILE = 0;
+const char ROAD_TILE = 1;
+const char PAVEMENT_TILE = 2;
 
 class City {
 	friend class CityGenerator;
