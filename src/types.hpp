@@ -4,15 +4,16 @@
 #include <string>
 
 typedef struct {
-	int x;
-	int y;
+	int x = -1;
+	int y = -1;
 } S_Coordinates;
 
 typedef struct {
-	std::string name;
-	std::string internalName;
-	S_Coordinates location;
-	bool visited;
+	char name[20];
+	char internalName[20];
+	S_Coordinates location = S_Coordinates();
+	bool visited = false;
+	char count_survivors = 0;
 } S_CityInfo;
 
 typedef struct {

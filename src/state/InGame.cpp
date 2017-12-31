@@ -1,8 +1,17 @@
 #include "InGame.hpp"
 #include "../StateMachine.hpp"
+#include "../Save.hpp"
 
 std::string InGame::getStateID() const {
 	return "TestState";
+}
+
+bool InGame::onEnter() {
+	if (!Save::exists()) {
+		Save::clean();
+		Save::create();
+	}
+	return true;
 }
 
 void InGame::update(StateMachine &stateMachine) {
