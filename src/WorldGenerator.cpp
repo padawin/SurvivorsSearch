@@ -2,6 +2,7 @@
 #include <set>
 #include <string>
 #include <sstream>
+#include <string.h>
 
 const int WORLD_WIDTH = 80;
 const int WORLD_HEIGHT = 35;
@@ -25,17 +26,18 @@ void WorldGenerator::_generateCities(World& world) {
 	std::set<int> cityCoordinates;
 	unsigned long cityIndex = 0;
 	do {
+		auto currCity = cities[cityIndex];
 		int c = minCoord + rand() % (maxCoord - minCoord);
 		if (cityCoordinates.find(c) != cityCoordinates.end()) {
 			continue;
 		}
 
-		world.m_vCities.push_back({
-			cities[cityIndex].first,
-			cities[cityIndex].second,
-			{c % WORLD_WIDTH, c / WORLD_WIDTH},
-			false
-		});
+		world.m_vCities.push_back(S_CityInfo());
+		S_CityInfo &city = world.m_vCities[cityIndex];
+		strncpy(city.name, currCity.first.c_str(), currCity.first.size());
+		strncpy(city.internalName, currCity.second.c_str(), currCity.second.size());
+		city.location.x = c % WORLD_WIDTH;
+		city.location.y = c / WORLD_WIDTH;
 		cityCoordinates.insert(c);
 		++cityIndex;
 	} while (cityIndex < nbCities);

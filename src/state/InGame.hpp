@@ -11,9 +11,6 @@ class InGame : public State {
 	int m_iWinX = 0;
 	int m_iWinY = 0;
 
-	WINDOW* m_gameView = 0;
-	WINDOW* m_playerStateView = 0;
-
 	public:
 	bool onEnter();
 	void update(StateMachine &stateMachine);
