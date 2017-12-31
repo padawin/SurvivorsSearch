@@ -4,6 +4,8 @@
 #include "state/InGame.hpp"
 
 int main() {
+	time_t t;
+	srand((unsigned int) time(&t));
 	NCursesRenderer renderer;
 	StateMachine stateMachine = StateMachine();
 	stateMachine.pushState(new InGame());
