@@ -7,6 +7,7 @@ class Utils {
 	public:
 	static std::string getDataPath();
 	static void createFolder(const char *path);
+	static int emptyFolder(const char *path);
 };
 
 #endif
