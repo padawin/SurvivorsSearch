@@ -14,6 +14,7 @@ class Save {
 	static void clean();
 	static void create();
 	static bool saveWorld(World &world);
+	static bool saveCity(City &city);
 };
 
 #endif

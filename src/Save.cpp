@@ -3,10 +3,11 @@
 #include "Utils.hpp"
 #include "World.hpp"
 #include "WorldGenerator.hpp"
+#include "City.hpp"
+#include "CityGenerator.hpp"
 
-const std::string WORLD_FILE = "world.dat";
-const std::string CITY_FILE = "city.%s.dat";
-const std::string PLAYER_FILE = "player.dat";
+const char* WORLD_FILE = "world.dat";
+const char* PLAYER_FILE = "player.dat";
 
 bool Save::exists() {
 	struct stat st;
@@ -24,6 +25,11 @@ void Save::create() {
 	WorldGenerator worldGenerator;
 	worldGenerator.generate(world);
 	saveWorld(world);
+
+	City city(world.m_vCities[(unsigned) rand() % world.m_vCities.size()]);
+	CityGenerator cityGenerator;
+	cityGenerator.generate(city);
+	saveCity(city);
 }
 
 bool Save::saveWorld(World &world) {
@@ -44,6 +50,26 @@ bool Save::saveWorld(World &world) {
 			city.visited,
 			city.count_survivors
 		);
+	}
+
+	fclose(mapFile);
+	return true;
+}
+
+bool Save::saveCity(City &city) {
+	char cityFile[30];
+	snprintf(cityFile, 30, "city.%s.dat", city.m_info.internalName);
+	std::string cityPath = Utils::getDataPath() + "/" + cityFile;
+	FILE *mapFile = fopen(cityPath.c_str(), "w");
+	if (mapFile == NULL) {
+		return false;
+	}
+
+	fprintf(mapFile, "name %s\n", city.m_info.name);
+	fprintf(mapFile, "width %d\n", city.width);
+	fprintf(mapFile, "size %d\n", city.size);
+	for (unsigned int cell = 0; cell < city.size; ++cell) {
+		fprintf(mapFile, "%c", city.grid[cell]);
 	}
 
 	fclose(mapFile);
