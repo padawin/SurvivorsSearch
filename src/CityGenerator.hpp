@@ -28,6 +28,7 @@ class CityGenerator {
 	void _transformBlocks(City& city, std::vector<S_CityBlock>& blocks);
 	void _buildPark(City& city, S_CityBlock& block);
 	void _buildPool(City& city, S_CityBlock& block);
+	void _buildInterior(City& city, S_CityBlock& block);
 
 	public:
 	void generate(City& city);
