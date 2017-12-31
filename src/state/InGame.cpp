@@ -5,6 +5,10 @@ std::string InGame::getStateID() const {
 	return "TestState";
 }
 
+bool InGame::onEnter() {
+	return true;
+}
+
 void InGame::update(StateMachine &stateMachine) {
 	int ch = getch();
 	switch(ch) {

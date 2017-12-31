@@ -15,6 +15,7 @@ class InGame : public State {
 	WINDOW* m_playerStateView = 0;
 
 	public:
+	bool onEnter();
 	void update(StateMachine &stateMachine);
 	void render();
 	std::string getStateID() const;
