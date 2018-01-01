@@ -37,8 +37,8 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	_generateGridCity(city);
 	if (startX != 0 && startY != 0) {
 		int startCell = m_mTypeCells[CAN_BE_START][(unsigned) rand() % m_mTypeCells[CAN_BE_START].size()];
-		*startX = startCell % city.width;
-		*startY = startCell / city.width;
+		*startX = startCell % city.m_iWidth;
+		*startY = startCell / city.m_iWidth;
 	}
 }
 
@@ -57,7 +57,7 @@ void CityGenerator::_generateGridCity(City& city) {
 void CityGenerator::_generateVerticalRoads(City& city) {
 	S_Block b;
 	b.index = 0;
-	b.size = city.width;
+	b.size = city.m_iWidth;
 	_divideVerticalBlock(city, b);
 }
 
@@ -195,8 +195,8 @@ void CityGenerator::_buildPark(City& city, S_Rectangle& block) {
 	block.type = BLOCK_PARK;
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
-			city.grid[y * city.width + x] = (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE;
-			addCellType(CAN_HAVE_FOE, y * city.width + x);
+			city.grid[y * city.m_iWidth + x] = (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE;
+			addCellType(CAN_HAVE_FOE, y * city.m_iWidth + x);
 		}
 	}
 }
@@ -205,7 +205,7 @@ void CityGenerator::_buildPool(City& city, S_Rectangle& block) {
 	block.type = BLOCK_POOL;
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
-			city.grid[y * city.width + x] = WATER_TILE;
+			city.grid[y * city.m_iWidth + x] = WATER_TILE;
 		}
 	}
 }
@@ -215,8 +215,8 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 	// add floor
 	for (int y = block.y + 1; y < block.y + block.height - 1; ++y) {
 		for (int x = block.x + 1; x < block.x + block.width - 1; ++x) {
-			city.grid[y * city.width + x] = INTERIOR_TILE;
-			addCellType(CAN_BE_START, y * city.width + x);
+			city.grid[y * city.m_iWidth + x] = INTERIOR_TILE;
+			addCellType(CAN_BE_START, y * city.m_iWidth + x);
 		}
 	}
 
@@ -233,7 +233,7 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 		if ((side == 0 && block.y > 0)
 			|| (
 				side == 1 &&
-				(block.y + block.height) * city.width > (signed) city.size
+				(block.y + block.height) * city.m_iWidth > (signed) city.m_iSize
 		   )
 		) {
 			y = block.y;
@@ -252,7 +252,7 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 		if ((side == 2 && block.x > 0)
 			|| (
 				side == 3 &&
-				block.x + block.width > city.width
+				block.x + block.width > city.m_iWidth
 		   )
 		) {
 			x = block.x;
@@ -262,5 +262,5 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 		}
 		tile = VERTIC_DOOR_TILE;
 	}
-	city.grid[y * city.width + x] = tile;
+	city.grid[y * city.m_iWidth + x] = tile;
 }

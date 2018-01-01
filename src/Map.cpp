@@ -2,15 +2,15 @@
 #include "Actor.hpp"
 
 int Map::getWidth() {
-	return width;
+	return m_iWidth;
 }
 
 unsigned int Map::getSize() {
-	return size;
+	return m_iSize;
 }
 
 unsigned char Map::getCell(const int x, const int y) const {
-	int gridIndex = y * width + x;
+	int gridIndex = y * m_iWidth + x;
 	return static_cast<unsigned char>(grid[gridIndex]);
 }
 
@@ -24,7 +24,7 @@ std::unordered_map<int, Actor*> Map::getActors() {
 }
 
 int Map::_getCoordsKey(int x, int y) {
-	return y * width + x;
+	return y * m_iWidth + x;
 }
 
 bool Map::moveActor(Actor* actor, int newX, int newY) {

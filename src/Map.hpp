@@ -5,8 +5,8 @@
 
 class Map {
 	protected:
-	int width = 0;
-	unsigned int size = 0;
+	int m_iWidth = 0;
+	unsigned int m_iSize = 0;
 	char *grid = 0;
 
 	MapContent m_content = MapContent();
