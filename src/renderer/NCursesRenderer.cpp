@@ -1,6 +1,6 @@
 #include "NCursesRenderer.hpp"
 #include "../Game.hpp"
-#include <curses.h>
+#include <ncurses.h>
 #include <signal.h>
 #include <sys/time.h>
 #include <unistd.h>
