@@ -31,12 +31,28 @@ int Map::_getCoordsKey(int x, int y) const {
 }
 
 bool Map::moveActor(Actor* actor, int newX, int newY) {
+	if (!isCellWalkable(newX, newY)) {
+		return false;
+	}
+
 	auto location = actor->getLocation();
 	int key = _getCoordsKey(location.x, location.y);
 	int newKey = _getCoordsKey(newX, newY);
 	if (m_content.moveActor(key, newKey)) {
 		actor->setX(newX);
 		actor->setY(newY);
+	}
+
+	return true;
+}
+
+bool Map::areCoordinatesValid(int x, int y) {
+	return x >= 0 && y >= 0 && x < m_iWidth && y < m_iHeight;
+}
+
+bool Map::isCellWalkable(int x, int y) {
+	if (!areCoordinatesValid(x, y)) {
+		return false;
 	}
 
 	return true;
