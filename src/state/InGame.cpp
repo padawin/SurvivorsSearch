@@ -5,7 +5,10 @@
 InGame::InGame() :
 	m_player(Actor()),
 	m_city(City()),
-	m_cityRenderer(NCursesMap()) {
+	m_cityContent(MapContent()),
+	m_cityRenderer(NCursesMap())
+{
+	m_cityContent.addActor(&m_player);
 }
 
 std::string InGame::getStateID() const {
