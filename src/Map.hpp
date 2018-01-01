@@ -22,6 +22,7 @@ class Map {
 	virtual void setCell(const int x, const int y, char c);
 	void addActor(Actor *actor);
 	std::unordered_map<int, Actor*> getActors();
+	Actor* getActorAt(int x, int y) const;
 	bool moveActor(Actor* actor, int newX, int newY);
 	bool areCoordinatesValid(int x, int y);
 	bool isCellWalkable(int x, int y);

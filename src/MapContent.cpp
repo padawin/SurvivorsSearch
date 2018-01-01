@@ -23,3 +23,12 @@ bool MapContent::moveActor(int oldPosition, int newPosition) {
 	m_mActors.erase(it);
 	return true;
 }
+
+Actor *MapContent::getActorAt(int key) const {
+	auto it = m_mActors.find(key);
+	if (it != m_mActors.end()) {
+		return it->second;
+	}
+
+	return NULL;
+}

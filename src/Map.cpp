@@ -26,6 +26,10 @@ std::unordered_map<int, Actor*> Map::getActors() {
 	return m_content.getActors();
 }
 
+Actor *Map::getActorAt(int x, int y) const {
+	return m_content.getActorAt(_getCoordsKey(x, y));
+}
+
 int Map::_getCoordsKey(int x, int y) const {
 	return y * m_iWidth + x;
 }
