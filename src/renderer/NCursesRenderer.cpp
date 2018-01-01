@@ -5,7 +5,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-const char FPS = 10;
+const char FPS = 60;
 const int DELAY_TIME = 1000000 / FPS;
 
 bool NCursesRenderer::init(void) const {
@@ -25,7 +25,6 @@ void NCursesRenderer::frame(Game* game) const {
 	gettimeofday(&tv,NULL);
 	currTime = 1000000 * tv.tv_sec + tv.tv_usec;
 
-	clear();
 	game->loopFrame();
 	refresh();
 
