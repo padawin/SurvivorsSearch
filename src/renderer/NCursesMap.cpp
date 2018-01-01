@@ -4,6 +4,7 @@
 #include "../Actor.hpp"
 #include "../Map.hpp"
 #include "../MapContent.hpp"
+#include "../FieldOfView.hpp"
 
 NCursesMap::NCursesMap() {
 	m_view.x = 0;
@@ -13,23 +14,25 @@ NCursesMap::NCursesMap() {
 }
 
 void NCursesMap::render(Map &map, S_Coordinates reference) {
-	// coordinates in the world
-	int topLeftX = reference.x - m_view.width / 2,
-		topLeftY = reference.y - m_view.height / 2,
-		bottomRightX = reference.x + m_view.width / 2,
-		bottomRightY = reference.y + m_view.height / 2;
-	for (int y = topLeftY; y < bottomRightY; ++y) {
-		for (int x = topLeftX; x < bottomRightX; ++x) {
-			mvaddstr(
-				m_view.y + y - topLeftY,
-				m_view.x + x - topLeftX,
-				_getCellDisplayValue(map, x, y)
-			);
-		}
+	S_Rectangle visibleArea = m_view;
+	visibleArea.x = reference.x - m_view.width / 2;
+	visibleArea.y = reference.y - m_view.height / 2;
+	FieldOfView fov(visibleArea);
+	fov.calculate(map, reference);
+	int displayShiftX = m_view.x - visibleArea.x;
+	int displayShiftY = m_view.y - visibleArea.y;
+	for (auto cell : fov.getVisibleCells(true)) {
+		int x = cell.first.x,
+			y = cell.first.y;
+		mvaddstr(
+			displayShiftY + y,
+			displayShiftX + x,
+			cell.second ? _getCellDisplayValue(map, x, y) : " "
+		);
 	}
 
 	for (auto actor : map.getActors()) {
-		actor.second->render(m_view.x - topLeftX, m_view.y - topLeftY);
+		actor.second->render(displayShiftX, displayShiftY);
 	}
 }
 
