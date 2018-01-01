@@ -8,6 +8,9 @@ class City;
 class Player;
 
 class Save {
+	private:
+	static void _loadPlayer(Player &player);
+
 	public:
 	static void loadWorld(World& world);
 	static void loadCity(std::string internalName, City& city);
@@ -17,6 +20,8 @@ class Save {
 	static bool saveWorld(World &world);
 	static bool saveCity(City &city);
 	static bool savePlayer(Player &player);
+
+	static void load(Player &player);
 };
 
 #endif

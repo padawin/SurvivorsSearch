@@ -1,4 +1,5 @@
 #include "Save.hpp"
+#include <fstream>
 #include <string.h>
 #include <sys/stat.h>
 #include "Utils.hpp"
@@ -101,4 +102,36 @@ bool Save::savePlayer(Player &player) {
 
 	fclose(playerFile);
 	return true;
+}
+
+void Save::load(Player &player) {
+	_loadPlayer(player);
+}
+
+void Save::_loadPlayer(Player &player) {
+	std::ifstream fin;
+	std::string file = Utils::getDataPath() + "/" + PLAYER_FILE;
+	fin.open(file.c_str());
+	if (!fin.good()) {
+		fin.close();
+		return;
+	}
+
+	while (!fin.eof()) {
+		char line[50];
+		fin.getline(line, 50);
+
+		char type = *line;
+		if (type == 'c') {
+			sscanf(line, "c %s\n", player.m_sCity);
+		}
+		else if (type == 'l') {
+			sscanf(line, "l %d %d\n", &player.m_location.x, &player.m_location.y);
+		}
+		else if (type == 'h') {
+			sscanf(line, "h %d\n", &player.m_iHealth);
+		}
+	}
+
+	fin.close();
 }

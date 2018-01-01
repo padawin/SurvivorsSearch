@@ -13,6 +13,8 @@ bool InGame::onEnter() {
 		Save::clean();
 		Save::create();
 	}
+
+	Save::load(m_player);
 	return true;
 }
 
