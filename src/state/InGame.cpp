@@ -2,6 +2,8 @@
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
 
+InGame::InGame() : m_player(Player()), m_city(City()) {}
+
 std::string InGame::getStateID() const {
 	return "TestState";
 }

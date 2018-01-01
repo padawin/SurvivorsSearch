@@ -3,6 +3,8 @@
 
 #include "../State.hpp"
 #include <ncurses.h>
+#include "../Player.hpp"
+#include "../City.hpp"
 
 class InGame : public State {
 	private:
@@ -11,7 +13,11 @@ class InGame : public State {
 	int m_iWinX = 0;
 	int m_iWinY = 0;
 
+	Player m_player;
+	City m_city;
+
 	public:
+	InGame();
 	bool onEnter();
 	void update(StateMachine &stateMachine);
 	void render();
