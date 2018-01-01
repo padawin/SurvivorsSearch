@@ -3,6 +3,7 @@
 
 #include "City.hpp"
 #include <vector>
+#include <map>
 
 typedef struct {
 	int index = 0;
@@ -19,6 +20,10 @@ typedef struct {
 
 class CityGenerator {
 	private:
+	std::map<int, std::vector<int>> m_mTypeCells = {};
+
+	void addCellType(int type, int index);
+
 	void _generateGridCity(City& city);
 	void _generateVerticalRoads(City& city);
 	void _generateHorizontalRoads(City& city, std::vector<S_CityBlock> &blocks);
@@ -31,7 +36,7 @@ class CityGenerator {
 	void _buildInterior(City& city, S_CityBlock& block);
 
 	public:
-	void generate(City& city);
+	void generate(City& city, int *startX = 0, int *startY = 0);
 };
 
 #endif

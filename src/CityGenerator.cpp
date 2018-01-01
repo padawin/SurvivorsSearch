@@ -21,8 +21,25 @@ const int MAX_PROBA_WATER = 7;
 const int MIN_PROBA_INTERIOR = 8;
 const int MAX_PROBA_INTERIOR = 23;
 
-void CityGenerator::generate(City& city) {
+const int CAN_HAVE_FOE = 0;
+const int CAN_BE_START = 1;
+
+void CityGenerator::addCellType(int type, int index) {
+	if (m_mTypeCells.find(type) == m_mTypeCells.end()) {
+		m_mTypeCells[type] = {};
+	}
+
+	m_mTypeCells[type].push_back(index);
+}
+
+void CityGenerator::generate(City& city, int *startX, int *startY) {
+	m_mTypeCells.empty();
 	_generateGridCity(city);
+	if (startX != 0 && startY != 0) {
+		int startCell = m_mTypeCells[CAN_BE_START][(unsigned) rand() % m_mTypeCells[CAN_BE_START].size()];
+		*startX = startCell % city.width;
+		*startY = startCell / city.width;
+	}
 }
 
 void CityGenerator::_generateGridCity(City& city) {
@@ -60,10 +77,13 @@ void CityGenerator::_divideVerticalBlock(City& city, S_Block block) {
 	int divideIndex = block.index + MIN_WIDTH_BLOCK + rand() % (block.size - 2 * MIN_WIDTH_BLOCK);
 	for (int j = divideIndex; j < CITY_SIZE; j += CITY_WIDTH) {
 		city.grid[j] = PAVEMENT_TILE;
+		addCellType(CAN_HAVE_FOE, j);
 		for (int r = 1; r <= widthRoad; ++r) {
 			city.grid[j + r] = ROAD_TILE;
+			addCellType(CAN_HAVE_FOE, j + r);
 		}
 		city.grid[j + widthRoad + 1] = PAVEMENT_TILE;
+		addCellType(CAN_HAVE_FOE, j + widthRoad + 1);
 	}
 
 	S_Block bLeft = block;
@@ -87,12 +107,20 @@ void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vecto
 	for (int i = divideIndex * CITY_WIDTH; i < (1 + divideIndex) * CITY_WIDTH; ++i) {
 		if (city.grid[i] == WALL_TILE) {
 			city.grid[i] = PAVEMENT_TILE;
+			addCellType(CAN_HAVE_FOE, i);
 		}
+		int currIndex;
 		for (int r = 1; r <= widthRoad; ++r) {
-			city.grid[i + r * CITY_WIDTH] = ROAD_TILE;
+			currIndex = i + r * CITY_WIDTH;
+			if (city.grid[currIndex] == WALL_TILE) {
+				addCellType(CAN_HAVE_FOE, currIndex);
+			}
+			city.grid[currIndex] = ROAD_TILE;
 		}
-		if (city.grid[i + (widthRoad + 1) * CITY_WIDTH] == WALL_TILE) {
-			city.grid[i + (widthRoad + 1) * CITY_WIDTH] = PAVEMENT_TILE;
+		currIndex = i + (widthRoad + 1) * CITY_WIDTH;
+		if (city.grid[currIndex] == WALL_TILE) {
+			city.grid[currIndex] = PAVEMENT_TILE;
+			addCellType(CAN_HAVE_FOE, currIndex);
 		}
 	}
 
@@ -135,6 +163,7 @@ void CityGenerator::_findCityBlocks(City& city, std::vector<S_CityBlock>& blocks
 }
 
 void CityGenerator::_transformBlocks(City& city, std::vector<S_CityBlock>& blocks) {
+	int nbInteriors = 0;
 	for (auto block : blocks) {
 		int proba = rand() % 100;
 		if (MIN_PROBA_PARK <= proba && proba < MAX_PROBA_PARK) {
@@ -147,8 +176,18 @@ void CityGenerator::_transformBlocks(City& city, std::vector<S_CityBlock>& block
 			MIN_PROBA_INTERIOR <= proba && proba < MAX_PROBA_INTERIOR
 			&& block.width >= 3 && block.height >= 3
 		) {
+			++nbInteriors;
 			_buildInterior(city, block);
 		}
+	}
+
+	unsigned long indexBlock = (unsigned) rand() % blocks.size();
+	while (nbInteriors < 2) {
+		if (blocks[indexBlock].type == BLOCK_BUILDING) {
+			_buildInterior(city, blocks[indexBlock]);
+		}
+		indexBlock = (indexBlock + 1) % blocks.size();
+		++nbInteriors;
 	}
 }
 
@@ -157,6 +196,7 @@ void CityGenerator::_buildPark(City& city, S_CityBlock& block) {
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
 			city.grid[y * city.width + x] = (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE;
+			addCellType(CAN_HAVE_FOE, y * city.width + x);
 		}
 	}
 }
@@ -176,6 +216,7 @@ void CityGenerator::_buildInterior(City& city, S_CityBlock& block) {
 	for (int y = block.y + 1; y < block.y + block.height - 1; ++y) {
 		for (int x = block.x + 1; x < block.x + block.width - 1; ++x) {
 			city.grid[y * city.width + x] = INTERIOR_TILE;
+			addCellType(CAN_BE_START, y * city.width + x);
 		}
 	}
 
