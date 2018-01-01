@@ -12,6 +12,7 @@ class MapContent {
 	public:
 	void addActor(int position, Actor *actor);
 	std::unordered_map<int, Actor*> &getActors();
+	bool moveActor(int oldPosition, int newPosition);
 };
 
 #endif

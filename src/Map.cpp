@@ -26,3 +26,15 @@ std::unordered_map<int, Actor*> Map::getActors() {
 int Map::_getCoordsKey(int x, int y) {
 	return y * width + x;
 }
+
+bool Map::moveActor(Actor* actor, int newX, int newY) {
+	auto location = actor->getLocation();
+	int key = _getCoordsKey(location.x, location.y);
+	int newKey = _getCoordsKey(newX, newY);
+	if (m_content.moveActor(key, newKey)) {
+		actor->setX(newX);
+		actor->setY(newY);
+	}
+
+	return true;
+}

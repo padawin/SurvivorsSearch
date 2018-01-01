@@ -20,6 +20,7 @@ class Map {
 	virtual unsigned char getCell(const int x, const int y) const;
 	void addActor(Actor *actor);
 	std::unordered_map<int, Actor*> getActors();
+	bool moveActor(Actor* actor, int newX, int newY);
 };
 
 #endif
