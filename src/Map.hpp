@@ -36,6 +36,7 @@ class Map {
 	bool moveActor(Actor* actor, int newX, int newY);
 	bool areCoordinatesValid(int x, int y);
 	bool isCellWalkable(int x, int y);
+	bool isCellObstructingView(int x, int y);
 };
 
 #endif
