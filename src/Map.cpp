@@ -1,4 +1,5 @@
 #include "Map.hpp"
+#include "Actor.hpp"
 
 int Map::getWidth() {
 	return width;
@@ -14,9 +15,10 @@ unsigned char Map::getCell(const int x, const int y) const {
 }
 
 void Map::addActor(Actor *actor) {
-	m_content.addActor(actor);
+	auto location = actor->getLocation();
+	m_content.addActor(location.y * (signed) size + location.x, actor);
 }
 
-std::vector<Actor*> Map::getActors() {
+std::unordered_map<int, Actor*> Map::getActors() {
 	return m_content.getActors();
 }

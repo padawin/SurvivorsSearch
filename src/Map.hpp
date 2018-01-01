@@ -17,7 +17,7 @@ class Map {
 	unsigned int getSize();
 	virtual unsigned char getCell(const int x, const int y) const;
 	void addActor(Actor *actor);
-	std::vector<Actor*> getActors();
+	std::unordered_map<int, Actor*> getActors();
 };
 
 #endif

@@ -29,7 +29,7 @@ void NCursesMap::render(Map &map, S_Coordinates reference) {
 	}
 
 	for (auto actor : map.getActors()) {
-		actor->render(m_view.x - topLeftX, m_view.y - topLeftY);
+		actor.second->render(m_view.x - topLeftX, m_view.y - topLeftY);
 	}
 }
 

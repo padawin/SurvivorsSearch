@@ -1,10 +1,10 @@
 #include "MapContent.hpp"
 #include "Actor.hpp"
 
-void MapContent::addActor(Actor *actor) {
-	m_vActors.push_back(actor);
+void MapContent::addActor(int position, Actor *actor) {
+	m_mActors[position] = actor;
 }
 
-std::vector<Actor*> &MapContent::getActors() {
-	return m_vActors;
+std::unordered_map<int, Actor*> &MapContent::getActors() {
+	return m_mActors;
 }
