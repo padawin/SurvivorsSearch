@@ -2,10 +2,10 @@
 #define __GAME_STATE__
 
 #include "../State.hpp"
-#include "../types.hpp"
 #include <ncurses.h>
 #include "../Player.hpp"
 #include "../City.hpp"
+#include "../renderer/NCursesMap.hpp"
 
 class InGame : public State {
 	private:
@@ -16,9 +16,7 @@ class InGame : public State {
 
 	Player m_player;
 	City m_city;
-	S_Rectangle m_viewCity = {};
-
-	const char* _getCellDisplayValue(int x, int y);
+	NCursesMap m_cityRenderer;
 
 	public:
 	InGame();
