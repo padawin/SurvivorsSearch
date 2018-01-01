@@ -1,6 +1,7 @@
 #include "InGame.hpp"
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
+#include "../renderer/NCursesActor.hpp"
 
 InGame::InGame() :
 	m_player(Actor()),
@@ -8,6 +9,7 @@ InGame::InGame() :
 	m_cityContent(MapContent()),
 	m_cityRenderer(NCursesMap())
 {
+	m_player.setRenderer(new NCursesActor('@'));
 	m_cityContent.addActor(&m_player);
 }
 
