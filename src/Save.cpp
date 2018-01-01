@@ -102,8 +102,9 @@ bool Save::savePlayer(Player &player) {
 	return true;
 }
 
-void Save::load(Player &player) {
+void Save::load(Player &player, City &city) {
 	_loadPlayer(player);
+	_loadCity(city, player.m_sCity);
 }
 
 void Save::_loadPlayer(Player &player) {
@@ -131,5 +132,23 @@ void Save::_loadPlayer(Player &player) {
 		}
 	}
 
+	fin.close();
+}
+
+void Save::_loadCity(City &city, char cityName[20]) {
+	std::ifstream fin;
+	char cityFile[30];
+	snprintf(cityFile, 30, "city.%s.dat", cityName);
+	std::string file = Utils::getDataPath() + "/" + cityFile;
+	fin.open(file.c_str());
+	if (!fin.good()) {
+		fin.close();
+		return;
+	}
+
+	char line[50];
+	fin.getline(line, 50);
+	sscanf(line, "n %s\n", city.m_info.name);
+	fin.read(city.grid, city.size);
 	fin.close();
 }

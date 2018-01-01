@@ -14,7 +14,7 @@ bool InGame::onEnter() {
 		Save::create();
 	}
 
-	Save::load(m_player);
+	Save::load(m_player, m_city);
 	return true;
 }
 
