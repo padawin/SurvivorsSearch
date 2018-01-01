@@ -47,7 +47,7 @@ void CityGenerator::_generateGridCity(City& city) {
 	// make vertical roads
 	_generateVerticalRoads(city);
 	// initialise blocks
-	std::vector<S_CityBlock> blocks;
+	std::vector<S_Rectangle> blocks;
 	// make horizontal roads
 	_generateHorizontalRoads(city, blocks);
 	// transform blocks into interiors, parcs or pools
@@ -61,7 +61,7 @@ void CityGenerator::_generateVerticalRoads(City& city) {
 	_divideVerticalBlock(city, b);
 }
 
-void CityGenerator::_generateHorizontalRoads(City& city, std::vector<S_CityBlock> &blocks) {
+void CityGenerator::_generateHorizontalRoads(City& city, std::vector<S_Rectangle> &blocks) {
 	S_Block b;
 	b.index = 0;
 	b.size = CITY_SIZE / CITY_WIDTH;
@@ -95,7 +95,7 @@ void CityGenerator::_divideVerticalBlock(City& city, S_Block block) {
 	_divideVerticalBlock(city, bRight);
 }
 
-void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vector<S_CityBlock>& blocks) {
+void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vector<S_Rectangle>& blocks) {
 	if (block.size < MIN_DIVIDABLE_HEIGHT) {
 		// for each block of the line, create a city block and add it to blocks
 		_findCityBlocks(city, blocks, block.index, block.size);
@@ -133,7 +133,7 @@ void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vecto
 	_divideHorizontalBlock(city, bBottom, blocks);
 }
 
-void CityGenerator::_findCityBlocks(City& city, std::vector<S_CityBlock>& blocks, int y, int height) {
+void CityGenerator::_findCityBlocks(City& city, std::vector<S_Rectangle>& blocks, int y, int height) {
 	unsigned long nbBlocks = blocks.size();
 	const int STATE_WALL = 0;
 	const int STATE_PAVEMENT_LEFT = 1;
@@ -143,7 +143,7 @@ void CityGenerator::_findCityBlocks(City& city, std::vector<S_CityBlock>& blocks
 	for (int x = 0; x < CITY_WIDTH; ++x) {
 		if (city.grid[x] == WALL_TILE && state == STATE_PAVEMENT_RIGHT) {
 			state = STATE_WALL;
-			blocks.push_back(S_CityBlock());
+			blocks.push_back(S_Rectangle());
 			blocks[nbBlocks].x = x;
 			blocks[nbBlocks].y = y;
 			blocks[nbBlocks].height = height;
@@ -162,7 +162,7 @@ void CityGenerator::_findCityBlocks(City& city, std::vector<S_CityBlock>& blocks
 	}
 }
 
-void CityGenerator::_transformBlocks(City& city, std::vector<S_CityBlock>& blocks) {
+void CityGenerator::_transformBlocks(City& city, std::vector<S_Rectangle>& blocks) {
 	int nbInteriors = 0;
 	for (auto block : blocks) {
 		int proba = rand() % 100;
@@ -191,7 +191,7 @@ void CityGenerator::_transformBlocks(City& city, std::vector<S_CityBlock>& block
 	}
 }
 
-void CityGenerator::_buildPark(City& city, S_CityBlock& block) {
+void CityGenerator::_buildPark(City& city, S_Rectangle& block) {
 	block.type = BLOCK_PARK;
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
@@ -201,7 +201,7 @@ void CityGenerator::_buildPark(City& city, S_CityBlock& block) {
 	}
 }
 
-void CityGenerator::_buildPool(City& city, S_CityBlock& block) {
+void CityGenerator::_buildPool(City& city, S_Rectangle& block) {
 	block.type = BLOCK_POOL;
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
@@ -210,7 +210,7 @@ void CityGenerator::_buildPool(City& city, S_CityBlock& block) {
 	}
 }
 
-void CityGenerator::_buildInterior(City& city, S_CityBlock& block) {
+void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 	block.type = BLOCK_INTERIOR;
 	// add floor
 	for (int y = block.y + 1; y < block.y + block.height - 1; ++y) {
