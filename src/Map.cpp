@@ -10,8 +10,11 @@ unsigned int Map::getSize() {
 }
 
 unsigned char Map::getCell(const int x, const int y) const {
-	int gridIndex = y * m_iWidth + x;
-	return static_cast<unsigned char>(grid[gridIndex]);
+	return static_cast<unsigned char>(grid[_getCoordsKey(x, y)]);
+}
+
+void Map::setCell(const int x, const int y, char c) {
+	grid[_getCoordsKey(x, y)] = c;
 }
 
 void Map::addActor(Actor *actor) {
@@ -23,7 +26,7 @@ std::unordered_map<int, Actor*> Map::getActors() {
 	return m_content.getActors();
 }
 
-int Map::_getCoordsKey(int x, int y) {
+int Map::_getCoordsKey(int x, int y) const {
 	return y * m_iWidth + x;
 }
 

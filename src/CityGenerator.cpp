@@ -195,7 +195,7 @@ void CityGenerator::_buildPark(City& city, S_Rectangle& block) {
 	block.type = BLOCK_PARK;
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
-			city.grid[y * city.m_iWidth + x] = (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE;
+			city.setCell(x, y, (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE);
 			addCellType(CAN_HAVE_FOE, y * city.m_iWidth + x);
 		}
 	}
@@ -205,7 +205,7 @@ void CityGenerator::_buildPool(City& city, S_Rectangle& block) {
 	block.type = BLOCK_POOL;
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
-			city.grid[y * city.m_iWidth + x] = WATER_TILE;
+			city.setCell(x, y, WATER_TILE);
 		}
 	}
 }
@@ -215,7 +215,7 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 	// add floor
 	for (int y = block.y + 1; y < block.y + block.height - 1; ++y) {
 		for (int x = block.x + 1; x < block.x + block.width - 1; ++x) {
-			city.grid[y * city.m_iWidth + x] = INTERIOR_TILE;
+			city.setCell(x, y, INTERIOR_TILE);
 			addCellType(CAN_BE_START, y * city.m_iWidth + x);
 		}
 	}
@@ -262,5 +262,5 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 		}
 		tile = VERTIC_DOOR_TILE;
 	}
-	city.grid[y * city.m_iWidth + x] = tile;
+	city.setCell(x, y, tile);
 }
