@@ -2,6 +2,7 @@
 #define __CITY__
 
 #include "types.hpp"
+#include "Map.hpp"
 
 const int CITY_WIDTH = 530;
 const int CITY_SIZE = 121900;
@@ -16,16 +17,21 @@ const char INTERIOR_TILE = 6;
 const char HORIZ_DOOR_TILE = 7;
 const char VERTIC_DOOR_TILE = 8;
 
-class City {
+class City : public Map {
 	friend class CityGenerator;
 	friend class Save;
 	private:
 	S_CityInfo m_info = S_CityInfo();
-	const int width = CITY_WIDTH;
-	const unsigned int size = CITY_SIZE;
-	char grid[CITY_SIZE];
 
 	public:
+	City() {
+		width = CITY_WIDTH;
+		size = CITY_SIZE;
+		grid = (char*) malloc(CITY_SIZE * sizeof (char));
+	}
+	~City() {
+		free(grid);
+	}
 	unsigned char getCell(const int x, const int y) const;
 };
 
