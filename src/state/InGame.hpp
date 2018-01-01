@@ -9,11 +9,6 @@
 
 class InGame : public State {
 	private:
-	int m_iX = 0;
-	int m_iY = 0;
-	int m_iWinX = 0;
-	int m_iWinY = 0;
-
 	Actor m_player;
 	City m_city;
 	NCursesMap m_cityRenderer;

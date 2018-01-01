@@ -28,18 +28,20 @@ bool InGame::onEnter() {
 
 void InGame::update(StateMachine &stateMachine) {
 	int ch = getch();
+	S_Coordinates location = m_player.getLocation();
+
 	switch(ch) {
 		case KEY_UP:
-			m_iY -= 1;
+			m_city.moveActor(&m_player, location.x, location.y - 1);
 			break;
 		case KEY_DOWN:
-			m_iY += 1;
+			m_city.moveActor(&m_player, location.x, location.y + 1);
 			break;
 		case KEY_LEFT:
-			m_iX -= 1;
+			m_city.moveActor(&m_player, location.x - 1, location.y);
 			break;
 		case KEY_RIGHT:
-			m_iX += 1;
+			m_city.moveActor(&m_player, location.x + 1, location.y);
 			break;
 		case 27:
 			stateMachine.clean();
