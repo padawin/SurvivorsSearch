@@ -18,6 +18,8 @@ class InGame : public State {
 	City m_city;
 	S_Rectangle m_viewCity = {};
 
+	const char* _getCellDisplayValue(int x, int y);
+
 	public:
 	InGame();
 	bool onEnter();
