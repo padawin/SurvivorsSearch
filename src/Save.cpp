@@ -76,9 +76,9 @@ bool Save::saveCity(City &city) {
 		return false;
 	}
 
-	fprintf(mapFile, "name %s\n", city.m_info.name);
-	fprintf(mapFile, "width %d\n", city.width);
-	fprintf(mapFile, "size %d\n", city.size);
+	fprintf(mapFile, "n %s\n", city.m_info.name);
+	fprintf(mapFile, "w %d\n", city.width);
+	fprintf(mapFile, "s %d\n", city.size);
 	for (unsigned int cell = 0; cell < city.size; ++cell) {
 		fprintf(mapFile, "%c", city.grid[cell]);
 	}
@@ -94,9 +94,9 @@ bool Save::savePlayer(Player &player) {
 		return false;
 	}
 
-	fprintf(playerFile, "city %s\n", player.m_sCity);
-	fprintf(playerFile, "location %d %d\n", player.m_location.x, player.m_location.y);
-	fprintf(playerFile, "health %d\n", player.m_iHealth);
+	fprintf(playerFile, "c %s\n", player.m_sCity);
+	fprintf(playerFile, "l %d %d\n", player.m_location.x, player.m_location.y);
+	fprintf(playerFile, "h %d\n", player.m_iHealth);
 
 	fclose(playerFile);
 	return true;
