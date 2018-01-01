@@ -34,8 +34,8 @@ void NCursesMap::render(Map &map, S_Coordinates reference) {
 }
 
 const char* NCursesMap::_getCellDisplayValue(Map &map, int x, int y) {
-	if (x < 0 || x > map.getWidth() ||
-		y < 0 || y * map.getWidth() > (signed) map.getSize()) {
+	if (x < 0 || x >= map.getWidth() ||
+		y < 0 || y * map.getWidth() >= (signed) map.getSize()) {
 		return " ";
 	}
 
