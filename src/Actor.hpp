@@ -1,7 +1,6 @@
 #ifndef __ACTOR__
 #define __ACTOR__
 
-#include <memory>
 #include "types.hpp"
 #include "renderer/Actor.hpp"
 
@@ -46,10 +45,10 @@ class Actor {
 
 	void render(int displayShiftX, int displayShiftY);
 
-	bool isNextTo(std::shared_ptr<Actor> actor);
-	bool seesActor(/*Map &map, */std::shared_ptr<Actor> actor);
+	bool isNextTo(Actor *actor);
+	bool seesActor(/*Map &map, */Actor *actor);
 
-	void attack(std::shared_ptr<Actor> target);
+	void attack(Actor *target);
 };
 
 #endif
