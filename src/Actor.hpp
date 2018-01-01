@@ -3,8 +3,7 @@
 
 #include <memory>
 #include "types.hpp"
-
-class Map;
+#include "renderer/Actor.hpp"
 
 enum E_ActorOrientation {LEFT, RIGHT};
 
@@ -19,7 +18,16 @@ class Actor {
 
 	S_Coordinates m_location = S_Coordinates();
 
+	ActorRenderer *m_renderer = 0;
+
 	public:
+	Actor();
+	~Actor();
+	Actor(const Actor &L); // copy constructor
+	Actor & operator=(const Actor &L); // assignment
+
+	void setRenderer(ActorRenderer *renderer);
+
 	int getHealth();
 	int getMaxHealth();
 	int getDefence();
