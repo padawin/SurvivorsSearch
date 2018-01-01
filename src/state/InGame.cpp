@@ -1,8 +1,14 @@
 #include "InGame.hpp"
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
+#include "../renderData.hpp"
 
-InGame::InGame() : m_player(Player()), m_city(City()) {}
+InGame::InGame() : m_player(Player()), m_city(City()) {
+	m_viewCity.x = 0;
+	m_viewCity.y = 0;
+	m_viewCity.width = 79;
+	m_viewCity.height = 29;
+}
 
 std::string InGame::getStateID() const {
 	return "TestState";
@@ -42,6 +48,34 @@ void InGame::update(StateMachine &stateMachine) {
 }
 
 void InGame::render() {
-	mvaddstr(m_iY, m_iX, "Hello World");
+	// coordinates in the world
+	int topLeftX = m_player.getLocation().x - m_viewCity.width / 2,
+		topLeftY = m_player.getLocation().y - m_viewCity.height / 2,
+		bottomRightX = m_player.getLocation().x + m_viewCity.width / 2,
+		bottomRightY = m_player.getLocation().y + m_viewCity.height / 2;
+	for (int y = topLeftY; y < bottomRightY; ++y) {
+		for (int x = topLeftX; x < bottomRightX; ++x) {
+			mvaddstr(
+				m_viewCity.y + y - topLeftY,
+				m_viewCity.x + x - topLeftX,
+				_getCellDisplayValue(x, y)
+			);
+		}
+	}
+
+	// render player
+	mvaddstr(
+		m_viewCity.y + m_player.getLocation().y - topLeftY,
+		m_viewCity.x + m_player.getLocation().x - topLeftX,
+		"@"
+	);
 	refresh();
+}
+
+const char* InGame::_getCellDisplayValue(int x, int y) {
+	if (x < 0 || x > CITY_WIDTH || y < 0 || y * CITY_WIDTH > CITY_SIZE) {
+		return " ";
+	}
+
+	return MAP_TILES[m_city.getCell(x, y)];
 }

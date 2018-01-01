@@ -2,8 +2,10 @@
 #include "renderer/NCursesRenderer.hpp"
 #include "StateMachine.hpp"
 #include "state/InGame.hpp"
+#include <locale.h>
 
 int main() {
+	setlocale(LC_ALL,"");
 	time_t t;
 	srand((unsigned int) time(&t));
 	NCursesRenderer renderer;

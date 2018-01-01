@@ -22,4 +22,12 @@ typedef struct {
 	bool visited;
 } S_CityConnection;
 
+typedef struct {
+	int x = 0;
+	int y = 0;
+	int width = 0;
+	int height = 0;
+	int type = 0;
+} S_Rectangle;
+
 #endif

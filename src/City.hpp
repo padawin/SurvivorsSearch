@@ -24,6 +24,9 @@ class City {
 	const int width = CITY_WIDTH;
 	const unsigned int size = CITY_SIZE;
 	char grid[CITY_SIZE];
+
+	public:
+	unsigned char getCell(const int x, const int y) const;
 };
 
 #endif
