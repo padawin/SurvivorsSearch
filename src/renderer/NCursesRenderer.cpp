@@ -15,6 +15,7 @@ bool NCursesRenderer::init(void) const {
 	keypad(stdscr, TRUE);
 	nodelay(stdscr, TRUE);
 	noecho();
+	curs_set(FALSE);
 	return true;
 }
 
