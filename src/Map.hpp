@@ -11,6 +11,8 @@ class Map {
 
 	MapContent m_content = MapContent();
 
+	int _getCoordsKey(int x, int y);
+
 	public:
 	virtual ~Map() {}
 	int getWidth();

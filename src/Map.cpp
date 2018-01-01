@@ -16,9 +16,13 @@ unsigned char Map::getCell(const int x, const int y) const {
 
 void Map::addActor(Actor *actor) {
 	auto location = actor->getLocation();
-	m_content.addActor(location.y * (signed) size + location.x, actor);
+	m_content.addActor(_getCoordsKey(location.x, location.y), actor);
 }
 
 std::unordered_map<int, Actor*> Map::getActors() {
 	return m_content.getActors();
+}
+
+int Map::_getCoordsKey(int x, int y) {
+	return y * width + x;
 }
