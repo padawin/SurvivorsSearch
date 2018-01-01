@@ -62,6 +62,13 @@ void InGame::render() {
 			);
 		}
 	}
+
+	// render player
+	mvaddstr(
+		m_viewCity.y + m_player.getLocation().y - topLeftY,
+		m_viewCity.x + m_player.getLocation().x - topLeftX,
+		"@"
+	);
 	refresh();
 }
 
