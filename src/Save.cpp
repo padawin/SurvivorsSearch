@@ -79,8 +79,6 @@ bool Save::saveCity(City &city) {
 	}
 
 	fprintf(mapFile, "n %s\n", city.m_info.name);
-	fprintf(mapFile, "w %d\n", city.width);
-	fprintf(mapFile, "s %d\n", city.size);
 	for (unsigned int cell = 0; cell < city.size; ++cell) {
 		fprintf(mapFile, "%c", city.grid[cell]);
 	}
