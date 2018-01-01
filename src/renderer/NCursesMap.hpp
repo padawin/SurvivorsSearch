@@ -2,7 +2,6 @@
 #define __NCURSES_MAP__
 
 #include "Map.hpp"
-#include "../Player.hpp"
 #include "../types.hpp"
 
 class NCursesMap : public MapRenderer {

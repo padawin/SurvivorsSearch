@@ -5,11 +5,11 @@
 
 class World;
 class City;
-class Player;
+class Actor;
 
 class Save {
 	private:
-	static void _loadPlayer(Player &player);
+	static void _loadPlayer(Actor &player);
 	static void _loadCity(City &city, char cityName[20]);
 
 	public:
@@ -20,9 +20,9 @@ class Save {
 	static void create();
 	static bool saveWorld(World &world);
 	static bool saveCity(City &city);
-	static bool savePlayer(Player &player);
+	static bool savePlayer(Actor &player);
 
-	static void load(Player &player, City &city);
+	static void load(Actor &player, City &city);
 };
 
 #endif
