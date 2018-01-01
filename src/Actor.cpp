@@ -28,8 +28,8 @@ void Actor::setY(int y) { m_location.y = y; }
 
 void Actor::render(int displayShiftX, int displayShiftY) {
 	mvaddstr(
-		displayShiftX + m_location.y,
-		displayShiftY + m_location.x,
+		displayShiftY + m_location.y,
+		displayShiftX + m_location.x,
 		"@"
 	);
 }
