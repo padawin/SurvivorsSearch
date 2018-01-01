@@ -10,6 +10,10 @@ class Player {
 	S_Coordinates m_location = S_Coordinates();
 	int m_iHealth = 3;
 	int m_iMaxHealth = 3;
+
+	public:
+	char* getCity();
+	S_Coordinates getLocation();
 };
 
 #endif
