@@ -12,7 +12,7 @@ NCursesMap::NCursesMap() {
 	m_view.height = 29;
 }
 
-void NCursesMap::render(Map &map, MapContent &content, S_Coordinates reference) {
+void NCursesMap::render(Map &map, S_Coordinates reference) {
 	// coordinates in the world
 	int topLeftX = reference.x - m_view.width / 2,
 		topLeftY = reference.y - m_view.height / 2,
@@ -28,7 +28,7 @@ void NCursesMap::render(Map &map, MapContent &content, S_Coordinates reference) 
 		}
 	}
 
-	for (auto actor : content.getActors()) {
+	for (auto actor : map.getActors()) {
 		actor->render(m_view.x - topLeftX, m_view.y - topLeftY);
 	}
 }

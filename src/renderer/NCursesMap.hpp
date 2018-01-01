@@ -11,7 +11,7 @@ class NCursesMap : public MapRenderer {
 
 	public:
 	NCursesMap();
-	void render(Map &map, MapContent &content, S_Coordinates reference);
+	void render(Map &map, S_Coordinates reference);
 };
 
 #endif
