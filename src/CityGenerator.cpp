@@ -233,7 +233,7 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 		if ((side == 0 && block.y > 0)
 			|| (
 				side == 1 &&
-				(block.y + block.height) * city.m_iWidth > (signed) city.m_iSize
+				(block.y + block.height) * city.m_iWidth >= (signed) city.m_iSize
 		   )
 		) {
 			y = block.y;
