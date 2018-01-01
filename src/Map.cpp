@@ -1,4 +1,5 @@
 #include "Map.hpp"
+#include "Collision.hpp"
 #include "Actor.hpp"
 
 int Map::getWidth() {
@@ -59,5 +60,5 @@ bool Map::isCellWalkable(int x, int y) {
 		return false;
 	}
 
-	return true;
+	return Collision::hasFlag(getCell(x, y), Collision::FLAG_WALKABLE);
 }
