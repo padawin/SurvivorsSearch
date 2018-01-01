@@ -25,8 +25,9 @@ class City : public Map {
 
 	public:
 	City() {
-		width = CITY_WIDTH;
-		size = CITY_SIZE;
+		m_iWidth = CITY_WIDTH;
+		m_iSize = CITY_SIZE;
+		m_iHeight = (signed) m_iSize / m_iWidth;
 		grid = (char*) malloc(CITY_SIZE * sizeof (char));
 	}
 	~City() {

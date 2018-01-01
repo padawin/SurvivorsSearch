@@ -6,11 +6,10 @@
 InGame::InGame() :
 	m_player(Actor()),
 	m_city(City()),
-	m_cityContent(MapContent()),
 	m_cityRenderer(NCursesMap())
 {
 	m_player.setRenderer(new NCursesActor('@'));
-	m_cityContent.addActor(&m_player);
+	m_city.addActor(&m_player);
 }
 
 std::string InGame::getStateID() const {
@@ -51,5 +50,5 @@ void InGame::update(StateMachine &stateMachine) {
 }
 
 void InGame::render() {
-	m_cityRenderer.render(m_city, m_cityContent, m_player.getLocation());
+	m_cityRenderer.render(m_city, m_player.getLocation());
 }

@@ -79,7 +79,7 @@ bool Save::saveCity(City &city) {
 	}
 
 	fprintf(mapFile, "n %s\n", city.m_info.name);
-	for (unsigned int cell = 0; cell < city.size; ++cell) {
+	for (unsigned int cell = 0; cell < city.m_iSize; ++cell) {
 		fprintf(mapFile, "%c", city.grid[cell]);
 	}
 
@@ -149,6 +149,6 @@ void Save::_loadCity(City &city, char cityName[20]) {
 	char line[50];
 	fin.getline(line, 50);
 	sscanf(line, "n %s\n", city.m_info.name);
-	fin.read(city.grid, city.size);
+	fin.read(city.grid, city.m_iSize);
 	fin.close();
 }

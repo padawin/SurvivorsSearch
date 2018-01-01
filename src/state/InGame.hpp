@@ -5,7 +5,6 @@
 #include <ncurses.h>
 #include "../Actor.hpp"
 #include "../City.hpp"
-#include "../MapContent.hpp"
 #include "../renderer/NCursesMap.hpp"
 
 class InGame : public State {
@@ -17,7 +16,6 @@ class InGame : public State {
 
 	Actor m_player;
 	City m_city;
-	MapContent m_cityContent;
 	NCursesMap m_cityRenderer;
 
 	public:
