@@ -47,5 +47,4 @@ void InGame::update(StateMachine &stateMachine) {
 
 void InGame::render() {
 	m_cityRenderer.render(m_city, m_player.getLocation());
-	refresh();
 }

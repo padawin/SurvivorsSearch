@@ -27,6 +27,7 @@ void NCursesRenderer::frame(Game* game) const {
 
 	clear();
 	game->loopFrame();
+	refresh();
 
 	// use a delay to cap the fps
 	gettimeofday(&tv,NULL);
