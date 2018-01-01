@@ -7,16 +7,6 @@
 const int CITY_WIDTH = 530;
 const int CITY_SIZE = 121900;
 
-const char WALL_TILE = 0;
-const char ROAD_TILE = 1;
-const char PAVEMENT_TILE = 2;
-const char GRASS_TILE = 3;
-const char TREE_TILE = 4;
-const char WATER_TILE = 5;
-const char INTERIOR_TILE = 6;
-const char HORIZ_DOOR_TILE = 7;
-const char VERTIC_DOOR_TILE = 8;
-
 class City : public Map {
 	friend class CityGenerator;
 	friend class Save;
