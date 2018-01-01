@@ -9,7 +9,6 @@ InGame::InGame() :
 	m_cityRenderer(NCursesMap())
 {
 	m_player.setRenderer(new NCursesActor('@'));
-	m_city.addActor(&m_player);
 }
 
 std::string InGame::getStateID() const {
@@ -23,6 +22,7 @@ bool InGame::onEnter() {
 	}
 
 	Save::load(m_player, m_city);
+	m_city.addActor(&m_player);
 	return true;
 }
 
