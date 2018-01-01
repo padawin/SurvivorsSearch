@@ -28,7 +28,8 @@ void Save::create() {
 	worldGenerator.generate(world);
 	saveWorld(world);
 
-	City city(world.m_vCities[(unsigned) rand() % world.m_vCities.size()]);
+	City city;
+	city.m_info = world.m_vCities[(unsigned) rand() % world.m_vCities.size()];
 	CityGenerator cityGenerator;
 	int startX = 0,
 		startY = 0;
