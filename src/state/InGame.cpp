@@ -1,8 +1,14 @@
 #include "InGame.hpp"
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
+#include "../renderData.hpp"
 
-InGame::InGame() : m_player(Player()), m_city(City()) {}
+InGame::InGame() : m_player(Player()), m_city(City()) {
+	m_viewCity.x = 0;
+	m_viewCity.y = 0;
+	m_viewCity.width = 79;
+	m_viewCity.height = 29;
+}
 
 std::string InGame::getStateID() const {
 	return "TestState";

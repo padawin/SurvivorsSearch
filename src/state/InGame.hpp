@@ -2,6 +2,7 @@
 #define __GAME_STATE__
 
 #include "../State.hpp"
+#include "../types.hpp"
 #include <ncurses.h>
 #include "../Player.hpp"
 #include "../City.hpp"
@@ -15,6 +16,7 @@ class InGame : public State {
 
 	Player m_player;
 	City m_city;
+	S_Rectangle m_viewCity = {};
 
 	public:
 	InGame();
