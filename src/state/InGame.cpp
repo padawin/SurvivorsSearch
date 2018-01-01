@@ -3,7 +3,7 @@
 #include "../Save.hpp"
 
 InGame::InGame() :
-	m_player(Player()),
+	m_player(Actor()),
 	m_city(City()),
 	m_cityRenderer(NCursesMap()) {
 }

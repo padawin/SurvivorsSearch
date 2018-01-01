@@ -7,7 +7,7 @@
 #include "WorldGenerator.hpp"
 #include "City.hpp"
 #include "CityGenerator.hpp"
-#include "Player.hpp"
+#include "Actor.hpp"
 
 const char* WORLD_FILE = "world.dat";
 const char* PLAYER_FILE = "player.dat";
@@ -38,7 +38,7 @@ void Save::create() {
 	saveCity(city);
 
 	// Create player save file
-	Player p;
+	Actor p;
 	strncpy(p.m_sCity, city.m_info.internalName, 20);
 	p.m_location.x = startX;
 	p.m_location.y = startY;
@@ -87,7 +87,7 @@ bool Save::saveCity(City &city) {
 	return true;
 }
 
-bool Save::savePlayer(Player &player) {
+bool Save::savePlayer(Actor &player) {
 	std::string playerPath = Utils::getDataPath() + "/" + PLAYER_FILE;
 	FILE *playerFile = fopen(playerPath.c_str(), "w");
 	if (playerFile == NULL) {
@@ -102,12 +102,12 @@ bool Save::savePlayer(Player &player) {
 	return true;
 }
 
-void Save::load(Player &player, City &city) {
+void Save::load(Actor &player, City &city) {
 	_loadPlayer(player);
 	_loadCity(city, player.m_sCity);
 }
 
-void Save::_loadPlayer(Player &player) {
+void Save::_loadPlayer(Actor &player) {
 	std::ifstream fin;
 	std::string file = Utils::getDataPath() + "/" + PLAYER_FILE;
 	fin.open(file.c_str());

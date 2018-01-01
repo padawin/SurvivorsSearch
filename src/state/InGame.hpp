@@ -3,7 +3,7 @@
 
 #include "../State.hpp"
 #include <ncurses.h>
-#include "../Player.hpp"
+#include "../Actor.hpp"
 #include "../City.hpp"
 #include "../renderer/NCursesMap.hpp"
 
@@ -14,7 +14,7 @@ class InGame : public State {
 	int m_iWinX = 0;
 	int m_iWinY = 0;
 
-	Player m_player;
+	Actor m_player;
 	City m_city;
 	NCursesMap m_cityRenderer;
 
