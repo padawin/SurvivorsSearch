@@ -7,3 +7,8 @@ int Map::getWidth() {
 unsigned int Map::getSize() {
 	return size;
 }
+
+unsigned char Map::getCell(const int x, const int y) const {
+	int gridIndex = y * width + x;
+	return static_cast<unsigned char>(grid[gridIndex]);
+}

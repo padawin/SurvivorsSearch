@@ -32,7 +32,6 @@ class City : public Map {
 	~City() {
 		free(grid);
 	}
-	unsigned char getCell(const int x, const int y) const;
 };
 
 #endif
