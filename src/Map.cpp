@@ -62,3 +62,7 @@ bool Map::isCellWalkable(int x, int y) {
 
 	return Collision::hasFlag(getCell(x, y), Collision::FLAG_WALKABLE);
 }
+
+bool Map::isCellObstructingView(int x, int y) {
+	return Collision::hasFlag(getCell(x, y), Collision::FLAG_OBSTRUCTING_VIEW);
+}
