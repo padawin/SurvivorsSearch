@@ -5,7 +5,7 @@
 #include <sys/time.h>
 #include <unistd.h>
 
-const char FPS = 60;
+const char FPS = 10;
 const int DELAY_TIME = 1000000 / FPS;
 
 bool NCursesRenderer::init(void) const {
