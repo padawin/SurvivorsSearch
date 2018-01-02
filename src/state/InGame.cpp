@@ -8,6 +8,7 @@ InGame::InGame() :
 	m_city(City()),
 	m_cityRenderer(NCursesMap())
 {
+	m_city.init();
 	std::shared_ptr<ActorRenderer> renderer(new NCursesActor('@'));
 	m_player.setRenderer(renderer);
 }
