@@ -37,13 +37,13 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	_generateGridCity(city);
 	if (startX != 0 && startY != 0) {
 		int startCell = m_mTypeCells[CAN_BE_START][(unsigned) rand() % m_mTypeCells[CAN_BE_START].size()];
-		*startX = startCell % city.m_iWidth;
-		*startY = startCell / city.m_iWidth;
+		*startX = startCell % city.getWidth();
+		*startY = startCell / city.getWidth();
 	}
 }
 
 void CityGenerator::_generateGridCity(City& city) {
-	memset(city.grid, WALL_TILE, CITY_SIZE);
+	memset(city.grid, WALL_TILE, city.m_iSize);
 	// make vertical roads
 	_generateVerticalRoads(city);
 	// initialise blocks
@@ -57,14 +57,14 @@ void CityGenerator::_generateGridCity(City& city) {
 void CityGenerator::_generateVerticalRoads(City& city) {
 	S_Block b;
 	b.index = 0;
-	b.size = city.m_iWidth;
+	b.size = city.getWidth();
 	_divideVerticalBlock(city, b);
 }
 
 void CityGenerator::_generateHorizontalRoads(City& city, std::vector<S_Rectangle> &blocks) {
 	S_Block b;
 	b.index = 0;
-	b.size = CITY_SIZE / CITY_WIDTH;
+	b.size = city.getHeight();
 	_divideHorizontalBlock(city, b, blocks);
 }
 
@@ -75,7 +75,8 @@ void CityGenerator::_divideVerticalBlock(City& city, S_Block block) {
 
 	int widthRoad = MIN_WIDTH_ROAD + rand() % (MAX_WIDTH_ROAD - MIN_WIDTH_ROAD + 1);
 	int divideIndex = block.index + MIN_WIDTH_BLOCK + rand() % (block.size - 2 * MIN_WIDTH_BLOCK);
-	for (int j = divideIndex; j < CITY_SIZE; j += CITY_WIDTH) {
+	int size = (int) city.m_iSize;
+	for (int j = divideIndex; j < size; j += city.getWidth()) {
 		city.grid[j] = PAVEMENT_TILE;
 		addCellType(CAN_HAVE_FOE, j);
 		for (int r = 1; r <= widthRoad; ++r) {
@@ -104,20 +105,20 @@ void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vecto
 
 	int widthRoad = MIN_WIDTH_ROAD + rand() % (MAX_WIDTH_ROAD - MIN_WIDTH_ROAD + 1);
 	int divideIndex = block.index + MIN_HEIGHT_BLOCK + rand() % (block.size - 2 * MIN_HEIGHT_BLOCK);
-	for (int i = divideIndex * CITY_WIDTH; i < (1 + divideIndex) * CITY_WIDTH; ++i) {
+	for (int i = divideIndex * city.getWidth(); i < (1 + divideIndex) * city.getWidth(); ++i) {
 		if (city.grid[i] == WALL_TILE) {
 			city.grid[i] = PAVEMENT_TILE;
 			addCellType(CAN_HAVE_FOE, i);
 		}
 		int currIndex;
 		for (int r = 1; r <= widthRoad; ++r) {
-			currIndex = i + r * CITY_WIDTH;
+			currIndex = i + r * city.getWidth();
 			if (city.grid[currIndex] == WALL_TILE) {
 				addCellType(CAN_HAVE_FOE, currIndex);
 			}
 			city.grid[currIndex] = ROAD_TILE;
 		}
-		currIndex = i + (widthRoad + 1) * CITY_WIDTH;
+		currIndex = i + (widthRoad + 1) * city.getWidth();
 		if (city.grid[currIndex] == WALL_TILE) {
 			city.grid[currIndex] = PAVEMENT_TILE;
 			addCellType(CAN_HAVE_FOE, currIndex);
@@ -140,7 +141,7 @@ void CityGenerator::_findCityBlocks(City& city, std::vector<S_Rectangle>& blocks
 	const int STATE_ROAD = 2;
 	const int STATE_PAVEMENT_RIGHT = 3;
 	int state = STATE_PAVEMENT_RIGHT;
-	for (int x = 0; x < CITY_WIDTH; ++x) {
+	for (int x = 0; x < city.getWidth(); ++x) {
 		if (city.grid[x] == WALL_TILE && state == STATE_PAVEMENT_RIGHT) {
 			state = STATE_WALL;
 			blocks.push_back(S_Rectangle());
@@ -196,7 +197,7 @@ void CityGenerator::_buildPark(City& city, S_Rectangle& block) {
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
 			city.setCell(x, y, (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE);
-			addCellType(CAN_HAVE_FOE, y * city.m_iWidth + x);
+			addCellType(CAN_HAVE_FOE, y * city.getWidth() + x);
 		}
 	}
 }
@@ -216,7 +217,7 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 	for (int y = block.y + 1; y < block.y + block.height - 1; ++y) {
 		for (int x = block.x + 1; x < block.x + block.width - 1; ++x) {
 			city.setCell(x, y, INTERIOR_TILE);
-			addCellType(CAN_BE_START, y * city.m_iWidth + x);
+			addCellType(CAN_BE_START, y * city.getWidth() + x);
 		}
 	}
 
@@ -233,7 +234,7 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 		if ((side == 0 && block.y > 0)
 			|| (
 				side == 1 &&
-				(block.y + block.height) * city.m_iWidth >= (signed) city.m_iSize
+				(block.y + block.height) * city.getWidth() >= (signed) city.m_iSize
 		   )
 		) {
 			y = block.y;
@@ -252,7 +253,7 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 		if ((side == 2 && block.x > 0)
 			|| (
 				side == 3 &&
-				block.x + block.width > city.m_iWidth
+				block.x + block.width > city.getWidth()
 		   )
 		) {
 			x = block.x;

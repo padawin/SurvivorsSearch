@@ -15,8 +15,6 @@ const char VERTIC_DOOR_TILE = 8;
 
 class Map {
 	protected:
-	int m_iWidth = 0;
-	int m_iHeight = 0;
 	unsigned int m_iSize = 0;
 	char *grid = 0;
 	char *visitedGrid = 0;
@@ -26,9 +24,11 @@ class Map {
 	int _getCoordsKey(int x, int y) const;
 
 	public:
-	virtual ~Map() {}
-	int getWidth();
-	unsigned int getSize();
+	virtual ~Map();
+	virtual void init();
+	virtual int getWidth() const { return 0; }
+	virtual int getHeight() const { return 0; }
+	virtual unsigned int getSize() const;
 	virtual unsigned char getCell(const int x, const int y) const;
 	virtual void setCell(const int x, const int y, char c);
 	void addActor(Actor *actor);

@@ -1,12 +1,25 @@
 #include "Map.hpp"
 #include "Collision.hpp"
 #include "Actor.hpp"
+#include <string.h>
 
-int Map::getWidth() {
-	return m_iWidth;
+Map::~Map() {
+	if (grid != 0) {
+		free(grid);
+	}
+	if (visitedGrid != 0) {
+		free(visitedGrid);
+	}
 }
 
-unsigned int Map::getSize() {
+void Map::init() {
+	m_iSize = (unsigned) (getWidth() * getHeight());
+	grid = (char*) malloc(m_iSize * sizeof (char));
+	visitedGrid = (char*) malloc(m_iSize * sizeof (char));
+	memset(visitedGrid, 0, m_iSize);
+}
+
+unsigned int Map::getSize() const {
 	return m_iSize;
 }
 
@@ -32,7 +45,7 @@ Actor *Map::getActorAt(int x, int y) const {
 }
 
 int Map::_getCoordsKey(int x, int y) const {
-	return y * m_iWidth + x;
+	return y * getWidth() + x;
 }
 
 bool Map::moveActor(Actor* actor, int newX, int newY) {
@@ -52,7 +65,7 @@ bool Map::moveActor(Actor* actor, int newX, int newY) {
 }
 
 bool Map::areCoordinatesValid(int x, int y) {
-	return x >= 0 && y >= 0 && x < m_iWidth && y < m_iHeight;
+	return x >= 0 && y >= 0 && x < getWidth() && y < getHeight();
 }
 
 bool Map::isCellWalkable(int x, int y) {
