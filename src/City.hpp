@@ -14,8 +14,8 @@ class City : public Map {
 	public:
 	City() {
 		m_iWidth = 530;
-		m_iSize = 121900;
-		m_iHeight = (signed) m_iSize / m_iWidth;
+		m_iHeight = 230;
+		m_iSize = (unsigned) (m_iWidth * m_iHeight);
 		grid = (char*) malloc(m_iSize * sizeof (char));
 		visitedGrid = (char*) malloc(m_iSize * sizeof (char));
 		memset(visitedGrid, 0, m_iSize);
