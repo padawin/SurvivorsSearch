@@ -19,6 +19,7 @@ class Map {
 	int m_iHeight = 0;
 	unsigned int m_iSize = 0;
 	char *grid = 0;
+	char *visitedGrid = 0;
 
 	MapContent m_content = MapContent();
 
@@ -37,6 +38,8 @@ class Map {
 	bool areCoordinatesValid(int x, int y);
 	bool isCellWalkable(int x, int y);
 	bool isCellObstructingView(int x, int y);
+	void setCellVisited(int x, int y);
+	bool isCellVisited(int x, int y);
 };
 
 #endif

@@ -7,6 +7,9 @@
 
 class Map;
 
+const int FLAG_VISITED = 0;
+const int FLAG_VISIBLE = 1;
+
 class FieldOfView {
 	private:
 	std::vector<int> m_vVisibleCells = {};
@@ -19,7 +22,7 @@ class FieldOfView {
 		int xx, int xy, int yx, int yy
 	);
 	long unsigned _getRelativeIndex(int x, int y);
-	void _setCellVisible(int x, int y);
+	void _setCellVisible(Map &map, int x, int y);
 
 	public:
 	FieldOfView(S_Rectangle visibleArea);

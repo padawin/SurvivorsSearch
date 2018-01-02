@@ -27,7 +27,7 @@ void NCursesMap::render(Map &map, S_Coordinates reference) {
 		mvaddstr(
 			displayShiftY + y,
 			displayShiftX + x,
-			cell.second ? _getCellDisplayValue(map, x, y) : " "
+			_getCellDisplayValue(map, cell.second, x, y)
 		);
 	}
 
@@ -36,11 +36,16 @@ void NCursesMap::render(Map &map, S_Coordinates reference) {
 	}
 }
 
-const char* NCursesMap::_getCellDisplayValue(Map &map, int x, int y) {
-	if (x < 0 || x >= map.getWidth() ||
-		y < 0 || y * map.getWidth() >= (signed) map.getSize()) {
+const char* NCursesMap::_getCellDisplayValue(Map &map, int visible, int x, int y) {
+	if (!map.areCoordinatesValid(x, y)) {
 		return " ";
 	}
+	else if (visible) {
+		return MAP_TILES[map.getCell(x, y)];
+	}
+	else if (map.isCellVisited(x, y)) {
+		return MAP_TILES[map.getCell(x, y)];
+	}
 
-	return MAP_TILES[map.getCell(x, y)];
+	return " ";
 }

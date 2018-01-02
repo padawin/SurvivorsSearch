@@ -66,3 +66,11 @@ bool Map::isCellWalkable(int x, int y) {
 bool Map::isCellObstructingView(int x, int y) {
 	return Collision::hasFlag(getCell(x, y), Collision::FLAG_OBSTRUCTING_VIEW);
 }
+
+void Map::setCellVisited(int x, int y) {
+	visitedGrid[_getCoordsKey(x, y)] = 1;
+}
+
+bool Map::isCellVisited(int x, int y) {
+	return visitedGrid[_getCoordsKey(x, y)] == 1;
+}
