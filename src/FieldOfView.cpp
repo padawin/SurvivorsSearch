@@ -21,7 +21,8 @@ long unsigned FieldOfView::_getRelativeIndex(int x, int y) {
 	return (long unsigned) (relativeY * m_visibleArea.width + relativeX);
 }
 
-void FieldOfView::_setCellVisible(int x, int y) {
+void FieldOfView::_setCellVisible(Map &map, int x, int y) {
+	map.setCellVisited(x, y);
 	m_vVisibleCells[_getRelativeIndex(x, y)] = 1;
 }
 
@@ -33,7 +34,7 @@ void FieldOfView::calculate(Map &map, S_Coordinates &location) {
 	m_vVisibleCells.clear();
 	long unsigned sizeView = (unsigned) (m_visibleArea.width * m_visibleArea.height);
 	m_vVisibleCells.assign(sizeView, 0);
-	_setCellVisible(location.x, location.y);
+	_setCellVisible(map, location.x, location.y);
 	for (int i = 0; i < 8; ++i) {
 		_lightQuadrant(
 			map,
@@ -94,12 +95,12 @@ void FieldOfView::_lightQuadrant(
 			}
 
 #ifdef DEBUG
-			_setCellVisible(ax, ay);
+			_setCellVisible(map, ax, ay);
 			continue;
 #endif
 
 			if ((int) (dx * dx + dy * dy) < radius2) {
-				_setCellVisible(ax, ay);
+				_setCellVisible(map, ax, ay);
 			}
 
 			bool cellIsObstructingView = map.isCellObstructingView(ax, ay);
