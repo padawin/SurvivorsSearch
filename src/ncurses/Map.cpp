@@ -1,6 +1,6 @@
-#include "NCursesMap.hpp"
 #include <ncurses.h>
-#include "../renderData.hpp"
+#include "Map.hpp"
+#include "renderData.hpp"
 #include "../Actor.hpp"
 #include "../Map.hpp"
 #include "../MapContent.hpp"
