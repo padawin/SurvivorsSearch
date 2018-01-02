@@ -5,7 +5,7 @@
 #include <ncurses.h>
 #include "../Actor.hpp"
 #include "../City.hpp"
-#include "../renderer/NCursesMap.hpp"
+#include "../ncurses/Map.hpp"
 
 class InGame : public State {
 	private:

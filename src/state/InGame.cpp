@@ -1,7 +1,7 @@
 #include "InGame.hpp"
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
-#include "../renderer/NCursesActor.hpp"
+#include "../ncurses/Actor.hpp"
 
 InGame::InGame() :
 	m_player(Actor()),

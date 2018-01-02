@@ -1,5 +1,5 @@
 #include "Game.hpp"
-#include "renderer/NCursesRenderer.hpp"
+#include "ncurses/Renderer.hpp"
 #include "StateMachine.hpp"
 #include "state/InGame.hpp"
 #include <locale.h>

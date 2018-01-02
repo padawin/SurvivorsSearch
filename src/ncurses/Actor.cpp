@@ -1,4 +1,4 @@
-#include "NCursesActor.hpp"
+#include "Actor.hpp"
 #include "../Actor.hpp"
 #include <ncurses.h>
 
