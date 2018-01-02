@@ -5,9 +5,6 @@
 #include "Map.hpp"
 #include <string.h>
 
-const int CITY_WIDTH = 530;
-const int CITY_SIZE = 121900;
-
 class City : public Map {
 	friend class CityGenerator;
 	friend class Save;
@@ -16,12 +13,12 @@ class City : public Map {
 
 	public:
 	City() {
-		m_iWidth = CITY_WIDTH;
-		m_iSize = CITY_SIZE;
+		m_iWidth = 530;
+		m_iSize = 121900;
 		m_iHeight = (signed) m_iSize / m_iWidth;
-		grid = (char*) malloc(CITY_SIZE * sizeof (char));
-		visitedGrid = (char*) malloc(CITY_SIZE * sizeof (char));
-		memset(visitedGrid, 0, CITY_SIZE);
+		grid = (char*) malloc(m_iSize * sizeof (char));
+		visitedGrid = (char*) malloc(m_iSize * sizeof (char));
+		memset(visitedGrid, 0, m_iSize);
 	}
 	~City() {
 		free(grid);

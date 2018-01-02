@@ -43,7 +43,7 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 }
 
 void CityGenerator::_generateGridCity(City& city) {
-	memset(city.grid, WALL_TILE, CITY_SIZE);
+	memset(city.grid, WALL_TILE, city.m_iSize);
 	// make vertical roads
 	_generateVerticalRoads(city);
 	// initialise blocks
@@ -64,7 +64,7 @@ void CityGenerator::_generateVerticalRoads(City& city) {
 void CityGenerator::_generateHorizontalRoads(City& city, std::vector<S_Rectangle> &blocks) {
 	S_Block b;
 	b.index = 0;
-	b.size = CITY_SIZE / CITY_WIDTH;
+	b.size = city.m_iHeight;
 	_divideHorizontalBlock(city, b, blocks);
 }
 
@@ -75,7 +75,8 @@ void CityGenerator::_divideVerticalBlock(City& city, S_Block block) {
 
 	int widthRoad = MIN_WIDTH_ROAD + rand() % (MAX_WIDTH_ROAD - MIN_WIDTH_ROAD + 1);
 	int divideIndex = block.index + MIN_WIDTH_BLOCK + rand() % (block.size - 2 * MIN_WIDTH_BLOCK);
-	for (int j = divideIndex; j < CITY_SIZE; j += CITY_WIDTH) {
+	int size = (int) city.m_iSize;
+	for (int j = divideIndex; j < size; j += city.m_iWidth) {
 		city.grid[j] = PAVEMENT_TILE;
 		addCellType(CAN_HAVE_FOE, j);
 		for (int r = 1; r <= widthRoad; ++r) {
@@ -104,20 +105,20 @@ void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vecto
 
 	int widthRoad = MIN_WIDTH_ROAD + rand() % (MAX_WIDTH_ROAD - MIN_WIDTH_ROAD + 1);
 	int divideIndex = block.index + MIN_HEIGHT_BLOCK + rand() % (block.size - 2 * MIN_HEIGHT_BLOCK);
-	for (int i = divideIndex * CITY_WIDTH; i < (1 + divideIndex) * CITY_WIDTH; ++i) {
+	for (int i = divideIndex * city.m_iWidth; i < (1 + divideIndex) * city.m_iWidth; ++i) {
 		if (city.grid[i] == WALL_TILE) {
 			city.grid[i] = PAVEMENT_TILE;
 			addCellType(CAN_HAVE_FOE, i);
 		}
 		int currIndex;
 		for (int r = 1; r <= widthRoad; ++r) {
-			currIndex = i + r * CITY_WIDTH;
+			currIndex = i + r * city.m_iWidth;
 			if (city.grid[currIndex] == WALL_TILE) {
 				addCellType(CAN_HAVE_FOE, currIndex);
 			}
 			city.grid[currIndex] = ROAD_TILE;
 		}
-		currIndex = i + (widthRoad + 1) * CITY_WIDTH;
+		currIndex = i + (widthRoad + 1) * city.m_iWidth;
 		if (city.grid[currIndex] == WALL_TILE) {
 			city.grid[currIndex] = PAVEMENT_TILE;
 			addCellType(CAN_HAVE_FOE, currIndex);
@@ -140,7 +141,7 @@ void CityGenerator::_findCityBlocks(City& city, std::vector<S_Rectangle>& blocks
 	const int STATE_ROAD = 2;
 	const int STATE_PAVEMENT_RIGHT = 3;
 	int state = STATE_PAVEMENT_RIGHT;
-	for (int x = 0; x < CITY_WIDTH; ++x) {
+	for (int x = 0; x < city.m_iWidth; ++x) {
 		if (city.grid[x] == WALL_TILE && state == STATE_PAVEMENT_RIGHT) {
 			state = STATE_WALL;
 			blocks.push_back(S_Rectangle());
