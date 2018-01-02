@@ -5,30 +5,7 @@
 
 #define LIMIT_FIELD_OF_VIEW 6
 
-Actor::Actor() { }
-
-Actor::~Actor() {
-	if (m_renderer != 0) {
-		delete m_renderer;
-	}
-}
-
-Actor::Actor(const Actor &r) :
-    m_renderer(r.m_renderer)
-{
-}
-
-Actor & Actor::operator=(const Actor &r) {
-    // check for "self assignment" and do nothing in that case
-    if (this == &r) {
-            return *this;
-    }
-
-    m_renderer = r.m_renderer;
-    return *this;
-}
-
-void Actor::setRenderer(ActorRenderer *renderer) { m_renderer = renderer; }
+void Actor::setRenderer(std::shared_ptr<ActorRenderer> renderer) { m_renderer = renderer; }
 void Actor::setHealth(int health) { m_iHealth = health; }
 void Actor::setMaxHealth(int maxHealth) { m_iMaxHealth = maxHealth; }
 void Actor::setDefence(int defence) { m_iDefence = defence; }

@@ -8,7 +8,8 @@ InGame::InGame() :
 	m_city(City()),
 	m_cityRenderer(NCursesMap())
 {
-	m_player.setRenderer(new NCursesActor('@'));
+	std::shared_ptr<ActorRenderer> renderer(new NCursesActor('@'));
+	m_player.setRenderer(renderer);
 }
 
 std::string InGame::getStateID() const {

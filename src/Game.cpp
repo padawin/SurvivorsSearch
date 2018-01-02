@@ -1,25 +1,9 @@
 #include "Game.hpp"
 
-Game::Game(StateMachine stateMachine, Renderer* renderer) :
+Game::Game(StateMachine stateMachine, std::shared_ptr<Renderer> renderer) :
 	m_stateMachine(stateMachine),
 	m_renderer(renderer)
 {
-}
-
-Game::Game(const Game &g) :
-	m_stateMachine(g.m_stateMachine),
-	m_renderer(g.m_renderer)
-{
-}
-
-Game& Game::operator=(const Game &g) {
-	if (this == &g) {
-		return *this;
-	}
-
-	m_stateMachine = g.m_stateMachine;
-	m_renderer = g.m_renderer;
-	return *this;
 }
 
 bool Game::init() {
