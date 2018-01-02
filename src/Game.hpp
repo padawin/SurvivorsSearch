@@ -3,17 +3,17 @@
 
 #include "StateMachine.hpp"
 #include "renderer/Renderer.hpp"
+#include <memory>
 
 class Game {
 	private:
 	bool m_bIsRunning = false;
 	StateMachine m_stateMachine;
-	Renderer* m_renderer;
+	std::shared_ptr<Renderer> m_renderer;
 
 	public:
-	Game(const Game &r);
-	Game& operator=(const Game &g);
-	Game(StateMachine stateMachine, Renderer* renderer);
+	Game(StateMachine stateMachine, std::shared_ptr<Renderer> renderer);
+	~Game() { }
 	bool init();
 	void mainLoop();
 	void loopFrame();

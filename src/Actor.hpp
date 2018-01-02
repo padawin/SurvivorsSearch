@@ -3,6 +3,7 @@
 
 #include "types.hpp"
 #include "renderer/Actor.hpp"
+#include <memory>
 
 enum E_ActorOrientation {LEFT, RIGHT};
 
@@ -17,15 +18,10 @@ class Actor {
 
 	S_Coordinates m_location = S_Coordinates();
 
-	ActorRenderer *m_renderer = 0;
+	std::shared_ptr<ActorRenderer> m_renderer = 0;
 
 	public:
-	Actor();
-	~Actor();
-	Actor(const Actor &L); // copy constructor
-	Actor & operator=(const Actor &L); // assignment
-
-	void setRenderer(ActorRenderer *renderer);
+	void setRenderer(std::shared_ptr<ActorRenderer> renderer);
 
 	int getHealth();
 	int getMaxHealth();
