@@ -70,3 +70,7 @@ bool Map::isCellObstructingView(int x, int y) {
 void Map::setCellVisited(int x, int y) {
 	visitedGrid[_getCoordsKey(x, y)] = 1;
 }
+
+bool Map::isCellVisited(int x, int y) {
+	return visitedGrid[_getCoordsKey(x, y)] == 1;
+}

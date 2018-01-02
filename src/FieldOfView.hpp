@@ -7,6 +7,9 @@
 
 class Map;
 
+const int FLAG_VISITED = 0;
+const int FLAG_VISIBLE = 1;
+
 class FieldOfView {
 	private:
 	std::vector<int> m_vVisibleCells = {};

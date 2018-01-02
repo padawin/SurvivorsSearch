@@ -39,6 +39,7 @@ class Map {
 	bool isCellWalkable(int x, int y);
 	bool isCellObstructingView(int x, int y);
 	void setCellVisited(int x, int y);
+	bool isCellVisited(int x, int y);
 };
 
 #endif
