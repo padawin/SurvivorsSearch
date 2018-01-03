@@ -1,7 +1,6 @@
 #include "Actor.hpp"
 #include <limits.h>
 #include <math.h>
-#include "Map.hpp"
 
 #define LIMIT_FIELD_OF_VIEW 6
 
