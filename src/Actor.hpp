@@ -4,6 +4,7 @@
 #include "types.hpp"
 #include "renderer/Actor.hpp"
 #include "Behaviour/Behaviour.hpp"
+#include "Map.hpp"
 #include <memory>
 
 enum E_ActorOrientation {LEFT, RIGHT};
@@ -43,6 +44,7 @@ class Actor {
 	char* getCity();
 	S_Coordinates getLocation();
 
+	void update(Map &map);
 	void render(int displayShiftX, int displayShiftY);
 
 	bool isNextTo(Actor *actor);

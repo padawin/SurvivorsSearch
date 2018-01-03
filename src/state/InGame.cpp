@@ -36,22 +36,16 @@ bool InGame::onEnter() {
 }
 
 void InGame::update(StateMachine &stateMachine) {
-	S_Coordinates location = m_player.getLocation();
-
-	if (m_userActions.getActionState("MOVE_PLAYER_UP")) {
-		m_city.moveActor(&m_player, location.x, location.y - 1);
-	}
-	else if (m_userActions.getActionState("MOVE_PLAYER_DOWN")) {
-		m_city.moveActor(&m_player, location.x, location.y + 1);
-	}
-	else if (m_userActions.getActionState("MOVE_PLAYER_LEFT")) {
-		m_city.moveActor(&m_player, location.x - 1, location.y);
-	}
-	else if (m_userActions.getActionState("MOVE_PLAYER_RIGHT")) {
-		m_city.moveActor(&m_player, location.x + 1, location.y);
-	}
-	else if (m_userActions.getActionState("QUIT")) {
+	if (m_userActions.getActionState("QUIT")) {
 		stateMachine.clean();
+		return;
+	}
+
+	m_player.update(m_city);
+	for (auto actor : m_city.getActors()) {
+		if (actor.second != &m_player) {
+			actor.second->update(m_city);
+		}
 	}
 }
 

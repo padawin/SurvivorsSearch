@@ -26,6 +26,11 @@ bool Actor::isDead() {
 void Actor::setX(int x) { m_location.x = x; }
 void Actor::setY(int y) { m_location.y = y; }
 
+void Actor::update(Map &map) {
+	if (m_behaviour != 0) {
+		m_behaviour->update(this, map);
+	}
+}
 void Actor::render(int displayShiftX, int displayShiftY) {
 	m_renderer->render(*this, displayShiftX, displayShiftY);
 }
