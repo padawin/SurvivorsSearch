@@ -2,6 +2,7 @@
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
+#include "../Behaviour/Player.hpp"
 
 InGame::InGame(UserActions &userActions) :
 	State(userActions),
@@ -13,6 +14,10 @@ InGame::InGame(UserActions &userActions) :
 	m_city.init();
 	std::shared_ptr<ActorRenderer> renderer(new NCursesActor('@'));
 	m_player.setRenderer(renderer);
+	std::shared_ptr<BehaviourPlayer>
+		b = std::dynamic_pointer_cast<BehaviourPlayer>(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
+	b->setUserActions(&m_userActions);
+	m_player.setBehaviour(b);
 }
 
 std::string InGame::getStateID() const {
