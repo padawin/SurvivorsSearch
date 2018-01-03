@@ -9,15 +9,12 @@ InGame::InGame(UserActions &userActions) :
 	m_player(Actor()),
 	m_city(City()),
 	m_cityRenderer(NCursesMap()),
-	m_behaviourFactory(BehaviourFactory())
+	m_behaviourFactory(BehaviourFactory(userActions))
 {
 	m_city.init();
 	std::shared_ptr<ActorRenderer> renderer(new NCursesActor('@'));
 	m_player.setRenderer(renderer);
-	std::shared_ptr<BehaviourPlayer>
-		b = std::dynamic_pointer_cast<BehaviourPlayer>(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
-	b->setUserActions(&m_userActions);
-	m_player.setBehaviour(b);
+	m_player.setBehaviour(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
 }
 
 std::string InGame::getStateID() const {

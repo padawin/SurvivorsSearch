@@ -1,9 +1,10 @@
 #include "Factory.hpp"
 #include "Player.hpp"
 
-BehaviourFactory::BehaviourFactory() {
+BehaviourFactory::BehaviourFactory(UserActions &userActions) {
+	std::shared_ptr<BehaviourPlayer> p(new BehaviourPlayer(userActions));
 	m_vBehaviours = {
-		std::make_shared<BehaviourPlayer>()
+		p
 	};
 }
 

@@ -5,8 +5,9 @@
 #include "../Command/Move.hpp"
 #include "../Command/Attack.hpp"
 
-void BehaviourPlayer::setUserActions(UserActions *userActions) {
-	m_userActions = userActions;
+BehaviourPlayer::BehaviourPlayer(UserActions &userActions) :
+	m_userActions(userActions)
+{
 }
 
 bool BehaviourPlayer::update(Actor *actor, Map &map) {
@@ -36,19 +37,19 @@ bool BehaviourPlayer::_actionDirection(Actor *actor, Map &map) {
 
 bool BehaviourPlayer::_isDirectionPressed(int &x, int &y) {
 	bool directionPressed = false;
-	if (m_userActions->getActionState("MOVE_PLAYER_UP")) {
+	if (m_userActions.getActionState("MOVE_PLAYER_UP")) {
 		--y;
 		directionPressed = true;
 	}
-	else if (m_userActions->getActionState("MOVE_PLAYER_DOWN")) {
+	else if (m_userActions.getActionState("MOVE_PLAYER_DOWN")) {
 		++y;
 		directionPressed = true;
 	}
-	else if (m_userActions->getActionState("MOVE_PLAYER_LEFT")) {
+	else if (m_userActions.getActionState("MOVE_PLAYER_LEFT")) {
 		--x;
 		directionPressed = true;
 	}
-	else if (m_userActions->getActionState("MOVE_PLAYER_RIGHT")) {
+	else if (m_userActions.getActionState("MOVE_PLAYER_RIGHT")) {
 		++x;
 		directionPressed = true;
 	}

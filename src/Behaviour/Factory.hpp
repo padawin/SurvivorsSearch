@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include "../UserActions.hpp"
 
 class Behaviour;
 
@@ -13,7 +14,7 @@ class BehaviourFactory {
 	std::vector<std::shared_ptr<Behaviour>> m_vBehaviours = {};
 
 	public:
-	BehaviourFactory();
+	BehaviourFactory(UserActions &userActions);
 	std::shared_ptr<Behaviour> getBehaviour(E_Behaviours behaviour);
 
 };
