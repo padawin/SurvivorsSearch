@@ -27,6 +27,7 @@ void Game::mainLoop() {
 }
 
 void Game::loopFrame() {
+	m_inputHandler->update();
 	m_stateMachine.update();
 	m_stateMachine.render();
 }

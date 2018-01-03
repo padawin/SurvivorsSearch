@@ -27,7 +27,7 @@ int main(int argc, char* args[]) {
 	if (actionsSet != 0) {
 		return actionsSet;
 	}
-	StateMachine stateMachine = StateMachine();
+	StateMachine stateMachine = StateMachine(userActions);
 	stateMachine.pushState(new InGame());
 	Game g(stateMachine, renderer, inputHandler);
 	if (g.init(binaryPath)) {

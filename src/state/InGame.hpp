@@ -2,7 +2,6 @@
 #define __GAME_STATE__
 
 #include "../State.hpp"
-#include <ncurses.h>
 #include "../Actor.hpp"
 #include "../City.hpp"
 #include "../ncurses/Map.hpp"
