@@ -5,12 +5,14 @@
 #include "../Actor.hpp"
 #include "../City.hpp"
 #include "../ncurses/Map.hpp"
+#include "../Behaviour/Factory.hpp"
 
 class InGame : public State {
 	private:
 	Actor m_player;
 	City m_city;
 	NCursesMap m_cityRenderer;
+	BehaviourFactory m_behaviourFactory;
 
 	public:
 	InGame(UserActions &userActions);
