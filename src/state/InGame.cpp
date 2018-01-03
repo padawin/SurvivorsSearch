@@ -29,7 +29,7 @@ bool InGame::onEnter() {
 	return true;
 }
 
-void InGame::update() {
+void InGame::update(StateMachine &stateMachine) {
 	S_Coordinates location = m_player.getLocation();
 
 	if (m_userActions.getActionState("MOVE_PLAYER_UP")) {
@@ -43,6 +43,9 @@ void InGame::update() {
 	}
 	else if (m_userActions.getActionState("MOVE_PLAYER_RIGHT")) {
 		m_city.moveActor(&m_player, location.x + 1, location.y);
+	}
+	else if (m_userActions.getActionState("QUIT")) {
+		stateMachine.clean();
 	}
 }
 

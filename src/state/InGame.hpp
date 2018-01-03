@@ -15,7 +15,7 @@ class InGame : public State {
 	public:
 	InGame(UserActions &userActions);
 	bool onEnter();
-	void update();
+	void update(StateMachine &stateMachine);
 	void render();
 	std::string getStateID() const;
 };

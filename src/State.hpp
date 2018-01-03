@@ -21,7 +21,7 @@ class State {
 	public:
 	State(UserActions &userActions);
 	virtual	~State() {}
-	virtual void update() = 0;
+	virtual void update(StateMachine &stateMachine) = 0;
 	virtual void render();
 	virtual bool onEnter();
 	virtual bool onExit();

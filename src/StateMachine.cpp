@@ -51,7 +51,7 @@ State* StateMachine::getCurrentState() const {
 
 void StateMachine::update() {
 	if (!m_vStates.empty()) {
-		m_vStates.back()->update();
+		m_vStates.back()->update(*this);
 	}
 }
 void StateMachine::render() const {
