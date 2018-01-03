@@ -1,10 +1,5 @@
 #include "StateMachine.hpp"
 
-StateMachine::StateMachine(UserActions &userActions) :
-	m_userActions(userActions)
-{
-}
-
 void StateMachine::pushState(State *pState) {
 	// if the current state is the same as the pushed one, do nothing
 	if (!m_vStates.empty() && m_vStates.back()->getStateID() == pState->getStateID()) {
@@ -54,13 +49,9 @@ State* StateMachine::getCurrentState() const {
 	return NULL;
 }
 
-UserActions &StateMachine::getUserActions() const {
-	return m_userActions;
-}
-
 void StateMachine::update() {
 	if (!m_vStates.empty()) {
-		m_vStates.back()->update(*this);
+		m_vStates.back()->update();
 	}
 }
 void StateMachine::render() const {

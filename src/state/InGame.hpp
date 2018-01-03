@@ -13,9 +13,9 @@ class InGame : public State {
 	NCursesMap m_cityRenderer;
 
 	public:
-	InGame();
+	InGame(UserActions &userActions);
 	bool onEnter();
-	void update(StateMachine &stateMachine);
+	void update();
 	void render();
 	std::string getStateID() const;
 };

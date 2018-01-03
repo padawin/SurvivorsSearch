@@ -3,7 +3,8 @@
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
 
-InGame::InGame() :
+InGame::InGame(UserActions &userActions) :
+	State(userActions),
 	m_player(Actor()),
 	m_city(City()),
 	m_cityRenderer(NCursesMap())
@@ -28,19 +29,19 @@ bool InGame::onEnter() {
 	return true;
 }
 
-void InGame::update(StateMachine &stateMachine) {
+void InGame::update() {
 	S_Coordinates location = m_player.getLocation();
 
-	if (stateMachine.getUserActions().getActionState("MOVE_PLAYER_UP")) {
+	if (m_userActions.getActionState("MOVE_PLAYER_UP")) {
 		m_city.moveActor(&m_player, location.x, location.y - 1);
 	}
-	else if (stateMachine.getUserActions().getActionState("MOVE_PLAYER_DOWN")) {
+	else if (m_userActions.getActionState("MOVE_PLAYER_DOWN")) {
 		m_city.moveActor(&m_player, location.x, location.y + 1);
 	}
-	else if (stateMachine.getUserActions().getActionState("MOVE_PLAYER_LEFT")) {
+	else if (m_userActions.getActionState("MOVE_PLAYER_LEFT")) {
 		m_city.moveActor(&m_player, location.x - 1, location.y);
 	}
-	else if (stateMachine.getUserActions().getActionState("MOVE_PLAYER_RIGHT")) {
+	else if (m_userActions.getActionState("MOVE_PLAYER_RIGHT")) {
 		m_city.moveActor(&m_player, location.x + 1, location.y);
 	}
 }
