@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include <string.h>
 
 Game::Game(StateMachine stateMachine, std::shared_ptr<Renderer> renderer) :
 	m_stateMachine(stateMachine),
@@ -6,8 +7,9 @@ Game::Game(StateMachine stateMachine, std::shared_ptr<Renderer> renderer) :
 {
 }
 
-bool Game::init() {
+bool Game::init(char binaryPath[PATH_MAX]) {
 	bool res;
+	strncpy(m_sBinaryPath, binaryPath, PATH_MAX);
 	res = m_renderer->init();
 	m_bIsRunning = res;
 	return res;
@@ -26,4 +28,8 @@ void Game::loopFrame() {
 
 void Game::shutdown() const {
 	m_renderer->shutdown();
+}
+
+const char* Game::getBinaryPath() const {
+	return m_sBinaryPath;
 }
