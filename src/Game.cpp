@@ -1,9 +1,14 @@
 #include "Game.hpp"
 #include <string.h>
 
-Game::Game(StateMachine stateMachine, std::shared_ptr<Renderer> renderer) :
+Game::Game(
+	StateMachine stateMachine,
+	std::shared_ptr<Renderer> renderer,
+	std::shared_ptr<InputHandler> inputHandler
+) :
 	m_stateMachine(stateMachine),
-	m_renderer(renderer)
+	m_renderer(renderer),
+	m_inputHandler(inputHandler)
 {
 }
 

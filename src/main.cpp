@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include "ncurses/Renderer.hpp"
+#include "ncurses/InputHandler.hpp"
 #include "StateMachine.hpp"
 #include "state/InGame.hpp"
 #include <locale.h>
@@ -12,6 +13,7 @@ int main(int argc, char* args[]) {
 	time_t t;
 	srand((unsigned int) time(&t));
 	std::shared_ptr<Renderer> renderer(new NCursesRenderer());
+	std::shared_ptr<InputHandler> inputHandler(new NCursesInputHandler());
 	char binaryPath[PATH_MAX];
 	char *res = realpath(dirname(args[argc - argc]), binaryPath);
 	if (!res) {
@@ -20,7 +22,7 @@ int main(int argc, char* args[]) {
 
 	StateMachine stateMachine = StateMachine();
 	stateMachine.pushState(new InGame());
-	Game g(stateMachine, renderer);
+	Game g(stateMachine, renderer, inputHandler);
 	if (g.init(binaryPath)) {
 		g.mainLoop();
 	}
