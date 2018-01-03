@@ -53,3 +53,4 @@ clean:
 $(PROG): $(OBJ)
 	mkdir -p $(BINDIR)
 	$(CC) -o $(BINDIR)/$@ $^ $(CCDYNAMICFLAGS)
+	cp -r config/ $(BINDIR)

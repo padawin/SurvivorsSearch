@@ -3,6 +3,7 @@
 #include "ncurses/InputHandler.hpp"
 #include "StateMachine.hpp"
 #include "state/InGame.hpp"
+#include "UserActions.hpp"
 #include <locale.h>
 #include <memory>
 #include <limits.h>
@@ -14,12 +15,18 @@ int main(int argc, char* args[]) {
 	srand((unsigned int) time(&t));
 	std::shared_ptr<Renderer> renderer(new NCursesRenderer());
 	std::shared_ptr<InputHandler> inputHandler(new NCursesInputHandler());
+	UserActions userActions(inputHandler);
 	char binaryPath[PATH_MAX];
 	char *res = realpath(dirname(args[argc - argc]), binaryPath);
 	if (!res) {
 		return 1;
 	}
 
+	std::string controlsMapping = std::string(binaryPath) + "/config/playercontrolsmapping.txt";
+	int actionsSet = userActions.setActionsFromFile(controlsMapping.c_str());
+	if (actionsSet != 0) {
+		return actionsSet;
+	}
 	StateMachine stateMachine = StateMachine();
 	stateMachine.pushState(new InGame());
 	Game g(stateMachine, renderer, inputHandler);
