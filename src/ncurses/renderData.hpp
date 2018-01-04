@@ -10,7 +10,8 @@ const char* MAP_TILES[] = {
 	"~",
 	".",
 	"-",
-	"|"
+	"|",
+	"/"
 };
 
 #endif

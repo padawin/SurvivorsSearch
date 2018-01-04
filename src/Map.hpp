@@ -12,6 +12,7 @@ const char WATER_TILE = 5;
 const char INTERIOR_TILE = 6;
 const char HORIZ_DOOR_TILE = 7;
 const char VERTIC_DOOR_TILE = 8;
+const char OPEN_DOOR_TILE = 9;
 
 class Map {
 	protected:

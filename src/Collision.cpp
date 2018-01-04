@@ -18,7 +18,9 @@ const int Collision::terrainFlags[] = {
 	// HORIZ_DOOR_TILE
 	FLAG_OBSTRUCTING_VIEW,
 	// VERTIC_DOOR_TILE
-	FLAG_OBSTRUCTING_VIEW
+	FLAG_OBSTRUCTING_VIEW,
+	// OPEN_DOOR_TILE
+	FLAG_WALKABLE
 };
 
 bool Collision::hasFlag(int tile, int flag) {
