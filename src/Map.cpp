@@ -31,16 +31,16 @@ void Map::setCell(const int x, const int y, char c) {
 	grid[_getCoordsKey(x, y)] = c;
 }
 
-void Map::addActor(Actor *actor) {
+void Map::addActor(std::shared_ptr<Actor> actor) {
 	auto location = actor->getLocation();
 	m_content.addActor(_getCoordsKey(location.x, location.y), actor);
 }
 
-std::unordered_map<int, Actor*> Map::getActors() {
+std::unordered_map<int, std::shared_ptr<Actor> > Map::getActors() {
 	return m_content.getActors();
 }
 
-Actor *Map::getActorAt(int x, int y) const {
+std::shared_ptr<Actor> Map::getActorAt(int x, int y) const {
 	return m_content.getActorAt(_getCoordsKey(x, y));
 }
 

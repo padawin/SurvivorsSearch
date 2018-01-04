@@ -47,10 +47,10 @@ class Actor {
 	bool update(Map &map);
 	void render(int displayShiftX, int displayShiftY);
 
-	bool isNextTo(Actor *actor);
-	bool seesActor(Map &map, Actor *actor);
+	bool isNextTo(std::shared_ptr<Actor> actor);
+	bool seesActor(Map &map, std::shared_ptr<Actor> actor);
 
-	void attack(Actor *target);
+	void attack(std::shared_ptr<Actor> target);
 };
 
 #endif

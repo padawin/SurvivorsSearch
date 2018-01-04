@@ -6,15 +6,15 @@
 
 InGame::InGame(UserActions &userActions) :
 	State(userActions),
-	m_player(Actor()),
+	m_player(std::shared_ptr<Actor>(new Actor())),
 	m_city(City()),
 	m_cityRenderer(NCursesMap()),
 	m_behaviourFactory(BehaviourFactory(userActions, m_player))
 {
 	m_city.init();
 	std::shared_ptr<ActorRenderer> renderer(new NCursesActor('@'));
-	m_player.setRenderer(renderer);
-	m_player.setBehaviour(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
+	m_player->setRenderer(renderer);
+	m_player->setBehaviour(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
 }
 
 std::string InGame::getStateID() const {
@@ -30,7 +30,7 @@ bool InGame::onEnter() {
 		Save::load(m_player, m_city);
 	}
 
-	m_city.addActor(&m_player);
+	m_city.addActor(m_player);
 	return true;
 }
 
@@ -40,17 +40,17 @@ void InGame::update(StateMachine &stateMachine) {
 		return;
 	}
 
-	if (!m_player.update(m_city)) {
+	if (!m_player->update(m_city)) {
 		return;
 	}
 
 	for (auto actor : m_city.getActors()) {
-		if (actor.second != &m_player) {
+		if (actor.second != m_player) {
 			actor.second->update(m_city);
 		}
 	}
 }
 
 void InGame::render() {
-	m_cityRenderer.render(m_city, m_player.getLocation());
+	m_cityRenderer.render(m_city, m_player->getLocation());
 }

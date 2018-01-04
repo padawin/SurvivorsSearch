@@ -76,7 +76,7 @@ bool BehaviourPlayer::_tryOpen(Map &map, int x, int y) {
 }
 
 bool BehaviourPlayer::_tryAttack(Actor *actor, Map &map, int x, int y) {
-	Actor* target = map.getActorAt(x, y);
+	std::shared_ptr<Actor> target = map.getActorAt(x, y);
 	if (target == NULL) {
 		return false;
 	}

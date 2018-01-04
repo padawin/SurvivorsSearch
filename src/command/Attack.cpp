@@ -4,7 +4,7 @@
 #include <cstdarg>
 
 bool AttackCommand::execute(Map &map, int xDest, int yDest, Actor *actor) {
-	Actor* target = map.getActorAt(xDest, yDest);
+	std::shared_ptr<Actor> target = map.getActorAt(xDest, yDest);
 	if (target == NULL) {
 		return false;
 	}

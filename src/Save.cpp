@@ -22,7 +22,7 @@ void Save::clean() {
 	Utils::emptyFolder(Utils::getDataPath().c_str());
 }
 
-void Save::create(Actor &player, City &city) {
+void Save::create(std::shared_ptr<Actor> player, City &city) {
 	World world;
 	Utils::createFolder(Utils::getDataPath().c_str());
 	WorldGenerator worldGenerator;
@@ -38,9 +38,9 @@ void Save::create(Actor &player, City &city) {
 	saveCity(city);
 
 	// Create player save file
-	strncpy(player.m_sCity, city.m_info.internalName, 20);
-	player.m_location.x = startX;
-	player.m_location.y = startY;
+	strncpy(player->m_sCity, city.m_info.internalName, 20);
+	player->m_location.x = startX;
+	player->m_location.y = startY;
 	savePlayer(player);
 }
 
@@ -93,27 +93,27 @@ bool Save::saveCity(City &city) {
 	return true;
 }
 
-bool Save::savePlayer(Actor &player) {
+bool Save::savePlayer(std::shared_ptr<Actor> player) {
 	std::string playerPath = Utils::getDataPath() + "/" + PLAYER_FILE;
 	FILE *playerFile = fopen(playerPath.c_str(), "w");
 	if (playerFile == NULL) {
 		return false;
 	}
 
-	fprintf(playerFile, "c %s\n", player.m_sCity);
-	fprintf(playerFile, "l %d %d\n", player.m_location.x, player.m_location.y);
-	fprintf(playerFile, "h %d\n", player.m_iHealth);
+	fprintf(playerFile, "c %s\n", player->m_sCity);
+	fprintf(playerFile, "l %d %d\n", player->m_location.x, player->m_location.y);
+	fprintf(playerFile, "h %d\n", player->m_iHealth);
 
 	fclose(playerFile);
 	return true;
 }
 
-void Save::load(Actor &player, City &city) {
+void Save::load(std::shared_ptr<Actor> player, City &city) {
 	_loadPlayer(player);
-	_loadCity(city, player.m_sCity);
+	_loadCity(city, player->m_sCity);
 }
 
-void Save::_loadPlayer(Actor &player) {
+void Save::_loadPlayer(std::shared_ptr<Actor> player) {
 	std::ifstream fin;
 	std::string file = Utils::getDataPath() + "/" + PLAYER_FILE;
 	fin.open(file.c_str());
@@ -128,13 +128,13 @@ void Save::_loadPlayer(Actor &player) {
 
 		char type = *line;
 		if (type == 'c') {
-			sscanf(line, "c %s\n", player.m_sCity);
+			sscanf(line, "c %s\n", player->m_sCity);
 		}
 		else if (type == 'l') {
-			sscanf(line, "l %d %d\n", &player.m_location.x, &player.m_location.y);
+			sscanf(line, "l %d %d\n", &player->m_location.x, &player->m_location.y);
 		}
 		else if (type == 'h') {
-			sscanf(line, "h %d\n", &player.m_iHealth);
+			sscanf(line, "h %d\n", &player->m_iHealth);
 		}
 	}
 
