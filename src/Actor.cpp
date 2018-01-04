@@ -4,7 +4,6 @@
 
 #define LIMIT_FIELD_OF_VIEW 6
 
-void Actor::setRenderer(std::shared_ptr<ActorRenderer> renderer) { m_renderer = renderer; }
 void Actor::setBehaviour(std::shared_ptr<Behaviour> behaviour) { m_behaviour = behaviour; }
 void Actor::setHealth(int health) { m_iHealth = health; }
 void Actor::setMaxHealth(int maxHealth) { m_iMaxHealth = maxHealth; }
@@ -32,11 +31,6 @@ bool Actor::update(Map &map) {
 		updated = m_behaviour->update(this, map);
 	}
 	return updated;
-}
-void Actor::render(int displayShiftX, int displayShiftY) {
-	if (m_renderer != 0) {
-		m_renderer->render(*this, displayShiftX, displayShiftY);
-	}
 }
 
 bool Actor::isNextTo(std::shared_ptr<Actor> actor) {

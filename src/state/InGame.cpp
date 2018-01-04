@@ -10,6 +10,7 @@ InGame::InGame(UserActions &userActions) :
 	m_player(std::shared_ptr<Actor>(new Actor())),
 	m_city(City()),
 	m_cityRenderer(NCursesMap()),
+	m_actorRenderer(NCursesActor()),
 	m_behaviourFactory(BehaviourFactory(userActions, m_player))
 {
 	m_camera.x = 0;
@@ -17,8 +18,6 @@ InGame::InGame(UserActions &userActions) :
 	m_camera.width = 79;
 	m_camera.height = 29;
 	m_city.init();
-	std::shared_ptr<ActorRenderer> renderer(new NCursesActor('@'));
-	m_player->setRenderer(renderer);
 	m_player->setBehaviour(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
 }
 
@@ -65,4 +64,7 @@ void InGame::render() {
 	int shiftX = m_camera.x - visibleArea.x;
 	int shiftY = m_camera.y - visibleArea.y;
 	m_cityRenderer.render(m_city, fov, shiftX, shiftY);
+	for (auto actor : m_city.getActors()) {
+		m_actorRenderer.render(actor.second, shiftX, shiftY);
+	}
 }

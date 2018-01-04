@@ -15,10 +15,6 @@ void NCursesMap::render(Map &map, FieldOfView &fov, int shiftX, int shiftY) {
 			_getCellDisplayValue(map, cell.second, x, y)
 		);
 	}
-
-	for (auto actor : map.getActors()) {
-		actor.second->render(shiftX, shiftY);
-	}
 }
 
 const char* NCursesMap::_getCellDisplayValue(Map &map, int visible, int x, int y) {
