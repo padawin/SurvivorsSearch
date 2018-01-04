@@ -65,6 +65,6 @@ void InGame::render() {
 	int shiftY = m_camera.y - visibleArea.y;
 	m_cityRenderer.render(m_city, fov, shiftX, shiftY);
 	for (auto actor : m_city.getActors()) {
-		m_actorRenderer.render(actor.second, shiftX, shiftY);
+		m_actorRenderer.render(actor.second, fov, shiftX, shiftY);
 	}
 }

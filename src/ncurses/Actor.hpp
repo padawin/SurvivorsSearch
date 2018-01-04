@@ -5,7 +5,7 @@
 
 class NCursesActor : public ActorRenderer {
 	public:
-	void render(std::shared_ptr<Actor> actor, int displayShiftX, int displayShiftY);
+	void render(std::shared_ptr<Actor> actor, FieldOfView &fov, int displayShiftX, int displayShiftY);
 };
 
 #endif
