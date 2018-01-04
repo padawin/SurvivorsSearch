@@ -22,14 +22,13 @@ void Save::clean() {
 	Utils::emptyFolder(Utils::getDataPath().c_str());
 }
 
-void Save::create() {
+void Save::create(Actor &player, City &city) {
 	World world;
 	Utils::createFolder(Utils::getDataPath().c_str());
 	WorldGenerator worldGenerator;
 	worldGenerator.generate(world);
 	saveWorld(world);
 
-	City city;
 	city.init();
 	city.m_info = world.m_vCities[(unsigned) rand() % world.m_vCities.size()];
 	CityGenerator cityGenerator;
@@ -39,11 +38,10 @@ void Save::create() {
 	saveCity(city);
 
 	// Create player save file
-	Actor p;
-	strncpy(p.m_sCity, city.m_info.internalName, 20);
-	p.m_location.x = startX;
-	p.m_location.y = startY;
-	savePlayer(p);
+	strncpy(player.m_sCity, city.m_info.internalName, 20);
+	player.m_location.x = startX;
+	player.m_location.y = startY;
+	savePlayer(player);
 }
 
 void Save::_saveCity(FILE *mapFile, S_CityInfo &city) {

@@ -19,7 +19,7 @@ class Save {
 	static void loadCity(std::string internalName, City& city);
 	static bool exists();
 	static void clean();
-	static void create();
+	static void create(Actor &player, City &city);
 	static bool saveWorld(World &world);
 	static bool saveCity(City &city);
 	static bool savePlayer(Actor &player);

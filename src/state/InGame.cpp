@@ -24,10 +24,12 @@ std::string InGame::getStateID() const {
 bool InGame::onEnter() {
 	if (!Save::exists()) {
 		Save::clean();
-		Save::create();
+		Save::create(m_player, m_city);
+	}
+	else {
+		Save::load(m_player, m_city);
 	}
 
-	Save::load(m_player, m_city);
 	m_city.addActor(&m_player);
 	return true;
 }
