@@ -2,13 +2,11 @@
 #include "../Actor.hpp"
 #include <ncurses.h>
 
-NCursesActor::NCursesActor(char c) : m_cCharacter(static_cast<unsigned char>(c)) {
-}
-
-void NCursesActor::render(Actor &actor, int displayShiftX, int displayShiftY) {
-	mvaddch(
-		displayShiftY + actor.getLocation().y,
-		displayShiftX + actor.getLocation().x,
-		m_cCharacter
-	);
+void NCursesActor::render(std::shared_ptr<Actor> actor, FieldOfView &fov, int displayShiftX, int displayShiftY) {
+	int x = actor->getLocation().x,
+		y = actor->getLocation().y;
+	if (!fov.isVisible(x, y)) {
+		return;
+	}
+	mvaddch(displayShiftY + y, displayShiftX + x, '@');
 }

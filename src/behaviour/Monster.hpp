@@ -2,18 +2,19 @@
 #define __BEHAVIOUR_MONSTER__
 
 #include "Behaviour.hpp"
+#include <memory>
 
 class rRpg;
 class Actor;
 
 class BehaviourMonster : public Behaviour {
 	private:
-	Actor &m_player;
+	std::shared_ptr<Actor> m_player;
 	void _executeMove(Actor *actor, Map &map, const int x, const int y);
 	void _executeRandomMove(Actor *actor, Map &map);
 
 	public:
-	BehaviourMonster(Actor &player);
+	BehaviourMonster(std::shared_ptr<Actor> player);
 	bool update(Actor *actor, Map &map);
 };
 

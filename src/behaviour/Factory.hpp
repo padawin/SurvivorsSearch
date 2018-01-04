@@ -15,7 +15,7 @@ class BehaviourFactory {
 	std::vector<std::shared_ptr<Behaviour>> m_vBehaviours = {};
 
 	public:
-	BehaviourFactory(UserActions &userActions, Actor &player);
+	BehaviourFactory(UserActions &userActions, std::shared_ptr<Actor> player);
 	std::shared_ptr<Behaviour> getBehaviour(E_Behaviours behaviour);
 
 };

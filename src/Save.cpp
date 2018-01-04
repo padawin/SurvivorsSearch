@@ -22,14 +22,13 @@ void Save::clean() {
 	Utils::emptyFolder(Utils::getDataPath().c_str());
 }
 
-void Save::create() {
+void Save::create(std::shared_ptr<Actor> player, City &city) {
 	World world;
 	Utils::createFolder(Utils::getDataPath().c_str());
 	WorldGenerator worldGenerator;
 	worldGenerator.generate(world);
 	saveWorld(world);
 
-	City city;
 	city.init();
 	city.m_info = world.m_vCities[(unsigned) rand() % world.m_vCities.size()];
 	CityGenerator cityGenerator;
@@ -39,11 +38,23 @@ void Save::create() {
 	saveCity(city);
 
 	// Create player save file
-	Actor p;
-	strncpy(p.m_sCity, city.m_info.internalName, 20);
-	p.m_location.x = startX;
-	p.m_location.y = startY;
-	savePlayer(p);
+	strncpy(player->m_sCity, city.m_info.internalName, 20);
+	player->m_location.x = startX;
+	player->m_location.y = startY;
+	savePlayer(player);
+}
+
+void Save::_saveCity(FILE *mapFile, S_CityInfo &city) {
+	fprintf(
+		mapFile,
+		"c %s %s %d %d %d %d\n",
+		city.name,
+		city.internalName,
+		city.location.x,
+		city.location.y,
+		city.visited,
+		city.count_survivors
+	);
 }
 
 bool Save::saveWorld(World &world) {
@@ -54,16 +65,7 @@ bool Save::saveWorld(World &world) {
 	}
 
 	for (auto city : world.m_vCities) {
-		fprintf(
-			mapFile,
-			"c %s %s %d %d %d %d\n",
-			city.name,
-			city.internalName,
-			city.location.x,
-			city.location.y,
-			city.visited,
-			city.count_survivors
-		);
+		_saveCity(mapFile, city);
 	}
 
 	fclose(mapFile);
@@ -79,7 +81,16 @@ bool Save::saveCity(City &city) {
 		return false;
 	}
 
-	fprintf(mapFile, "n %s\n", city.m_info.name);
+	_saveCity(mapFile, city.m_info);
+	for (auto actor : city.getActors()) {
+		fprintf(
+			mapFile,
+			"a %d %d\n",
+			actor.second->getLocation().x,
+			actor.second->getLocation().y
+		);
+	}
+	fprintf(mapFile, "\n");
 	for (unsigned int cell = 0; cell < city.m_iSize; ++cell) {
 		fprintf(mapFile, "%c", city.grid[cell]);
 	}
@@ -88,27 +99,27 @@ bool Save::saveCity(City &city) {
 	return true;
 }
 
-bool Save::savePlayer(Actor &player) {
+bool Save::savePlayer(std::shared_ptr<Actor> player) {
 	std::string playerPath = Utils::getDataPath() + "/" + PLAYER_FILE;
 	FILE *playerFile = fopen(playerPath.c_str(), "w");
 	if (playerFile == NULL) {
 		return false;
 	}
 
-	fprintf(playerFile, "c %s\n", player.m_sCity);
-	fprintf(playerFile, "l %d %d\n", player.m_location.x, player.m_location.y);
-	fprintf(playerFile, "h %d\n", player.m_iHealth);
+	fprintf(playerFile, "c %s\n", player->m_sCity);
+	fprintf(playerFile, "l %d %d\n", player->m_location.x, player->m_location.y);
+	fprintf(playerFile, "h %d\n", player->m_iHealth);
 
 	fclose(playerFile);
 	return true;
 }
 
-void Save::load(Actor &player, City &city) {
+void Save::load(std::shared_ptr<Actor> player, City &city) {
 	_loadPlayer(player);
-	_loadCity(city, player.m_sCity);
+	_loadCity(city, player->m_sCity);
 }
 
-void Save::_loadPlayer(Actor &player) {
+void Save::_loadPlayer(std::shared_ptr<Actor> player) {
 	std::ifstream fin;
 	std::string file = Utils::getDataPath() + "/" + PLAYER_FILE;
 	fin.open(file.c_str());
@@ -123,13 +134,13 @@ void Save::_loadPlayer(Actor &player) {
 
 		char type = *line;
 		if (type == 'c') {
-			sscanf(line, "c %s\n", player.m_sCity);
+			sscanf(line, "c %s\n", player->m_sCity);
 		}
 		else if (type == 'l') {
-			sscanf(line, "l %d %d\n", &player.m_location.x, &player.m_location.y);
+			sscanf(line, "l %d %d\n", &player->m_location.x, &player->m_location.y);
 		}
 		else if (type == 'h') {
-			sscanf(line, "h %d\n", &player.m_iHealth);
+			sscanf(line, "h %d\n", &player->m_iHealth);
 		}
 	}
 
@@ -149,7 +160,30 @@ void Save::_loadCity(City &city, char cityName[20]) {
 
 	char line[50];
 	fin.getline(line, 50);
-	sscanf(line, "n %s\n", city.m_info.name);
+	int visited;
+	sscanf(
+		line,
+		"c %s %s %d %d %d %d\n",
+		city.m_info.name,
+		city.m_info.internalName,
+		&city.m_info.location.x,
+		&city.m_info.location.y,
+		&visited,
+		&city.m_info.count_survivors
+	);
+	while (true) {
+		fin.getline(line, 50);
+		if (line[0] == '\0') {
+			break;
+		}
+		int x, y;
+		sscanf(line, "a %d %d\n", &x, &y);
+		std::shared_ptr<Actor> survivor(new Actor());
+		survivor->setX(x);
+		survivor->setY(y);
+		city.addActor(survivor);
+	}
+	city.m_info.visited = visited;
 	fin.read(city.grid, city.m_iSize);
 	fin.close();
 }

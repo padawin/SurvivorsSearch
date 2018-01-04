@@ -1,11 +1,11 @@
 #include "MapContent.hpp"
 #include "Actor.hpp"
 
-void MapContent::addActor(int position, Actor *actor) {
+void MapContent::addActor(int position, std::shared_ptr<Actor> actor) {
 	m_mActors[position] = actor;
 }
 
-std::unordered_map<int, Actor*> &MapContent::getActors() {
+std::unordered_map<int, std::shared_ptr<Actor> > &MapContent::getActors() {
 	return m_mActors;
 }
 
@@ -24,7 +24,7 @@ bool MapContent::moveActor(int oldPosition, int newPosition) {
 	return true;
 }
 
-Actor *MapContent::getActorAt(int key) const {
+std::shared_ptr<Actor> MapContent::getActorAt(int key) const {
 	auto it = m_mActors.find(key);
 	if (it != m_mActors.end()) {
 		return it->second;

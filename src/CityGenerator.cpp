@@ -1,4 +1,5 @@
 #include "CityGenerator.hpp"
+#include "Actor.hpp"
 #include <string.h>
 
 const int MIN_WIDTH_BLOCK = 40;
@@ -22,9 +23,10 @@ const int MIN_PROBA_INTERIOR = 8;
 const int MAX_PROBA_INTERIOR = 23;
 
 const int CAN_HAVE_FOE = 0;
-const int CAN_BE_START = 1;
+const int CAN_HAVE_SURVIVOR = 1;
+const int CAN_BE_START = 2;
 
-void CityGenerator::addCellType(int type, int index) {
+void CityGenerator::_addCellType(int type, int index) {
 	if (m_mTypeCells.find(type) == m_mTypeCells.end()) {
 		m_mTypeCells[type] = {};
 	}
@@ -39,6 +41,19 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 		int startCell = m_mTypeCells[CAN_BE_START][(unsigned) rand() % m_mTypeCells[CAN_BE_START].size()];
 		*startX = startCell % city.getWidth();
 		*startY = startCell / city.getWidth();
+	}
+
+	// add survivors
+	std::vector<int> survivorsPossibleLocations = m_mTypeCells[CAN_HAVE_SURVIVOR];
+	for (unsigned long i = 0, nbSurvivors = (unsigned long) city.m_info.count_survivors; i < nbSurvivors; ++i) {
+		unsigned long cellIndex = i + (unsigned long) rand() % (survivorsPossibleLocations.size() - i);
+		int x = survivorsPossibleLocations[cellIndex] % city.getWidth();
+		int y = survivorsPossibleLocations[cellIndex] / city.getWidth();
+		std::shared_ptr<Actor> survivor(new Actor());
+		survivor->setX(x);
+		survivor->setY(y);
+		city.addActor(survivor);
+		std::swap(survivorsPossibleLocations[i], survivorsPossibleLocations[cellIndex]);
 	}
 }
 
@@ -78,13 +93,13 @@ void CityGenerator::_divideVerticalBlock(City& city, S_Block block) {
 	int size = (int) city.m_iSize;
 	for (int j = divideIndex; j < size; j += city.getWidth()) {
 		city.grid[j] = PAVEMENT_TILE;
-		addCellType(CAN_HAVE_FOE, j);
+		_addCellType(CAN_HAVE_FOE, j);
 		for (int r = 1; r <= widthRoad; ++r) {
 			city.grid[j + r] = ROAD_TILE;
-			addCellType(CAN_HAVE_FOE, j + r);
+			_addCellType(CAN_HAVE_FOE, j + r);
 		}
 		city.grid[j + widthRoad + 1] = PAVEMENT_TILE;
-		addCellType(CAN_HAVE_FOE, j + widthRoad + 1);
+		_addCellType(CAN_HAVE_FOE, j + widthRoad + 1);
 	}
 
 	S_Block bLeft = block;
@@ -108,20 +123,20 @@ void CityGenerator::_divideHorizontalBlock(City& city, S_Block block, std::vecto
 	for (int i = divideIndex * city.getWidth(); i < (1 + divideIndex) * city.getWidth(); ++i) {
 		if (city.grid[i] == WALL_TILE) {
 			city.grid[i] = PAVEMENT_TILE;
-			addCellType(CAN_HAVE_FOE, i);
+			_addCellType(CAN_HAVE_FOE, i);
 		}
 		int currIndex;
 		for (int r = 1; r <= widthRoad; ++r) {
 			currIndex = i + r * city.getWidth();
 			if (city.grid[currIndex] == WALL_TILE) {
-				addCellType(CAN_HAVE_FOE, currIndex);
+				_addCellType(CAN_HAVE_FOE, currIndex);
 			}
 			city.grid[currIndex] = ROAD_TILE;
 		}
 		currIndex = i + (widthRoad + 1) * city.getWidth();
 		if (city.grid[currIndex] == WALL_TILE) {
 			city.grid[currIndex] = PAVEMENT_TILE;
-			addCellType(CAN_HAVE_FOE, currIndex);
+			_addCellType(CAN_HAVE_FOE, currIndex);
 		}
 	}
 
@@ -197,7 +212,7 @@ void CityGenerator::_buildPark(City& city, S_Rectangle& block) {
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
 			city.setCell(x, y, (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE);
-			addCellType(CAN_HAVE_FOE, y * city.getWidth() + x);
+			_addCellType(CAN_HAVE_FOE, y * city.getWidth() + x);
 		}
 	}
 }
@@ -217,7 +232,8 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 	for (int y = block.y + 1; y < block.y + block.height - 1; ++y) {
 		for (int x = block.x + 1; x < block.x + block.width - 1; ++x) {
 			city.setCell(x, y, INTERIOR_TILE);
-			addCellType(CAN_BE_START, y * city.getWidth() + x);
+			_addCellType(CAN_BE_START, y * city.getWidth() + x);
+			_addCellType(CAN_HAVE_SURVIVOR, y * city.getWidth() + x);
 		}
 	}
 

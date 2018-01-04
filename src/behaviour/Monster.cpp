@@ -6,17 +6,17 @@
 #include <math.h>
 #include <algorithm>
 
-BehaviourMonster::BehaviourMonster(Actor &player) : m_player(player) {
+BehaviourMonster::BehaviourMonster(std::shared_ptr<Actor> player) : m_player(player) {
 }
 
 bool BehaviourMonster::update(Actor *actor, Map &map) {
 	bool updated = true;
-	S_Coordinates location = m_player.getLocation();
-	if (actor->isNextTo(&m_player)) {
+	S_Coordinates location = m_player->getLocation();
+	if (actor->isNextTo(m_player)) {
 		AttackCommand command = AttackCommand();
 		command.execute(map, location.x, location.y, actor);
 	}
-	else if (actor->seesActor(map, &m_player)) {
+	else if (actor->seesActor(map, m_player)) {
 		_executeMove(actor, map, location.x, location.y);
 	}
 	else {
@@ -27,7 +27,7 @@ bool BehaviourMonster::update(Actor *actor, Map &map) {
 
 void BehaviourMonster::_executeMove(Actor *actor, Map &map, const int xTarget, const int yTarget) {
 	bool executed = false;
-	S_Coordinates location = m_player.getLocation();
+	S_Coordinates location = m_player->getLocation();
 	int xActor = location.y,
 		yActor = location.y,
 		xDest = xActor,
