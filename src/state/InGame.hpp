@@ -13,6 +13,8 @@ class InGame : public State {
 	City m_city;
 	NCursesMap m_cityRenderer;
 	BehaviourFactory m_behaviourFactory;
+	S_Rectangle m_camera = {};
+
 
 	public:
 	InGame(UserActions &userActions);
