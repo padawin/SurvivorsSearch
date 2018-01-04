@@ -46,6 +46,19 @@ void Save::create() {
 	savePlayer(p);
 }
 
+void Save::_saveCity(FILE *mapFile, S_CityInfo &city) {
+	fprintf(
+		mapFile,
+		"c %s %s %d %d %d %d\n",
+		city.name,
+		city.internalName,
+		city.location.x,
+		city.location.y,
+		city.visited,
+		city.count_survivors
+	);
+}
+
 bool Save::saveWorld(World &world) {
 	std::string worldPath = Utils::getDataPath() + "/" + WORLD_FILE;
 	FILE *mapFile = fopen(worldPath.c_str(), "w");
@@ -54,16 +67,7 @@ bool Save::saveWorld(World &world) {
 	}
 
 	for (auto city : world.m_vCities) {
-		fprintf(
-			mapFile,
-			"c %s %s %d %d %d %d\n",
-			city.name,
-			city.internalName,
-			city.location.x,
-			city.location.y,
-			city.visited,
-			city.count_survivors
-		);
+		_saveCity(mapFile, city);
 	}
 
 	fclose(mapFile);

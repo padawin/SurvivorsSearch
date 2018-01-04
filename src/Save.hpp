@@ -2,6 +2,7 @@
 #define __SAVE__
 
 #include <string>
+#include "types.hpp"
 
 class World;
 class City;
@@ -11,6 +12,7 @@ class Save {
 	private:
 	static void _loadPlayer(Actor &player);
 	static void _loadCity(City &city, char cityName[20]);
+	static void _saveCity(FILE *mapFile, S_CityInfo &city);
 
 	public:
 	static void loadWorld(World& world);
