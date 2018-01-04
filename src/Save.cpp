@@ -84,6 +84,9 @@ bool Save::saveCity(City &city) {
 	}
 
 	_saveCity(mapFile, city.m_info);
+	for (int survivor : city.m_vSurvivors) {
+		fprintf(mapFile, "s %d\n", survivor);
+	}
 	for (unsigned int cell = 0; cell < city.m_iSize; ++cell) {
 		fprintf(mapFile, "%c", city.grid[cell]);
 	}
@@ -164,6 +167,14 @@ void Save::_loadCity(City &city, char cityName[20]) {
 		&visited,
 		&city.m_info.count_survivors
 	);
+	for (int s = 0; s < city.m_info.count_survivors; ++s) {
+		char survivor[50];
+		fin.getline(survivor, 50);
+		// std::getline(read, x);
+		int cellIndex;
+		sscanf(survivor, "s %d\n", &cellIndex);
+		city.addSurvivor(cellIndex);
+	}
 	city.m_info.visited = visited;
 	fin.read(city.grid, city.m_iSize);
 	fin.close();

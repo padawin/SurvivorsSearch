@@ -41,6 +41,14 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 		*startX = startCell % city.getWidth();
 		*startY = startCell / city.getWidth();
 	}
+
+	// add survivors
+	std::vector<int> survivorsPossibleLocations = m_mTypeCells[CAN_HAVE_SURVIVOR];
+	for (unsigned long i = 0, nbSurvivors = (unsigned long) city.m_info.count_survivors; i < nbSurvivors; ++i) {
+		unsigned long cellIndex = i + (unsigned long) rand() % (survivorsPossibleLocations.size() - i);
+		city.addSurvivor(survivorsPossibleLocations[cellIndex]);
+		std::swap(survivorsPossibleLocations[i], survivorsPossibleLocations[cellIndex]);
+	}
 }
 
 void CityGenerator::_generateGridCity(City& city) {
