@@ -59,7 +59,7 @@ bool BehaviourPlayer::_isDirectionPressed(int &x, int &y) {
 
 bool BehaviourPlayer::_tryMove(Actor *actor, Map &map, int x, int y) {
 	MoveCommand command = MoveCommand();
-	bool moved = command.execute(actor, map, x, y);
+	bool moved = command.execute(map, x, y, actor);
 
 	return moved;
 }
@@ -71,5 +71,5 @@ bool BehaviourPlayer::_tryAttack(Actor *actor, Map &map, int x, int y) {
 	}
 
 	AttackCommand attack = AttackCommand();
-	return attack.execute(actor, map, x, y);
+	return attack.execute(map, x, y, actor);
 }

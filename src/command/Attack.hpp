@@ -8,7 +8,7 @@ class Map;
 
 class AttackCommand : public Command {
 	public:
-	bool execute(Actor* actor, Map &map, int xDest, int yDest);
+	bool execute(Map &map, int xDest, int yDest, Actor *actor=0);
 };
 
 #endif
