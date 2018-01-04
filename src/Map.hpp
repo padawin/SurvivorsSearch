@@ -35,11 +35,11 @@ class Map {
 	std::unordered_map<int, Actor*> getActors();
 	Actor* getActorAt(int x, int y) const;
 	bool moveActor(Actor* actor, int newX, int newY);
-	bool areCoordinatesValid(int x, int y);
-	bool isCellWalkable(int x, int y);
-	bool isCellObstructingView(int x, int y);
+	bool areCoordinatesValid(int x, int y) const;
+	bool isCellWalkable(int x, int y) const;
+	bool isCellObstructingView(int x, int y) const;
+	bool isCellVisited(int x, int y) const;
 	void setCellVisited(int x, int y);
-	bool isCellVisited(int x, int y);
 };
 
 #endif
