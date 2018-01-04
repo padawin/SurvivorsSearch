@@ -82,9 +82,15 @@ bool Save::saveCity(City &city) {
 	}
 
 	_saveCity(mapFile, city.m_info);
-	for (auto survivor : city.m_mSurvivors) {
-		fprintf(mapFile, "s %d %d\n", survivor.first, survivor.second);
+	for (auto actor : city.getActors()) {
+		fprintf(
+			mapFile,
+			"a %d %d\n",
+			actor.second->getLocation().x,
+			actor.second->getLocation().y
+		);
 	}
+	fprintf(mapFile, "\n");
 	for (unsigned int cell = 0; cell < city.m_iSize; ++cell) {
 		fprintf(mapFile, "%c", city.grid[cell]);
 	}
@@ -165,13 +171,17 @@ void Save::_loadCity(City &city, char cityName[20]) {
 		&visited,
 		&city.m_info.count_survivors
 	);
-	for (int s = 0; s < city.m_info.count_survivors; ++s) {
-		char survivor[50];
-		fin.getline(survivor, 50);
-		// std::getline(read, x);
-		int cellIndex, saved;
-		sscanf(survivor, "s %d %d\n", &cellIndex, &saved);
-		city.addSurvivor(cellIndex, (bool) saved);
+	while (true) {
+		fin.getline(line, 50);
+		if (line[0] == '\0') {
+			break;
+		}
+		int x, y;
+		sscanf(line, "a %d %d\n", &x, &y);
+		std::shared_ptr<Actor> survivor(new Actor());
+		survivor->setX(x);
+		survivor->setY(y);
+		city.addActor(survivor);
 	}
 	city.m_info.visited = visited;
 	fin.read(city.grid, city.m_iSize);

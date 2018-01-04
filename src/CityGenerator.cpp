@@ -1,4 +1,5 @@
 #include "CityGenerator.hpp"
+#include "Actor.hpp"
 #include <string.h>
 
 const int MIN_WIDTH_BLOCK = 40;
@@ -46,7 +47,12 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	std::vector<int> survivorsPossibleLocations = m_mTypeCells[CAN_HAVE_SURVIVOR];
 	for (unsigned long i = 0, nbSurvivors = (unsigned long) city.m_info.count_survivors; i < nbSurvivors; ++i) {
 		unsigned long cellIndex = i + (unsigned long) rand() % (survivorsPossibleLocations.size() - i);
-		city.addSurvivor(survivorsPossibleLocations[cellIndex]);
+		int x = survivorsPossibleLocations[cellIndex] % city.getWidth();
+		int y = survivorsPossibleLocations[cellIndex] / city.getWidth();
+		std::shared_ptr<Actor> survivor(new Actor());
+		survivor->setX(x);
+		survivor->setY(y);
+		city.addActor(survivor);
 		std::swap(survivorsPossibleLocations[i], survivorsPossibleLocations[cellIndex]);
 	}
 }
