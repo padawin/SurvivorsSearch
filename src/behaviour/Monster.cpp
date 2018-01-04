@@ -1,7 +1,7 @@
 #include <limits.h>
 #include "Monster.hpp"
-#include "../Command/Move.hpp"
-#include "../Command/Attack.hpp"
+#include "../command/Move.hpp"
+#include "../command/Attack.hpp"
 #include "../Actor.hpp"
 #include <math.h>
 #include <algorithm>
