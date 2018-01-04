@@ -44,7 +44,7 @@ class Actor {
 	char* getCity();
 	S_Coordinates getLocation();
 
-	void update(Map &map);
+	bool update(Map &map);
 	void render(int displayShiftX, int displayShiftY);
 
 	bool isNextTo(Actor *actor);

@@ -40,7 +40,10 @@ void InGame::update(StateMachine &stateMachine) {
 		return;
 	}
 
-	m_player.update(m_city);
+	if (!m_player.update(m_city)) {
+		return;
+	}
+
 	for (auto actor : m_city.getActors()) {
 		if (actor.second != &m_player) {
 			actor.second->update(m_city);
