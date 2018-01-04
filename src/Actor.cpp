@@ -34,7 +34,9 @@ bool Actor::update(Map &map) {
 	return updated;
 }
 void Actor::render(int displayShiftX, int displayShiftY) {
-	m_renderer->render(*this, displayShiftX, displayShiftY);
+	if (m_renderer != 0) {
+		m_renderer->render(*this, displayShiftX, displayShiftY);
+	}
 }
 
 bool Actor::isNextTo(std::shared_ptr<Actor> actor) {
