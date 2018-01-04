@@ -1,4 +1,5 @@
 #include "InGame.hpp"
+#include "../FieldOfView.hpp"
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
@@ -9,11 +10,14 @@ InGame::InGame(UserActions &userActions) :
 	m_player(std::shared_ptr<Actor>(new Actor())),
 	m_city(City()),
 	m_cityRenderer(NCursesMap()),
+	m_actorRenderer(NCursesActor()),
 	m_behaviourFactory(BehaviourFactory(userActions, m_player))
 {
+	m_camera.x = 0;
+	m_camera.y = 0;
+	m_camera.width = 79;
+	m_camera.height = 29;
 	m_city.init();
-	std::shared_ptr<ActorRenderer> renderer(new NCursesActor('@'));
-	m_player->setRenderer(renderer);
 	m_player->setBehaviour(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
 }
 
@@ -52,5 +56,15 @@ void InGame::update(StateMachine &stateMachine) {
 }
 
 void InGame::render() {
-	m_cityRenderer.render(m_city, m_player->getLocation());
+	S_Rectangle visibleArea = m_camera;
+	visibleArea.x = m_player->getLocation().x - m_camera.width / 2;
+	visibleArea.y = m_player->getLocation().y - m_camera.height / 2;
+	FieldOfView fov(visibleArea);
+	fov.calculate(m_city, m_player->getLocation());
+	int shiftX = m_camera.x - visibleArea.x;
+	int shiftY = m_camera.y - visibleArea.y;
+	m_cityRenderer.render(m_city, fov, shiftX, shiftY);
+	for (auto actor : m_city.getActors()) {
+		m_actorRenderer.render(actor.second, fov, shiftX, shiftY);
+	}
 }

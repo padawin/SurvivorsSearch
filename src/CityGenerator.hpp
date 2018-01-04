@@ -15,7 +15,7 @@ class CityGenerator {
 	private:
 	std::map<int, std::vector<int>> m_mTypeCells = {};
 
-	void addCellType(int type, int index);
+	void _addCellType(int type, int index);
 
 	void _generateGridCity(City& city);
 	void _generateVerticalRoads(City& city);

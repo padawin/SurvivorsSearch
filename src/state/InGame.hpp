@@ -5,6 +5,7 @@
 #include "../Actor.hpp"
 #include "../City.hpp"
 #include "../ncurses/Map.hpp"
+#include "../ncurses/Actor.hpp"
 #include "../behaviour/Factory.hpp"
 
 class InGame : public State {
@@ -12,7 +13,10 @@ class InGame : public State {
 	std::shared_ptr<Actor> m_player = 0;
 	City m_city;
 	NCursesMap m_cityRenderer;
+	NCursesActor m_actorRenderer;
 	BehaviourFactory m_behaviourFactory;
+	S_Rectangle m_camera = {};
+
 
 	public:
 	InGame(UserActions &userActions);

@@ -7,11 +7,9 @@
 class NCursesMap : public MapRenderer {
 	private:
 	const char* _getCellDisplayValue(Map &map, int visible, int x, int y);
-	S_Rectangle m_view = {};
 
 	public:
-	NCursesMap();
-	void render(Map &map, S_Coordinates reference);
+	void render(Map &map, FieldOfView &fov, int shiftX, int shiftY);
 };
 
 #endif
