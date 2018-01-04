@@ -83,7 +83,7 @@ bool Save::saveCity(City &city) {
 		return false;
 	}
 
-	fprintf(mapFile, "n %s\n", city.m_info.name);
+	_saveCity(mapFile, city.m_info);
 	for (unsigned int cell = 0; cell < city.m_iSize; ++cell) {
 		fprintf(mapFile, "%c", city.grid[cell]);
 	}
@@ -153,7 +153,18 @@ void Save::_loadCity(City &city, char cityName[20]) {
 
 	char line[50];
 	fin.getline(line, 50);
-	sscanf(line, "n %s\n", city.m_info.name);
+	int visited;
+	sscanf(
+		line,
+		"c %s %s %d %d %d %c\n",
+		city.m_info.name,
+		city.m_info.internalName,
+		&city.m_info.location.x,
+		&city.m_info.location.y,
+		&visited,
+		&city.m_info.count_survivors
+	);
+	city.m_info.visited = visited;
 	fin.read(city.grid, city.m_iSize);
 	fin.close();
 }
