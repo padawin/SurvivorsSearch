@@ -1,9 +1,9 @@
 #include "City.hpp"
 
 City::~City() {
-	m_vSurvivors.clear();
+	m_mSurvivors.clear();
 }
 
-void City::addSurvivor(int cellIndex) {
-	m_vSurvivors.push_back(cellIndex);
+void City::addSurvivor(int cellIndex, bool saved) {
+	m_mSurvivors[cellIndex] = saved;
 }

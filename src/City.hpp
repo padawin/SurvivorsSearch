@@ -10,13 +10,14 @@ class City : public Map {
 	friend class Save;
 	protected:
 	S_CityInfo m_info = S_CityInfo();
-	std::vector<int> m_vSurvivors = {};
+	// true if the survivor has been saved
+	std::unordered_map<int, bool> m_mSurvivors = {};
 
 	public:
 	~City();
 	int getWidth() const { return 530; }
 	int getHeight() const { return 230; }
-	void addSurvivor(int cellIndex);
+	void addSurvivor(int cellIndex, bool saved = false);
 };
 
 #endif
