@@ -2,6 +2,7 @@
 #define __STATE__
 
 #include <string>
+#include "UserActions.hpp"
 
 class StateMachine;
 
@@ -14,7 +15,11 @@ class StateMachine;
  * machine enters the state and one when the machine leaves it).
  */
 class State {
+	protected:
+	UserActions &m_userActions;
+
 	public:
+	State(UserActions &userActions);
 	virtual	~State() {}
 	virtual void update(StateMachine &stateMachine) = 0;
 	virtual void render();

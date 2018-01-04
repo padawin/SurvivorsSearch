@@ -3,6 +3,8 @@
 
 #include "types.hpp"
 #include "renderer/Actor.hpp"
+#include "Behaviour/Behaviour.hpp"
+#include "Map.hpp"
 #include <memory>
 
 enum E_ActorOrientation {LEFT, RIGHT};
@@ -19,9 +21,12 @@ class Actor {
 	S_Coordinates m_location = S_Coordinates();
 
 	std::shared_ptr<ActorRenderer> m_renderer = 0;
+	std::shared_ptr<Behaviour> m_behaviour = 0;
 
 	public:
+	~Actor() {}
 	void setRenderer(std::shared_ptr<ActorRenderer> renderer);
+	void setBehaviour(std::shared_ptr<Behaviour> behaviour);
 
 	int getHealth();
 	int getMaxHealth();
@@ -39,10 +44,11 @@ class Actor {
 	char* getCity();
 	S_Coordinates getLocation();
 
+	void update(Map &map);
 	void render(int displayShiftX, int displayShiftY);
 
 	bool isNextTo(Actor *actor);
-	bool seesActor(/*Map &map, */Actor *actor);
+	bool seesActor(Map &map, Actor *actor);
 
 	void attack(Actor *target);
 };

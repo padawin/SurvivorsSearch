@@ -2,15 +2,19 @@
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
+#include "../Behaviour/Player.hpp"
 
-InGame::InGame() :
+InGame::InGame(UserActions &userActions) :
+	State(userActions),
 	m_player(Actor()),
 	m_city(City()),
-	m_cityRenderer(NCursesMap())
+	m_cityRenderer(NCursesMap()),
+	m_behaviourFactory(BehaviourFactory(userActions, m_player))
 {
 	m_city.init();
 	std::shared_ptr<ActorRenderer> renderer(new NCursesActor('@'));
 	m_player.setRenderer(renderer);
+	m_player.setBehaviour(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
 }
 
 std::string InGame::getStateID() const {
@@ -29,19 +33,16 @@ bool InGame::onEnter() {
 }
 
 void InGame::update(StateMachine &stateMachine) {
-	S_Coordinates location = m_player.getLocation();
+	if (m_userActions.getActionState("QUIT")) {
+		stateMachine.clean();
+		return;
+	}
 
-	if (stateMachine.getUserActions().getActionState("MOVE_PLAYER_UP")) {
-		m_city.moveActor(&m_player, location.x, location.y - 1);
-	}
-	else if (stateMachine.getUserActions().getActionState("MOVE_PLAYER_DOWN")) {
-		m_city.moveActor(&m_player, location.x, location.y + 1);
-	}
-	else if (stateMachine.getUserActions().getActionState("MOVE_PLAYER_LEFT")) {
-		m_city.moveActor(&m_player, location.x - 1, location.y);
-	}
-	else if (stateMachine.getUserActions().getActionState("MOVE_PLAYER_RIGHT")) {
-		m_city.moveActor(&m_player, location.x + 1, location.y);
+	m_player.update(m_city);
+	for (auto actor : m_city.getActors()) {
+		if (actor.second != &m_player) {
+			actor.second->update(m_city);
+		}
 	}
 }
 
