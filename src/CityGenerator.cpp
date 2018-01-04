@@ -22,7 +22,8 @@ const int MIN_PROBA_INTERIOR = 8;
 const int MAX_PROBA_INTERIOR = 23;
 
 const int CAN_HAVE_FOE = 0;
-const int CAN_BE_START = 1;
+const int CAN_HAVE_SURVIVOR = 1;
+const int CAN_BE_START = 2;
 
 void CityGenerator::addCellType(int type, int index) {
 	if (m_mTypeCells.find(type) == m_mTypeCells.end()) {
@@ -218,6 +219,7 @@ void CityGenerator::_buildInterior(City& city, S_Rectangle& block) {
 		for (int x = block.x + 1; x < block.x + block.width - 1; ++x) {
 			city.setCell(x, y, INTERIOR_TILE);
 			addCellType(CAN_BE_START, y * city.getWidth() + x);
+			addCellType(CAN_HAVE_SURVIVOR, y * city.getWidth() + x);
 		}
 	}
 
