@@ -3,6 +3,7 @@
 #include "../Actor.hpp"
 #include "../Map.hpp"
 #include "../command/Move.hpp"
+#include "../command/Open.hpp"
 #include "../command/Attack.hpp"
 
 BehaviourPlayer::BehaviourPlayer(UserActions &userActions) :
@@ -27,6 +28,9 @@ bool BehaviourPlayer::_actionDirection(Actor *actor, Map &map) {
 
 	if (directionPressed) {
 		updated = _tryMove(actor, map, xDest, yDest);
+		if (!updated) {
+			updated = _tryOpen(map, xDest, yDest);
+		}
 		if (!updated) {
 			updated = _tryAttack(actor, map, xDest, yDest);
 		}
@@ -59,7 +63,14 @@ bool BehaviourPlayer::_isDirectionPressed(int &x, int &y) {
 
 bool BehaviourPlayer::_tryMove(Actor *actor, Map &map, int x, int y) {
 	MoveCommand command = MoveCommand();
-	bool moved = command.execute(actor, map, x, y);
+	bool moved = command.execute(map, x, y, actor);
+
+	return moved;
+}
+
+bool BehaviourPlayer::_tryOpen(Map &map, int x, int y) {
+	OpenCommand command = OpenCommand();
+	bool moved = command.execute(map, x, y);
 
 	return moved;
 }
@@ -71,5 +82,5 @@ bool BehaviourPlayer::_tryAttack(Actor *actor, Map &map, int x, int y) {
 	}
 
 	AttackCommand attack = AttackCommand();
-	return attack.execute(actor, map, x, y);
+	return attack.execute(map, x, y, actor);
 }

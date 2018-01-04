@@ -1,8 +1,9 @@
 #include "Attack.hpp"
 #include "../Map.hpp"
 #include "../Actor.hpp"
+#include <cstdarg>
 
-bool AttackCommand::execute(Actor* actor, Map &map, int xDest, int yDest) {
+bool AttackCommand::execute(Map &map, int xDest, int yDest, Actor *actor) {
 	Actor* target = map.getActorAt(xDest, yDest);
 	if (target == NULL) {
 		return false;

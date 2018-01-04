@@ -13,6 +13,7 @@ class BehaviourPlayer : public Behaviour {
 	UserActions &m_userActions;
 	bool _isDirectionPressed(int &x, int &y);
 	bool _tryMove(Actor *actor, Map &map, int x, int y);
+	bool _tryOpen(Map &map, int x, int y);
 	bool _tryAttack(Actor *actor, Map &map, int x, int y);
 	bool _actionDirection(Actor *actor, Map &map);
 

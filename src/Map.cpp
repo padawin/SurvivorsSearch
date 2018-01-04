@@ -64,11 +64,11 @@ bool Map::moveActor(Actor* actor, int newX, int newY) {
 	return true;
 }
 
-bool Map::areCoordinatesValid(int x, int y) {
+bool Map::areCoordinatesValid(int x, int y) const {
 	return x >= 0 && y >= 0 && x < getWidth() && y < getHeight();
 }
 
-bool Map::isCellWalkable(int x, int y) {
+bool Map::isCellWalkable(int x, int y) const {
 	if (!areCoordinatesValid(x, y)) {
 		return false;
 	}
@@ -76,14 +76,14 @@ bool Map::isCellWalkable(int x, int y) {
 	return Collision::hasFlag(getCell(x, y), Collision::FLAG_WALKABLE);
 }
 
-bool Map::isCellObstructingView(int x, int y) {
+bool Map::isCellObstructingView(int x, int y) const {
 	return Collision::hasFlag(getCell(x, y), Collision::FLAG_OBSTRUCTING_VIEW);
+}
+
+bool Map::isCellVisited(int x, int y) const {
+	return visitedGrid[_getCoordsKey(x, y)] == 1;
 }
 
 void Map::setCellVisited(int x, int y) {
 	visitedGrid[_getCoordsKey(x, y)] = 1;
-}
-
-bool Map::isCellVisited(int x, int y) {
-	return visitedGrid[_getCoordsKey(x, y)] == 1;
 }

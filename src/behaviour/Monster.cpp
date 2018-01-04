@@ -14,7 +14,7 @@ bool BehaviourMonster::update(Actor *actor, Map &map) {
 	S_Coordinates location = m_player.getLocation();
 	if (actor->isNextTo(&m_player)) {
 		AttackCommand command = AttackCommand();
-		command.execute(actor, map, location.x, location.y);
+		command.execute(map, location.x, location.y, actor);
 	}
 	else if (actor->seesActor(map, &m_player)) {
 		_executeMove(actor, map, location.x, location.y);
@@ -42,7 +42,7 @@ void BehaviourMonster::_executeMove(Actor *actor, Map &map, const int xTarget, c
 		else {
 			--yDest;
 		}
-		executed = command.execute(actor, map, xDest, yDest);
+		executed = command.execute(map, xDest, yDest, actor);
 		yDest = yActor;
 	}
 
@@ -55,7 +55,7 @@ void BehaviourMonster::_executeMove(Actor *actor, Map &map, const int xTarget, c
 		else {
 			--xDest;
 		}
-		executed = command.execute(actor, map, xDest, yDest);
+		executed = command.execute(map, xDest, yDest, actor);
 	}
 
 	// If could not move towards the player, then move randomly
@@ -88,6 +88,6 @@ void BehaviourMonster::_executeRandomMove(Actor *actor, Map &map) {
 				break;
 		}
 
-		commandExecuted = command.execute(actor, map, xDest, yDest);
+		commandExecuted = command.execute(map, xDest, yDest, actor);
 	}
 }
