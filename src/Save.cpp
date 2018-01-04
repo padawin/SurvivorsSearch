@@ -156,7 +156,7 @@ void Save::_loadCity(City &city, char cityName[20]) {
 	int visited;
 	sscanf(
 		line,
-		"c %s %s %d %d %d %c\n",
+		"c %s %s %d %d %d %d\n",
 		city.m_info.name,
 		city.m_info.internalName,
 		&city.m_info.location.x,
