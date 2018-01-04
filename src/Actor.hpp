@@ -3,7 +3,7 @@
 
 #include "types.hpp"
 #include "renderer/Actor.hpp"
-#include "Behaviour/Behaviour.hpp"
+#include "behaviour/Behaviour.hpp"
 #include "Map.hpp"
 #include <memory>
 

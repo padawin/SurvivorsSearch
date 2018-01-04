@@ -5,7 +5,7 @@
 #include "../Actor.hpp"
 #include "../City.hpp"
 #include "../ncurses/Map.hpp"
-#include "../Behaviour/Factory.hpp"
+#include "../behaviour/Factory.hpp"
 
 class InGame : public State {
 	private:

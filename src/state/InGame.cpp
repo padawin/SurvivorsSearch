@@ -2,7 +2,7 @@
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
-#include "../Behaviour/Player.hpp"
+#include "../behaviour/Player.hpp"
 
 InGame::InGame(UserActions &userActions) :
 	State(userActions),

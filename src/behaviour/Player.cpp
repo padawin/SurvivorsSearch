@@ -2,8 +2,8 @@
 #include "../UserActions.hpp"
 #include "../Actor.hpp"
 #include "../Map.hpp"
-#include "../Command/Move.hpp"
-#include "../Command/Attack.hpp"
+#include "../command/Move.hpp"
+#include "../command/Attack.hpp"
 
 BehaviourPlayer::BehaviourPlayer(UserActions &userActions) :
 	m_userActions(userActions)
