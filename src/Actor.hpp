@@ -48,7 +48,7 @@ class Actor {
 	void render(int displayShiftX, int displayShiftY);
 
 	bool isNextTo(Actor *actor);
-	bool seesActor(/*Map &map, */Actor *actor);
+	bool seesActor(Map &map, Actor *actor);
 
 	void attack(Actor *target);
 };
