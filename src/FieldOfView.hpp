@@ -17,7 +17,7 @@ class FieldOfView {
 
 	void _lightQuadrant(
 		Map &map,
-		S_Coordinates &location, int row,
+		S_Coordinates location, int row,
 		double startSlope, double endSlope,
 		int xx, int xy, int yx, int yy
 	);
@@ -26,7 +26,7 @@ class FieldOfView {
 
 	public:
 	FieldOfView(S_Rectangle visibleArea);
-	void calculate(Map &map, S_Coordinates &location);
+	void calculate(Map &map, S_Coordinates location);
 	std::vector<std::pair<S_Coordinates, int>> getVisibleCells(bool full);
 	S_Rectangle &getVisibleArea();
 	bool isVisible(int x, int y);

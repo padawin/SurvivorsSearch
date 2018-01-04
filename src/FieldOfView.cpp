@@ -30,7 +30,7 @@ bool FieldOfView::isVisible(int x, int y) {
 	return m_vVisibleCells[_getRelativeIndex(x, y)] == 1;
 }
 
-void FieldOfView::calculate(Map &map, S_Coordinates &location) {
+void FieldOfView::calculate(Map &map, S_Coordinates location) {
 	m_vVisibleCells.clear();
 	long unsigned sizeView = (unsigned) (m_visibleArea.width * m_visibleArea.height);
 	m_vVisibleCells.assign(sizeView, 0);
@@ -54,7 +54,7 @@ void FieldOfView::calculate(Map &map, S_Coordinates &location) {
 // http://www.roguebasin.com/index.php?title=FOV_using_recursive_shadowcasting
 void FieldOfView::_lightQuadrant(
 	Map &map,
-	S_Coordinates &location, int row,
+	S_Coordinates location, int row,
 	double startSlope, double endSlope,
 	int xx, int xy, int yx, int yy
 ) {
