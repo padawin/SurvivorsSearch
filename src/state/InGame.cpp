@@ -9,7 +9,7 @@ InGame::InGame(UserActions &userActions) :
 	m_player(Actor()),
 	m_city(City()),
 	m_cityRenderer(NCursesMap()),
-	m_behaviourFactory(BehaviourFactory(userActions))
+	m_behaviourFactory(BehaviourFactory(userActions, m_player))
 {
 	m_city.init();
 	std::shared_ptr<ActorRenderer> renderer(new NCursesActor('@'));
