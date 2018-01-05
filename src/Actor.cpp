@@ -14,8 +14,6 @@ int Actor::getMaxHealth() { return m_iMaxHealth; }
 int Actor::getDefence() { return m_iDefence; }
 int Actor::getAttack() { return m_iAttack; }
 
-char* Actor::getCity() { return m_sCity; }
-
 S_Coordinates Actor::getLocation() { return m_location; }
 
 bool Actor::isDead() {

@@ -38,10 +38,9 @@ void Save::create(std::shared_ptr<Actor> player, City &city) {
 	saveCity(city);
 
 	// Create player save file
-	strncpy(player->m_sCity, city.m_info.internalName, 20);
 	player->m_location.x = startX;
 	player->m_location.y = startY;
-	savePlayer(player);
+	savePlayer(player, city);
 }
 
 void Save::_saveCity(FILE *mapFile, S_CityInfo &city) {
@@ -99,14 +98,14 @@ bool Save::saveCity(City &city) {
 	return true;
 }
 
-bool Save::savePlayer(std::shared_ptr<Actor> player) {
+bool Save::savePlayer(std::shared_ptr<Actor> player, City &city) {
 	std::string playerPath = Utils::getDataPath() + "/" + PLAYER_FILE;
 	FILE *playerFile = fopen(playerPath.c_str(), "w");
 	if (playerFile == NULL) {
 		return false;
 	}
 
-	fprintf(playerFile, "c %s\n", player->m_sCity);
+	fprintf(playerFile, "c %s\n", city.m_info.internalName);
 	fprintf(playerFile, "l %d %d\n", player->m_location.x, player->m_location.y);
 	fprintf(playerFile, "h %d\n", player->m_iHealth);
 
@@ -115,11 +114,12 @@ bool Save::savePlayer(std::shared_ptr<Actor> player) {
 }
 
 void Save::load(std::shared_ptr<Actor> player, City &city) {
-	_loadPlayer(player);
-	_loadCity(city, player->m_sCity);
+	char cityName[20];
+	_loadPlayer(player, cityName);
+	_loadCity(city, cityName);
 }
 
-void Save::_loadPlayer(std::shared_ptr<Actor> player) {
+void Save::_loadPlayer(std::shared_ptr<Actor> player, char cityInternalName[20]) {
 	std::ifstream fin;
 	std::string file = Utils::getDataPath() + "/" + PLAYER_FILE;
 	fin.open(file.c_str());
@@ -134,7 +134,7 @@ void Save::_loadPlayer(std::shared_ptr<Actor> player) {
 
 		char type = *line;
 		if (type == 'c') {
-			sscanf(line, "c %s\n", player->m_sCity);
+			sscanf(line, "c %s\n", cityInternalName);
 		}
 		else if (type == 'l') {
 			sscanf(line, "l %d %d\n", &player->m_location.x, &player->m_location.y);
