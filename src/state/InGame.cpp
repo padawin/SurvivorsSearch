@@ -7,7 +7,7 @@
 
 InGame::InGame(UserActions &userActions) :
 	State(userActions),
-	m_player(std::shared_ptr<Actor>(new Actor())),
+	m_player(std::shared_ptr<Actor>(new Actor(PLAYER))),
 	m_city(City()),
 	m_cityRenderer(NCursesMap()),
 	m_actorRenderer(NCursesActor()),
