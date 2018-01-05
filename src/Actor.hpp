@@ -11,7 +11,6 @@ enum E_ActorOrientation {LEFT, RIGHT};
 class Actor {
 	friend class Save;
 	private:
-	char m_sCity[20];
 	int m_iHealth = 0;
 	int m_iMaxHealth = 0;
 	int m_iDefence = 0;
@@ -38,7 +37,6 @@ class Actor {
 
 	void setX(int x);
 	void setY(int y);
-	char* getCity();
 	S_Coordinates getLocation();
 
 	bool update(Map &map);
