@@ -32,7 +32,7 @@ bool BehaviourPlayer::_actionDirection(Actor *actor, Map &map) {
 			updated = _tryOpen(map, xDest, yDest);
 		}
 		if (!updated) {
-			updated = _tryAttack(actor, map, xDest, yDest);
+			updated = _tryInteractActor(actor, map, xDest, yDest);
 		}
 	}
 
@@ -75,7 +75,7 @@ bool BehaviourPlayer::_tryOpen(Map &map, int x, int y) {
 	return moved;
 }
 
-bool BehaviourPlayer::_tryAttack(Actor *actor, Map &map, int x, int y) {
+bool BehaviourPlayer::_tryInteractActor(Actor *actor, Map &map, int x, int y) {
 	std::shared_ptr<Actor> target = map.getActorAt(x, y);
 	if (target == NULL || target->getType() != FOE) {
 		return false;

@@ -14,7 +14,7 @@ class BehaviourPlayer : public Behaviour {
 	bool _isDirectionPressed(int &x, int &y);
 	bool _tryMove(Actor *actor, Map &map, int x, int y);
 	bool _tryOpen(Map &map, int x, int y);
-	bool _tryAttack(Actor *actor, Map &map, int x, int y);
+	bool _tryInteractActor(Actor *actor, Map &map, int x, int y);
 	bool _actionDirection(Actor *actor, Map &map);
 
 	public:
