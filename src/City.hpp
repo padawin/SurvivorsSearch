@@ -14,7 +14,6 @@ class City : public Map {
 	public:
 	int getWidth() const { return 530; }
 	int getHeight() const { return 230; }
-	void addSurvivor(int cellIndex, bool saved = false);
 };
 
 #endif
