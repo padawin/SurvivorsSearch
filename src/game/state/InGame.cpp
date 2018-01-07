@@ -14,6 +14,7 @@ InGame::InGame(UserActions &userActions, Dialogue &dialogues) :
 	m_dialogueView(DialogueWindow(userActions, dialogues)),
 	m_cityRenderer(NCursesMap(m_gameView)),
 	m_actorRenderer(NCursesActor(m_gameView)),
+	m_objectRenderer(NCursesObject()),
 	m_behaviourFactory(BehaviourFactory(userActions, m_player))
 {
 	m_camera.x = 0;

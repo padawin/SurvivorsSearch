@@ -10,6 +10,7 @@
 #include "../ncurses/Window.hpp"
 #include "../ncurses/Notifications.hpp"
 #include "../ncurses/Dialogue.hpp"
+#include "../ncurses/Object.hpp"
 #include "../../behaviour/Factory.hpp"
 
 class InGame : public State {
@@ -21,6 +22,7 @@ class InGame : public State {
 	DialogueWindow m_dialogueView;
 	NCursesMap m_cityRenderer;
 	NCursesActor m_actorRenderer;
+	NCursesObject m_objectRenderer;
 	BehaviourFactory m_behaviourFactory;
 	S_Rectangle m_camera = {};
 
