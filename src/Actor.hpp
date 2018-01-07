@@ -7,7 +7,7 @@
 #include <memory>
 
 enum E_ActorType {PLAYER, SURVIVOR, FOE, FRIEND};
-enum E_ActorRace {HUMAN};
+enum E_ActorRace {HUMAN, ZOMBIE};
 
 class Actor {
 	friend class Save;
