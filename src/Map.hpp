@@ -27,12 +27,14 @@ class Map {
 	public:
 	virtual ~Map();
 	virtual void init();
+	virtual void update() = 0;
 	virtual int getWidth() const { return 0; }
 	virtual int getHeight() const { return 0; }
 	virtual unsigned int getSize() const;
 	virtual unsigned char getCell(const int x, const int y) const;
 	virtual void setCell(const int x, const int y, char c);
 	void addActor(std::shared_ptr<Actor> actor);
+	void removeActor(std::shared_ptr<Actor> actor);
 	std::unordered_map<int, std::shared_ptr<Actor> > getActors();
 	std::shared_ptr<Actor> getActorAt(int x, int y) const;
 	bool moveActor(Actor* actor, int newX, int newY);
