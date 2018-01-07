@@ -49,7 +49,7 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 		unsigned long cellIndex = i + (unsigned long) rand() % (survivorsPossibleLocations.size() - i);
 		int x = survivorsPossibleLocations[cellIndex] % city.getWidth();
 		int y = survivorsPossibleLocations[cellIndex] / city.getWidth();
-		std::shared_ptr<Actor> survivor(new Actor(FRIEND));
+		std::shared_ptr<Actor> survivor(new Actor(HUMAN, FRIEND));
 		survivor->setX(x);
 		survivor->setY(y);
 		city.addActor(survivor);
