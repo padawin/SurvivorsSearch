@@ -4,7 +4,10 @@
 
 #define LIMIT_FIELD_OF_VIEW 6
 
-Actor::Actor(E_ActorType type) : m_eType(type) {
+Actor::Actor(E_ActorRace race, E_ActorType type) :
+	m_eRace(race),
+	m_eType(type)
+{
 }
 
 void Actor::setBehaviour(std::shared_ptr<Behaviour> behaviour) { m_behaviour = behaviour; }
@@ -17,6 +20,7 @@ int Actor::getMaxHealth() { return m_iMaxHealth; }
 int Actor::getDefence() { return m_iDefence; }
 int Actor::getAttack() { return m_iAttack; }
 E_ActorType Actor::getType() { return m_eType; }
+E_ActorRace Actor::getRace() { return m_eRace; }
 
 S_Coordinates Actor::getLocation() { return m_location; }
 

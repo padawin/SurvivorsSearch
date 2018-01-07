@@ -6,7 +6,8 @@
 #include "Map.hpp"
 #include <memory>
 
-enum E_ActorType {PLAYER, FOE, FRIEND};
+enum E_ActorType {PLAYER, SURVIVOR, FOE, FRIEND};
+enum E_ActorRace {HUMAN};
 
 class Actor {
 	friend class Save;
@@ -15,6 +16,7 @@ class Actor {
 	int m_iMaxHealth = 0;
 	int m_iDefence = 0;
 	int m_iAttack = 0;
+	E_ActorRace m_eRace;
 	E_ActorType m_eType;
 
 	S_Coordinates m_location = S_Coordinates();
@@ -22,7 +24,7 @@ class Actor {
 	std::shared_ptr<Behaviour> m_behaviour = 0;
 
 	public:
-	Actor(E_ActorType type);
+	Actor(E_ActorRace race, E_ActorType type);
 	~Actor() {}
 	void setBehaviour(std::shared_ptr<Behaviour> behaviour);
 
@@ -31,6 +33,7 @@ class Actor {
 	int getDefence();
 	int getAttack();
 	E_ActorType getType();
+	E_ActorRace getRace();
 	void setHealth(int health);
 	void setMaxHealth(int maxHealth);
 	void setDefence(int defence);

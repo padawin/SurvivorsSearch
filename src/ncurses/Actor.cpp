@@ -8,5 +8,12 @@ void NCursesActor::render(std::shared_ptr<Actor> actor, FieldOfView &fov, int di
 	if (!fov.isVisible(x, y)) {
 		return;
 	}
-	mvaddch(displayShiftY + y, displayShiftX + x, '@');
+	unsigned char c = ' ';
+	if (actor->getType() == PLAYER) {
+		c = '@';
+	}
+	else if (actor->getType() == SURVIVOR) {
+		c = 'S';
+	}
+	mvaddch(displayShiftY + y, displayShiftX + x, c);
 }
