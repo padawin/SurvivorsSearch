@@ -5,6 +5,10 @@ void MapContent::addActor(int position, std::shared_ptr<Actor> actor) {
 	m_mActors[position] = actor;
 }
 
+void MapContent::removeActor(int position) {
+	m_mActors.erase(position);
+}
+
 std::unordered_map<int, std::shared_ptr<Actor> > &MapContent::getActors() {
 	return m_mActors;
 }

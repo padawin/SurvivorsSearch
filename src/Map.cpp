@@ -36,6 +36,11 @@ void Map::addActor(std::shared_ptr<Actor> actor) {
 	m_content.addActor(_getCoordsKey(location.x, location.y), actor);
 }
 
+void Map::removeActor(std::shared_ptr<Actor> actor) {
+	auto location = actor->getLocation();
+	m_content.removeActor(_getCoordsKey(location.x, location.y));
+}
+
 std::unordered_map<int, std::shared_ptr<Actor> > Map::getActors() {
 	return m_content.getActors();
 }

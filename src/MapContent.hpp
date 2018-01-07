@@ -12,6 +12,7 @@ class MapContent {
 
 	public:
 	void addActor(int position, std::shared_ptr<Actor> actor);
+	void removeActor(int position);
 	std::unordered_map<int, std::shared_ptr<Actor> > &getActors();
 	bool moveActor(int oldPosition, int newPosition);
 	std::shared_ptr<Actor> getActorAt(int key) const;
