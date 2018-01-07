@@ -178,7 +178,7 @@ void Save::_loadCity(City &city, char cityName[20]) {
 		}
 		int x, y;
 		sscanf(line, "a %d %d\n", &x, &y);
-		std::shared_ptr<Actor> survivor(new Actor(HUMAN, FRIEND));
+		std::shared_ptr<Actor> survivor(new Actor(HUMAN, SURVIVOR));
 		survivor->setX(x);
 		survivor->setY(y);
 		city.addActor(survivor);
