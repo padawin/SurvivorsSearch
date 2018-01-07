@@ -5,6 +5,7 @@
 #include "../command/Move.hpp"
 #include "../command/Open.hpp"
 #include "../command/Attack.hpp"
+#include "../command/Teleport.hpp"
 
 BehaviourPlayer::BehaviourPlayer(UserActions &userActions) :
 	m_userActions(userActions)
@@ -77,10 +78,18 @@ bool BehaviourPlayer::_tryOpen(Map &map, int x, int y) {
 
 bool BehaviourPlayer::_tryInteractActor(Actor *actor, Map &map, int x, int y) {
 	std::shared_ptr<Actor> target = map.getActorAt(x, y);
-	if (target == NULL || target->getType() != FOE) {
-		return false;
+	bool res = false;
+	if (target == NULL) {
+		res = false;
+	}
+	else if (target->getType() == FOE) {
+		AttackCommand attack = AttackCommand();
+		res = attack.execute(map, x, y, actor);
+	}
+	else if (target->getType() == SURVIVOR) {
+		TeleportCommand attack = TeleportCommand();
+		res = attack.execute(map, x, y);
 	}
 
-	AttackCommand attack = AttackCommand();
-	return attack.execute(map, x, y, actor);
+	return res;
 }
