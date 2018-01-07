@@ -1,5 +1,4 @@
 #include "CityGenerator.hpp"
-#include "Actor.hpp"
 #include <string.h>
 
 const int MIN_WIDTH_BLOCK = 40;
@@ -47,14 +46,18 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	std::vector<int> survivorsPossibleLocations = m_mTypeCells[CAN_HAVE_SURVIVOR];
 	for (unsigned long i = 0, nbSurvivors = (unsigned long) city.m_info.count_survivors; i < nbSurvivors; ++i) {
 		unsigned long cellIndex = i + (unsigned long) rand() % (survivorsPossibleLocations.size() - i);
-		int x = survivorsPossibleLocations[cellIndex] % city.getWidth();
-		int y = survivorsPossibleLocations[cellIndex] / city.getWidth();
-		std::shared_ptr<Actor> survivor(new Actor(HUMAN, SURVIVOR));
-		survivor->setX(x);
-		survivor->setY(y);
-		city.addActor(survivor);
+		_addActor(city, survivorsPossibleLocations[cellIndex], HUMAN, SURVIVOR);
 		std::swap(survivorsPossibleLocations[i], survivorsPossibleLocations[cellIndex]);
 	}
+}
+
+void CityGenerator::_addActor(City &city, int cell, E_ActorRace race, E_ActorType type) {
+	int x = cell % city.getWidth();
+	int y = cell / city.getWidth();
+	std::shared_ptr<Actor> actor(new Actor(race, type));
+	actor->setX(x);
+	actor->setY(y);
+	city.addActor(actor);
 }
 
 void CityGenerator::_generateGridCity(City& city) {

@@ -2,6 +2,7 @@
 #define __CITY_GENERATOR__
 
 #include "City.hpp"
+#include "Actor.hpp"
 #include "types.hpp"
 #include <vector>
 #include <map>
@@ -27,6 +28,7 @@ class CityGenerator {
 	void _buildPark(City& city, S_Rectangle& block);
 	void _buildPool(City& city, S_Rectangle& block);
 	void _buildInterior(City& city, S_Rectangle& block);
+	void _addActor(City &city, int cell, E_ActorRace race, E_ActorType type);
 
 	public:
 	void generate(City& city, int *startX = 0, int *startY = 0);
