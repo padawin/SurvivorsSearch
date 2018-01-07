@@ -12,6 +12,7 @@ class City : public Map {
 	S_CityInfo m_info = S_CityInfo();
 
 	public:
+	void update();
 	int getWidth() const { return 530; }
 	int getHeight() const { return 230; }
 };
