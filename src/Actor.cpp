@@ -101,7 +101,7 @@ bool Actor::seesActor(Map &map, std::shared_ptr<Actor> actor) {
 }
 
 void Actor::attack(std::shared_ptr<Actor> target) {
-	int attackValue = rand() % m_iAttack;
+	int attackValue = rand() % (m_iAttack + 1);
 	// no branching max(0, damages)
 	target->m_iHealth -= attackValue & -(0 < attackValue);
 	// if the health is < 0 cap it at 0
