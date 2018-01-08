@@ -10,7 +10,7 @@
 
 class InGame : public State {
 	private:
-	std::shared_ptr<Actor> m_player = 0;
+	std::shared_ptr<Actor> m_player;
 	City m_city;
 	NCursesMap m_cityRenderer;
 	NCursesActor m_actorRenderer;
