@@ -7,7 +7,7 @@
 #include "WorldGenerator.hpp"
 #include "City.hpp"
 #include "CityGenerator.hpp"
-#include "Actor.hpp"
+#include "ActorFactory.hpp"
 
 const char* WORLD_FILE = "world.dat";
 const char* PLAYER_FILE = "player.dat";
@@ -181,7 +181,7 @@ void Save::_loadCity(City &city, char cityName[20]) {
 		int x, y, race, type;
 		sscanf(line, "a %d %d %d %d\n", &race, &type, &x, &y);
 		std::shared_ptr<Actor> survivor(
-			new Actor((E_ActorRace) race, (E_ActorType) type)
+			ActorFactory::createActor((E_ActorRace) race, (E_ActorType) type)
 		);
 		survivor->setX(x);
 		survivor->setY(y);

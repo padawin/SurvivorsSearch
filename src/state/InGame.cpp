@@ -4,10 +4,11 @@
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
 #include "../behaviour/Player.hpp"
+#include "../ActorFactory.hpp"
 
 InGame::InGame(UserActions &userActions) :
 	State(userActions),
-	m_player(std::shared_ptr<Actor>(new Actor(HUMAN, PLAYER))),
+	m_player(ActorFactory::createActor(HUMAN, PLAYER)),
 	m_city(City()),
 	m_cityRenderer(NCursesMap()),
 	m_actorRenderer(NCursesActor()),
