@@ -1,4 +1,5 @@
 #include "CityGenerator.hpp"
+#include "ActorFactory.hpp"
 #include <string.h>
 
 const int MIN_WIDTH_BLOCK = 40;
@@ -63,7 +64,7 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 void CityGenerator::_addActor(City &city, int cell, E_ActorRace race, E_ActorType type) {
 	int x = cell % city.getWidth();
 	int y = cell / city.getWidth();
-	std::shared_ptr<Actor> actor(new Actor(race, type));
+	std::shared_ptr<Actor> actor(ActorFactory::createActor(race, type));
 	actor->setX(x);
 	actor->setY(y);
 	city.addActor(actor);
