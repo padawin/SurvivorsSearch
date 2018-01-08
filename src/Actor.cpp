@@ -39,7 +39,7 @@ bool Actor::update(Map &map) {
 
 bool Actor::isNextTo(std::shared_ptr<Actor> actor) {
 	int x0 = m_location.x,
-		x1 = m_location.y,
+		x1 = actor->m_location.x,
 		y0 = m_location.y,
 		y1 = actor->m_location.y;
 	bool isNext = (x0 + 1 == x1) || (x1 + 1 == x0);
