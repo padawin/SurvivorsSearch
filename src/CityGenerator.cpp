@@ -223,8 +223,14 @@ void CityGenerator::_buildPark(City& city, S_Rectangle& block) {
 	block.type = BLOCK_PARK;
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
-			city.setCell(x, y, (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE);
-			_addCellType(CAN_HAVE_FOE, y * city.getWidth() + x);
+			int proba = rand() % 100;
+			if (proba > 10) {
+				city.setCell(x, y, TREE_TILE);
+				_addCellType(CAN_HAVE_FOE, y * city.getWidth() + x);
+			}
+			else {
+				city.setCell(x, y, GRASS_TILE);
+			}
 		}
 	}
 }
