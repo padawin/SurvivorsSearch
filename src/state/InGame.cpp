@@ -54,6 +54,10 @@ void InGame::update(StateMachine &stateMachine) {
 			actor.second->update(m_city);
 		}
 	}
+
+	if (m_player->isDead()) {
+		stateMachine.clean();
+	}
 }
 
 void InGame::render() {
