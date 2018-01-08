@@ -3,7 +3,7 @@
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
-#include "../behaviour/Player.hpp"
+#include "../behaviour/Factory.hpp"
 #include "../ActorFactory.hpp"
 
 InGame::InGame(UserActions &userActions) :
@@ -19,7 +19,6 @@ InGame::InGame(UserActions &userActions) :
 	m_camera.width = 79;
 	m_camera.height = 29;
 	m_city.init();
-	m_player->setBehaviour(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
 }
 
 std::string InGame::getStateID() const {
@@ -36,6 +35,9 @@ bool InGame::onEnter() {
 	}
 
 	m_city.addActor(m_player);
+	for (auto actor : m_city.getActors()) {
+		ActorFactory::setBehaviour(m_behaviourFactory, actor.second);
+	}
 	return true;
 }
 
