@@ -15,19 +15,29 @@ static int multipliers[4][8] = {
 FieldOfView::FieldOfView(S_Rectangle visibleArea) : m_visibleArea(visibleArea) {
 }
 
-long unsigned FieldOfView::_getRelativeIndex(int x, int y) {
+long FieldOfView::_getRelativeIndex(int x, int y) {
 	int relativeX = x - m_visibleArea.x,
 		relativeY = y - m_visibleArea.y;
-	return (long unsigned) (relativeY * m_visibleArea.width + relativeX);
+	if (relativeX < 0 || relativeX >= m_visibleArea.width ||
+		relativeY < 0 || relativeY >= m_visibleArea.height
+	) {
+		return -1;
+	}
+
+	return relativeY * m_visibleArea.width + relativeX;
 }
 
 void FieldOfView::_setCellVisible(Map &map, int x, int y) {
 	map.setCellVisited(x, y);
-	m_vVisibleCells[_getRelativeIndex(x, y)] = 1;
+	long index = _getRelativeIndex(x, y);
+	if (index >= 0) {
+		m_vVisibleCells[(unsigned) index] = 1;
+	}
 }
 
 bool FieldOfView::isVisible(int x, int y) {
-	return m_vVisibleCells[_getRelativeIndex(x, y)] == 1;
+	long index = _getRelativeIndex(x, y);
+	return index >= 0 && m_vVisibleCells[(unsigned) index] == 1;
 }
 
 void FieldOfView::calculate(Map &map, S_Coordinates location) {
