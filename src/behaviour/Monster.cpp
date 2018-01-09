@@ -27,8 +27,8 @@ bool BehaviourMonster::update(Actor *actor, Map &map) {
 
 void BehaviourMonster::_executeMove(Actor *actor, Map &map, const int xTarget, const int yTarget) {
 	bool executed = false;
-	S_Coordinates location = m_player->getLocation();
-	int xActor = location.y,
+	S_Coordinates location = actor->getLocation();
+	int xActor = location.x,
 		yActor = location.y,
 		xDest = xActor,
 		yDest = yActor;

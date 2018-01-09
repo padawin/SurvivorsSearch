@@ -6,6 +6,15 @@ std::shared_ptr<Actor> ActorFactory::createActor(E_ActorRace race, E_ActorType t
 	return actor;
 }
 
+void ActorFactory::setBehaviour(BehaviourFactory &behaviourFactory, std::shared_ptr<Actor> actor) {
+	if (actor->getType() == PLAYER) {
+		actor->setBehaviour(behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
+	}
+	else if (actor->getType() == FOE) {
+		actor->setBehaviour(behaviourFactory.getBehaviour(BEHAVIOUR_MONSTER));
+	}
+}
+
 void ActorFactory::_setAttributes(std::shared_ptr<Actor> actor) {
 	switch (actor->getRace()) {
 		case HUMAN:
