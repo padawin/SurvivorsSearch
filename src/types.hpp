@@ -33,4 +33,11 @@ typedef struct {
 enum E_ActorType {PLAYER, SURVIVOR, FOE, FRIEND};
 enum E_ActorRace {HUMAN, ZOMBIE};
 
+// int is the perthousand of chance of encounter
+typedef struct {
+	E_ActorRace race;
+	int from;
+	int to;
+} S_EnemyProbability;
+
 #endif
