@@ -30,4 +30,7 @@ typedef struct {
 	int type = 0;
 } S_Rectangle;
 
+enum E_ActorType {PLAYER, SURVIVOR, FOE, FRIEND};
+enum E_ActorRace {HUMAN, ZOMBIE};
+
 #endif
