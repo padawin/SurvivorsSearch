@@ -1,5 +1,5 @@
 #include "CityGenerator.hpp"
-#include "Actor.hpp"
+#include "ActorFactory.hpp"
 #include <string.h>
 
 const int MIN_WIDTH_BLOCK = 40;
@@ -47,14 +47,27 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	std::vector<int> survivorsPossibleLocations = m_mTypeCells[CAN_HAVE_SURVIVOR];
 	for (unsigned long i = 0, nbSurvivors = (unsigned long) city.m_info.count_survivors; i < nbSurvivors; ++i) {
 		unsigned long cellIndex = i + (unsigned long) rand() % (survivorsPossibleLocations.size() - i);
-		int x = survivorsPossibleLocations[cellIndex] % city.getWidth();
-		int y = survivorsPossibleLocations[cellIndex] / city.getWidth();
-		std::shared_ptr<Actor> survivor(new Actor(HUMAN, SURVIVOR));
-		survivor->setX(x);
-		survivor->setY(y);
-		city.addActor(survivor);
+		_addActor(city, survivorsPossibleLocations[cellIndex], HUMAN, SURVIVOR);
 		std::swap(survivorsPossibleLocations[i], survivorsPossibleLocations[cellIndex]);
 	}
+
+	// add enemies
+	int percentEnemies = 2;
+	for (int cell : m_mTypeCells[CAN_HAVE_FOE]) {
+		int hasEnemy = rand() % 100;
+		if (hasEnemy < percentEnemies) {
+			_addActor(city, cell, ZOMBIE, FOE);
+		}
+	}
+}
+
+void CityGenerator::_addActor(City &city, int cell, E_ActorRace race, E_ActorType type) {
+	int x = cell % city.getWidth();
+	int y = cell / city.getWidth();
+	std::shared_ptr<Actor> actor(ActorFactory::createActor(race, type));
+	actor->setX(x);
+	actor->setY(y);
+	city.addActor(actor);
 }
 
 void CityGenerator::_generateGridCity(City& city) {
@@ -211,8 +224,14 @@ void CityGenerator::_buildPark(City& city, S_Rectangle& block) {
 	block.type = BLOCK_PARK;
 	for (int y = block.y; y < block.y + block.height; ++y) {
 		for (int x = block.x; x < block.x + block.width; ++x) {
-			city.setCell(x, y, (rand() % 100) > 10 ? GRASS_TILE : TREE_TILE);
-			_addCellType(CAN_HAVE_FOE, y * city.getWidth() + x);
+			int proba = rand() % 100;
+			if (proba > 10) {
+				city.setCell(x, y, TREE_TILE);
+				_addCellType(CAN_HAVE_FOE, y * city.getWidth() + x);
+			}
+			else {
+				city.setCell(x, y, GRASS_TILE);
+			}
 		}
 	}
 }

@@ -3,11 +3,12 @@
 #include "../StateMachine.hpp"
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
-#include "../behaviour/Player.hpp"
+#include "../behaviour/Factory.hpp"
+#include "../ActorFactory.hpp"
 
 InGame::InGame(UserActions &userActions) :
 	State(userActions),
-	m_player(std::shared_ptr<Actor>(new Actor(HUMAN, PLAYER))),
+	m_player(ActorFactory::createActor(HUMAN, PLAYER)),
 	m_city(City()),
 	m_cityRenderer(NCursesMap()),
 	m_actorRenderer(NCursesActor()),
@@ -18,7 +19,6 @@ InGame::InGame(UserActions &userActions) :
 	m_camera.width = 79;
 	m_camera.height = 29;
 	m_city.init();
-	m_player->setBehaviour(m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
 }
 
 std::string InGame::getStateID() const {
@@ -35,6 +35,9 @@ bool InGame::onEnter() {
 	}
 
 	m_city.addActor(m_player);
+	for (auto actor : m_city.getActors()) {
+		ActorFactory::setBehaviour(m_behaviourFactory, actor.second);
+	}
 	return true;
 }
 
@@ -52,6 +55,10 @@ void InGame::update(StateMachine &stateMachine) {
 		if (actor.second != m_player) {
 			actor.second->update(m_city);
 		}
+	}
+
+	if (m_player->isDead()) {
+		stateMachine.clean();
 	}
 }
 

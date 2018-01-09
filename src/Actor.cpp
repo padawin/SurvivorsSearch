@@ -13,11 +13,9 @@ Actor::Actor(E_ActorRace race, E_ActorType type) :
 void Actor::setBehaviour(std::shared_ptr<Behaviour> behaviour) { m_behaviour = behaviour; }
 void Actor::setHealth(int health) { m_iHealth = health; }
 void Actor::setMaxHealth(int maxHealth) { m_iMaxHealth = maxHealth; }
-void Actor::setDefence(int defence) { m_iDefence = defence; }
 void Actor::setAttack(int attackValue) { m_iAttack = attackValue; }
 int Actor::getHealth() { return m_iHealth; }
 int Actor::getMaxHealth() { return m_iMaxHealth; }
-int Actor::getDefence() { return m_iDefence; }
 int Actor::getAttack() { return m_iAttack; }
 E_ActorType Actor::getType() { return m_eType; }
 E_ActorRace Actor::getRace() { return m_eRace; }
@@ -41,7 +39,7 @@ bool Actor::update(Map &map) {
 
 bool Actor::isNextTo(std::shared_ptr<Actor> actor) {
 	int x0 = m_location.x,
-		x1 = m_location.y,
+		x1 = actor->m_location.x,
 		y0 = m_location.y,
 		y1 = actor->m_location.y;
 	bool isNext = (x0 + 1 == x1) || (x1 + 1 == x0);
@@ -103,11 +101,9 @@ bool Actor::seesActor(Map &map, std::shared_ptr<Actor> actor) {
 }
 
 void Actor::attack(std::shared_ptr<Actor> target) {
-	int attackValue = rand() % m_iAttack;
-	int defence = rand() % target->m_iDefence;
-	int damages = attackValue - defence;
+	int attackValue = rand() % (m_iAttack + 1);
 	// no branching max(0, damages)
-	target->m_iHealth -= damages & -(0 < damages);
+	target->m_iHealth -= attackValue & -(0 < attackValue);
 	// if the health is < 0 cap it at 0
 	target->m_iHealth = target->m_iHealth & -(0 < target->m_iHealth);
 }

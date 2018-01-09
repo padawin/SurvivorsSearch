@@ -7,14 +7,13 @@
 #include <memory>
 
 enum E_ActorType {PLAYER, SURVIVOR, FOE, FRIEND};
-enum E_ActorRace {HUMAN};
+enum E_ActorRace {HUMAN, ZOMBIE};
 
 class Actor {
 	friend class Save;
 	private:
 	int m_iHealth = 0;
 	int m_iMaxHealth = 0;
-	int m_iDefence = 0;
 	int m_iAttack = 0;
 	E_ActorRace m_eRace;
 	E_ActorType m_eType;
@@ -30,13 +29,11 @@ class Actor {
 
 	int getHealth();
 	int getMaxHealth();
-	int getDefence();
 	int getAttack();
 	E_ActorType getType();
 	E_ActorRace getRace();
 	void setHealth(int health);
 	void setMaxHealth(int maxHealth);
-	void setDefence(int defence);
 	void setAttack(int attack);
 
 	bool isDead();
