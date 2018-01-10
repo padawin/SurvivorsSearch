@@ -11,7 +11,7 @@ void ActorFactory::setBehaviour(BehaviourFactory &behaviourFactory, std::shared_
 		actor->setBehaviour(behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER));
 	}
 	else if (actor->getType() == FOE) {
-		actor->setBehaviour(behaviourFactory.getBehaviour(BEHAVIOUR_MONSTER));
+		actor->setBehaviour(behaviourFactory.getBehaviour(BEHAVIOUR_ZOMBIE));
 	}
 }
 

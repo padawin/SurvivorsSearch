@@ -8,7 +8,7 @@
 
 class Behaviour;
 
-enum E_Behaviours {BEHAVIOUR_PLAYER, BEHAVIOUR_MONSTER};
+enum E_Behaviours {BEHAVIOUR_PLAYER, BEHAVIOUR_ZOMBIE};
 
 class BehaviourFactory {
 	private:
