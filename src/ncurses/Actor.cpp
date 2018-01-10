@@ -20,6 +20,9 @@ void NCursesActor::render(std::shared_ptr<Actor> actor, FieldOfView &fov, int di
 			case ZOMBIE:
 				c = 'z';
 				break;
+			case LARGE_ZOMBIE:
+				c = 'Z';
+				break;
 			case HUMAN:
 				c = 'H';
 				break;

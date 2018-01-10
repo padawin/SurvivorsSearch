@@ -16,6 +16,8 @@ class CityGenerator {
 	private:
 	std::map<int, std::vector<int>> m_mTypeCells = {};
 
+	static const S_EnemyProbability s_aEnemyProbabilities[];
+
 	void _addCellType(int type, int index);
 
 	void _generateGridCity(City& city);
@@ -29,6 +31,7 @@ class CityGenerator {
 	void _buildPool(City& city, S_Rectangle& block);
 	void _buildInterior(City& city, S_Rectangle& block);
 	void _addActor(City &city, int cell, E_ActorRace race, E_ActorType type);
+	void _addEnemies(City &city);
 
 	public:
 	void generate(City& city, int *startX = 0, int *startY = 0);

@@ -27,6 +27,11 @@ void ActorFactory::_setAttributes(std::shared_ptr<Actor> actor) {
 			actor->setMaxHealth(2);
 			actor->setAttack(1);
 			break;
+		case LARGE_ZOMBIE:
+			actor->setHealth(3);
+			actor->setMaxHealth(3);
+			actor->setAttack(2);
+			break;
 		default:
 			break;
 	}

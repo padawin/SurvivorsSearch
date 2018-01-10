@@ -26,6 +26,14 @@ const int CAN_HAVE_FOE = 0;
 const int CAN_HAVE_SURVIVOR = 1;
 const int CAN_BE_START = 2;
 
+const int PERCENT_ENEMIES = 2;
+
+const int NB_PROBA = 2;
+const S_EnemyProbability CityGenerator::s_aEnemyProbabilities[] = {
+	{ZOMBIE, 0, 700},
+	{LARGE_ZOMBIE, 701, 1000}
+};
+
 void CityGenerator::_addCellType(int type, int index) {
 	if (m_mTypeCells.find(type) == m_mTypeCells.end()) {
 		m_mTypeCells[type] = {};
@@ -51,12 +59,23 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 		std::swap(survivorsPossibleLocations[i], survivorsPossibleLocations[cellIndex]);
 	}
 
+	_addEnemies(city);
+}
+
+void CityGenerator::_addEnemies(City &city) {
 	// add enemies
-	int percentEnemies = 2;
+	int hasEnemy, enemyRace;
 	for (int cell : m_mTypeCells[CAN_HAVE_FOE]) {
-		int hasEnemy = rand() % 100;
-		if (hasEnemy < percentEnemies) {
-			_addActor(city, cell, ZOMBIE, FOE);
+		hasEnemy = rand() % 100;
+		if (hasEnemy >= PERCENT_ENEMIES) {
+			continue;
+		}
+		enemyRace = rand() % 1000;
+		for (int p = 0; p < NB_PROBA; ++p) {
+			if (s_aEnemyProbabilities[p].from <= enemyRace && enemyRace <= s_aEnemyProbabilities[p].to) {
+				_addActor(city, cell, s_aEnemyProbabilities[p].race, FOE);
+				break;
+			}
 		}
 	}
 }
