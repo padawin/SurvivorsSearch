@@ -1,31 +1,34 @@
 #include <limits.h>
-#include "Monster.hpp"
+#include "Zombie.hpp"
 #include "../command/Move.hpp"
 #include "../command/Attack.hpp"
 #include "../Actor.hpp"
 #include <math.h>
 #include <algorithm>
 
-BehaviourMonster::BehaviourMonster(std::shared_ptr<Actor> player) : m_player(player) {
+BehaviourZombie::BehaviourZombie(std::shared_ptr<Actor> player) : m_player(player) {
 }
 
-bool BehaviourMonster::update(Actor *actor, Map &map) {
+bool BehaviourZombie::update(Actor *actor, Map &map) {
 	bool updated = true;
 	S_Coordinates location = m_player->getLocation();
 	if (actor->isNextTo(m_player)) {
 		AttackCommand command = AttackCommand();
 		command.execute(map, location.x, location.y, actor);
 	}
-	else if (actor->seesActor(map, m_player)) {
+	else if (actor->getRace() == LARGE_ZOMBIE && actor->seesActor(map, m_player)) {
 		_executeMove(actor, map, location.x, location.y);
 	}
 	else {
-		_executeRandomMove(actor, map);
+		bool moves = (rand() % 100) > 60;
+		if (moves) {
+			_executeRandomMove(actor, map);
+		}
 	}
 	return updated;
 }
 
-void BehaviourMonster::_executeMove(Actor *actor, Map &map, const int xTarget, const int yTarget) {
+void BehaviourZombie::_executeMove(Actor *actor, Map &map, const int xTarget, const int yTarget) {
 	bool executed = false;
 	S_Coordinates location = actor->getLocation();
 	int xActor = location.x,
@@ -64,7 +67,7 @@ void BehaviourMonster::_executeMove(Actor *actor, Map &map, const int xTarget, c
 	}
 }
 
-void BehaviourMonster::_executeRandomMove(Actor *actor, Map &map) {
+void BehaviourZombie::_executeRandomMove(Actor *actor, Map &map) {
 	MoveCommand command = MoveCommand();
 	bool commandExecuted = false;
 	S_Coordinates location = actor->getLocation();
