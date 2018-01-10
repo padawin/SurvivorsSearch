@@ -53,11 +53,14 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 		std::swap(survivorsPossibleLocations[i], survivorsPossibleLocations[cellIndex]);
 	}
 
+	_addEnemies(city);
+}
+
+void CityGenerator::_addEnemies(City &city) {
 	// add enemies
+	int hasEnemy;
 	for (int cell : m_mTypeCells[CAN_HAVE_FOE]) {
-		int hasEnemy = rand() % 100;
-		if (hasEnemy < PERCENT_ENEMIES) {
-			_addActor(city, cell, ZOMBIE, FOE);
+		_addActor(city, cell, ZOMBIE, FOE);
 		}
 	}
 }
