@@ -20,7 +20,10 @@ bool BehaviourZombie::update(Actor *actor, Map &map) {
 		_executeMove(actor, map, location.x, location.y);
 	}
 	else {
-		_executeRandomMove(actor, map);
+		bool moves = (rand() % 100) > 60;
+		if (moves) {
+			_executeRandomMove(actor, map);
+		}
 	}
 	return updated;
 }
