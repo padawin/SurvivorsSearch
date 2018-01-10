@@ -26,6 +26,8 @@ const int CAN_HAVE_FOE = 0;
 const int CAN_HAVE_SURVIVOR = 1;
 const int CAN_BE_START = 2;
 
+const int PERCENT_ENEMIES = 2;
+
 void CityGenerator::_addCellType(int type, int index) {
 	if (m_mTypeCells.find(type) == m_mTypeCells.end()) {
 		m_mTypeCells[type] = {};
@@ -52,10 +54,9 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	}
 
 	// add enemies
-	int percentEnemies = 2;
 	for (int cell : m_mTypeCells[CAN_HAVE_FOE]) {
 		int hasEnemy = rand() % 100;
-		if (hasEnemy < percentEnemies) {
+		if (hasEnemy < PERCENT_ENEMIES) {
 			_addActor(city, cell, ZOMBIE, FOE);
 		}
 	}
