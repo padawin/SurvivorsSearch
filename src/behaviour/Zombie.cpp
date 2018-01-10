@@ -16,7 +16,7 @@ bool BehaviourZombie::update(Actor *actor, Map &map) {
 		AttackCommand command = AttackCommand();
 		command.execute(map, location.x, location.y, actor);
 	}
-	else if (actor->seesActor(map, m_player)) {
+	else if (actor->getRace() == LARGE_ZOMBIE && actor->seesActor(map, m_player)) {
 		_executeMove(actor, map, location.x, location.y);
 	}
 	else {
