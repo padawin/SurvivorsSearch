@@ -17,4 +17,6 @@ typedef struct {
 enum E_ActorType : short;
 enum E_ActorRace : short;
 
+enum E_Event {PLAYER_ATTACK, PLAYER_ATTACKED, PLAYER_SEEN, SURVIVOR_SAVED};
+
 #endif
