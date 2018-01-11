@@ -1,7 +1,7 @@
 #ifndef __TELEPORT_COMMAND__
 #define __TELEPORT_COMMAND__
 
-#include "Command.hpp"
+#include "../../Command.hpp"
 
 class Actor;
 class Map;

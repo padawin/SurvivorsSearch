@@ -8,7 +8,9 @@ class Collision {
 
 	static const int terrainFlags[];
 
-	static bool hasFlag(int tile, int flag);
+	static bool hasFlag(int tile, int flag) {
+		return Collision::terrainFlags[tile] & flag;
+	}
 };
 
 #endif

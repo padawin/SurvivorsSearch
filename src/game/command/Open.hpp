@@ -1,8 +1,8 @@
 #ifndef __OPEN_COMMAND__
 #define __OPEN_COMMAND__
 
-#include "Command.hpp"
-#include "../Map.hpp"
+#include "../../Command.hpp"
+#include "../../Map.hpp"
 
 class OpenCommand : public Command {
 	public:

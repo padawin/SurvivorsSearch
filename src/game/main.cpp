@@ -1,9 +1,9 @@
-#include "Game.hpp"
+#include "../Game.hpp"
+#include "../StateMachine.hpp"
+#include "../UserActions.hpp"
+#include "state/InGame.hpp"
 #include "ncurses/Renderer.hpp"
 #include "ncurses/InputHandler.hpp"
-#include "StateMachine.hpp"
-#include "state/InGame.hpp"
-#include "UserActions.hpp"
 #include <locale.h>
 #include <memory>
 #include <limits.h>

@@ -1,8 +1,8 @@
 #ifndef __BEHAVIOUR_PLAYER__
 #define __BEHAVIOUR_PLAYER__
 
-#include "Behaviour.hpp"
-#include "../UserActions.hpp"
+#include "../../behaviour/Behaviour.hpp"
+#include "../../UserActions.hpp"
 #include <cstdint>
 
 class Map;

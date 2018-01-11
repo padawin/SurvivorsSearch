@@ -1,7 +1,7 @@
 #ifndef __NCURSES_RENDERER__
 #define __NCURSES_RENDERER__
 
-#include "../renderer/Renderer.hpp"
+#include "../../renderer/Renderer.hpp"
 
 class NCursesRenderer : public Renderer {
 	public:

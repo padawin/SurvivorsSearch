@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string.h>
 #include <sys/stat.h>
-#include "Utils.hpp"
+#include "../Utils.hpp"
 #include "World.hpp"
 #include "WorldGenerator.hpp"
 #include "City.hpp"
@@ -22,7 +22,7 @@ void Save::clean() {
 	Utils::emptyFolder(Utils::getDataPath().c_str());
 }
 
-void Save::create(std::shared_ptr<Actor> player, City &city) {
+void Save::create(std::shared_ptr<GameActor> player, City &city) {
 	World world;
 	Utils::createFolder(Utils::getDataPath().c_str());
 	WorldGenerator worldGenerator;
@@ -100,7 +100,7 @@ bool Save::saveCity(City &city) {
 	return true;
 }
 
-bool Save::savePlayer(std::shared_ptr<Actor> player, City &city) {
+bool Save::savePlayer(std::shared_ptr<GameActor> player, City &city) {
 	std::string playerPath = Utils::getDataPath() + "/" + PLAYER_FILE;
 	FILE *playerFile = fopen(playerPath.c_str(), "w");
 	if (playerFile == NULL) {
@@ -115,13 +115,13 @@ bool Save::savePlayer(std::shared_ptr<Actor> player, City &city) {
 	return true;
 }
 
-void Save::load(std::shared_ptr<Actor> player, City &city) {
+void Save::load(std::shared_ptr<GameActor> player, City &city) {
 	char cityName[20];
 	_loadPlayer(player, cityName);
 	_loadCity(city, cityName);
 }
 
-void Save::_loadPlayer(std::shared_ptr<Actor> player, char cityInternalName[20]) {
+void Save::_loadPlayer(std::shared_ptr<GameActor> player, char cityInternalName[20]) {
 	std::ifstream fin;
 	std::string file = Utils::getDataPath() + "/" + PLAYER_FILE;
 	fin.open(file.c_str());
@@ -180,7 +180,7 @@ void Save::_loadCity(City &city, char cityName[20]) {
 		}
 		int x, y, race, type;
 		sscanf(line, "a %d %d %d %d\n", &race, &type, &x, &y);
-		std::shared_ptr<Actor> survivor(
+		std::shared_ptr<GameActor> survivor(
 			ActorFactory::createActor((E_ActorRace) race, (E_ActorType) type)
 		);
 		survivor->setX(x);

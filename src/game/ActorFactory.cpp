@@ -1,7 +1,7 @@
 #include "ActorFactory.hpp"
 
-std::shared_ptr<Actor> ActorFactory::createActor(E_ActorRace race, E_ActorType type) {
-	std::shared_ptr<Actor> actor(new Actor(race, type));
+std::shared_ptr<GameActor> ActorFactory::createActor(E_ActorRace race, E_ActorType type) {
+	std::shared_ptr<GameActor> actor(new GameActor(race, type));
 	_setAttributes(actor);
 	return actor;
 }
@@ -15,7 +15,7 @@ void ActorFactory::setBehaviour(BehaviourFactory &behaviourFactory, std::shared_
 	}
 }
 
-void ActorFactory::_setAttributes(std::shared_ptr<Actor> actor) {
+void ActorFactory::_setAttributes(std::shared_ptr<GameActor> actor) {
 	switch (actor->getRace()) {
 		case HUMAN:
 			actor->setHealth(3);

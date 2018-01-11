@@ -10,21 +10,12 @@ Actor::Actor(E_ActorRace race, E_ActorType type) :
 {
 }
 
-void Actor::setBehaviour(std::shared_ptr<Behaviour> behaviour) { m_behaviour = behaviour; }
-void Actor::setHealth(int health) { m_iHealth = health; }
-void Actor::setMaxHealth(int maxHealth) { m_iMaxHealth = maxHealth; }
-void Actor::setAttack(int attackValue) { m_iAttack = attackValue; }
-int Actor::getHealth() { return m_iHealth; }
-int Actor::getMaxHealth() { return m_iMaxHealth; }
-int Actor::getAttack() { return m_iAttack; }
 E_ActorType Actor::getType() { return m_eType; }
 E_ActorRace Actor::getRace() { return m_eRace; }
 
-S_Coordinates Actor::getLocation() { return m_location; }
+void Actor::setBehaviour(std::shared_ptr<Behaviour> behaviour) { m_behaviour = behaviour; }
 
-bool Actor::isDead() {
-	return m_iHealth == 0;
-}
+S_Coordinates Actor::getLocation() { return m_location; }
 
 void Actor::setX(int x) { m_location.x = x; }
 void Actor::setY(int y) { m_location.y = y; }
@@ -98,12 +89,4 @@ bool Actor::seesActor(Map &map, std::shared_ptr<Actor> actor) {
 	}
 
 	return actor1SeesActor2;
-}
-
-void Actor::attack(std::shared_ptr<Actor> target) {
-	int attackValue = rand() % (m_iAttack + 1);
-	// no branching max(0, damages)
-	target->m_iHealth -= attackValue & -(0 < attackValue);
-	// if the health is < 0 cap it at 0
-	target->m_iHealth = target->m_iHealth & -(0 < target->m_iHealth);
 }

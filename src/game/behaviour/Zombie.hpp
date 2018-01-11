@@ -1,11 +1,12 @@
 #ifndef __BEHAVIOUR_ZOMBIE__
 #define __BEHAVIOUR_ZOMBIE__
 
-#include "Behaviour.hpp"
+#include "../../behaviour/Behaviour.hpp"
 #include <memory>
 
 class rRpg;
 class Actor;
+class GameActor;
 
 class BehaviourZombie : public Behaviour {
 	private:

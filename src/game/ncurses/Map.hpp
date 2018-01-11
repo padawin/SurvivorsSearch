@@ -1,7 +1,7 @@
 #ifndef __NCURSES_MAP__
 #define __NCURSES_MAP__
 
-#include "../renderer/Map.hpp"
+#include "../../renderer/Map.hpp"
 #include "../types.hpp"
 
 class NCursesMap : public MapRenderer {
