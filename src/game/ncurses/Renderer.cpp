@@ -1,5 +1,5 @@
+#include "../../Game.hpp"
 #include "Renderer.hpp"
-#include "../Game.hpp"
 #include <ncurses.h>
 #include <signal.h>
 #include <sys/time.h>

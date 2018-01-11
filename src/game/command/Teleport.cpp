@@ -1,5 +1,5 @@
 #include "Teleport.hpp"
-#include "../Map.hpp"
+#include "../../Map.hpp"
 #include "../Actor.hpp"
 
 bool TeleportCommand::execute(Map &map, int xDest, int yDest, Actor* actor __attribute__((unused))) {

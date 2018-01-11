@@ -2,8 +2,8 @@
 #include "Map.hpp"
 #include "renderData.hpp"
 #include "../Actor.hpp"
-#include "../Map.hpp"
-#include "../MapContent.hpp"
+#include "../../Map.hpp"
+#include "../../MapContent.hpp"
 
 void NCursesMap::render(Map &map, FieldOfView &fov, int shiftX, int shiftY) {
 	for (auto cell : fov.getVisibleCells(true)) {

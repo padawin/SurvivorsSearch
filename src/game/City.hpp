@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "types.hpp"
-#include "Map.hpp"
+#include "../Map.hpp"
 
 class City : public Map {
 	friend class CityGenerator;

@@ -1,4 +1,4 @@
-#include "Collision.hpp"
+#include "../Collision.hpp"
 
 const int Collision::terrainFlags[] = {
 	// WALL_TILE
@@ -22,7 +22,3 @@ const int Collision::terrainFlags[] = {
 	// OPEN_DOOR_TILE
 	FLAG_WALKABLE
 };
-
-bool Collision::hasFlag(int tile, int flag) {
-	return Collision::terrainFlags[tile] & flag;
-}

@@ -1,7 +1,7 @@
 #ifndef __NCURSES_ACTOR__
 #define __NCURSES_ACTOR__
 
-#include "../renderer/Actor.hpp"
+#include "../../renderer/Actor.hpp"
 
 class NCursesActor : public ActorRenderer {
 	public:

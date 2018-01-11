@@ -1,10 +1,10 @@
-#include "InGame.hpp"
-#include "../FieldOfView.hpp"
-#include "../StateMachine.hpp"
+#include "../../FieldOfView.hpp"
+#include "../../StateMachine.hpp"
+#include "../../behaviour/Factory.hpp"
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
-#include "../behaviour/Factory.hpp"
 #include "../ActorFactory.hpp"
+#include "InGame.hpp"
 
 InGame::InGame(UserActions &userActions) :
 	State(userActions),
