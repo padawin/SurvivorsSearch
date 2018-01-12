@@ -3,6 +3,12 @@
 
 const short MAX_NB_MESSAGES = 20;
 
+Notifications::Notifications() : m_qMessages(Queue()) {}
+
+Notifications::~Notifications() {
+	m_qMessages.clear();
+}
+
 void Notifications::onNotify(E_Event event, Actor &actor) {
 	char message[64] = "\0";
 	if (event == PLAYER_ATTACKED) {

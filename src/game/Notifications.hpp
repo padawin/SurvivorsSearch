@@ -2,14 +2,16 @@
 #define __MESSAGES_VIEW__
 
 #include <string>
-#include <vector>
 #include "../Observer.hpp"
+#include "../Queue.hpp"
 
 class Notifications : public Observer {
 	private:
-	std::vector<std::string> m_vMessages = {};
+	Queue m_qMessages;
 
 	public:
+	Notifications();
+	~Notifications();
 	void onNotify(E_Event event, Actor &actor);
 };
 
