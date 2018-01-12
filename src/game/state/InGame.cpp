@@ -12,7 +12,8 @@ InGame::InGame(UserActions &userActions) :
 	m_gameView(NCurseWindow()),
 	m_cityRenderer(NCursesMap(m_gameView)),
 	m_actorRenderer(NCursesActor(m_gameView)),
-	m_behaviourFactory(BehaviourFactory(userActions, m_player))
+	m_behaviourFactory(BehaviourFactory(userActions, m_player)),
+	m_notifications(Notifications())
 {
 	m_camera.x = 0;
 	m_camera.y = 0;

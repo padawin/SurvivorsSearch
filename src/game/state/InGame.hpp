@@ -4,6 +4,7 @@
 #include "../../State.hpp"
 #include "../Actor.hpp"
 #include "../City.hpp"
+#include "../Notifications.hpp"
 #include "../ncurses/Map.hpp"
 #include "../ncurses/Actor.hpp"
 #include "../ncurses/Window.hpp"
@@ -18,6 +19,7 @@ class InGame : public State {
 	NCursesActor m_actorRenderer;
 	BehaviourFactory m_behaviourFactory;
 	S_Rectangle m_camera = {};
+	Notifications m_notifications;
 
 	void _renderGame();
 
