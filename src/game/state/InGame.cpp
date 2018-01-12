@@ -20,6 +20,8 @@ InGame::InGame(UserActions &userActions) :
 	m_camera.width = 79;
 	m_camera.height = 29;
 	m_city.init();
+	m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER)->addObserver(&m_notifications);
+	m_behaviourFactory.getBehaviour(BEHAVIOUR_ZOMBIE)->addObserver(&m_notifications);
 }
 
 std::string InGame::getStateID() const {
