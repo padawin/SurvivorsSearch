@@ -1,6 +1,5 @@
 #include "../../FieldOfView.hpp"
 #include "../../StateMachine.hpp"
-#include "../../behaviour/Factory.hpp"
 #include "../Save.hpp"
 #include "../ncurses/Actor.hpp"
 #include "../ActorFactory.hpp"
