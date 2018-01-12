@@ -20,6 +20,7 @@ typedef struct {
 
 enum E_ActorType : short {PLAYER, SURVIVOR, FOE, FRIEND};
 enum E_ActorRace : short {HUMAN, ZOMBIE, LARGE_ZOMBIE};
+enum E_Behaviours : short {BEHAVIOUR_PLAYER, BEHAVIOUR_ZOMBIE};
 
 // int is the perthousand of chance of encounter
 typedef struct {

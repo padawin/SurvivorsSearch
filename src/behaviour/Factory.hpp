@@ -8,8 +8,6 @@
 
 class Behaviour;
 
-enum E_Behaviours {BEHAVIOUR_PLAYER, BEHAVIOUR_ZOMBIE};
-
 class BehaviourFactory {
 	private:
 	std::vector<std::shared_ptr<Behaviour>> m_vBehaviours = {};
