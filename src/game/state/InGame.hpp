@@ -17,6 +17,7 @@ class InGame : public State {
 	BehaviourFactory m_behaviourFactory;
 	S_Rectangle m_camera = {};
 
+	void _renderGame();
 
 	public:
 	InGame(UserActions &userActions);

@@ -63,6 +63,10 @@ void InGame::update(StateMachine &stateMachine) {
 }
 
 void InGame::render() {
+	_renderGame();
+}
+
+void InGame::_renderGame() {
 	S_Rectangle visibleArea = m_camera;
 	visibleArea.x = m_player->getLocation().x - m_camera.width / 2;
 	visibleArea.y = m_player->getLocation().y - m_camera.height / 2;
