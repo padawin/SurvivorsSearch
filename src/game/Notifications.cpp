@@ -12,10 +12,10 @@ Notifications::~Notifications() {
 void Notifications::onNotify(E_Event event, Actor &actor) {
 	char message[64] = "\0";
 	if (event == PLAYER_ATTACKED) {
-		sprintf(message, "You are hit by %d", actor.getRace());
+		sprintf(message, "You are hit by %s", actor.getName().c_str());
 	}
 	else if (event == PLAYER_ATTACK) {
-		sprintf(message, "You hit %d", actor.getRace());
+		sprintf(message, "You hit %s", actor.getName().c_str());
 	}
 	else if (event == SURVIVOR_SAVED) {
 		sprintf(message, "You saved a survivor");

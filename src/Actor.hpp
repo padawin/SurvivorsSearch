@@ -11,6 +11,7 @@ class Actor {
 	std::shared_ptr<Behaviour> m_behaviour = 0;
 	E_ActorRace m_eRace;
 	E_ActorType m_eType;
+	std::string m_sName = "";
 
 	protected:
 	S_Coordinates m_location = S_Coordinates();
@@ -19,9 +20,11 @@ class Actor {
 	Actor(E_ActorRace race, E_ActorType type);
 	virtual ~Actor() {}
 	void setBehaviour(std::shared_ptr<Behaviour> behaviour);
+	void setName(std::string name);
 
 	E_ActorType getType();
 	E_ActorRace getRace();
+	std::string getName();
 
 	virtual bool isDead() = 0;
 	void setX(int x);

@@ -21,16 +21,19 @@ void ActorFactory::_setAttributes(std::shared_ptr<GameActor> actor) {
 			actor->setHealth(3);
 			actor->setMaxHealth(3);
 			actor->setAttack(1);
+			actor->setName("a Human");
 			break;
 		case ZOMBIE:
 			actor->setHealth(2);
 			actor->setMaxHealth(2);
 			actor->setAttack(1);
+			actor->setName("a Zombie");
 			break;
 		case LARGE_ZOMBIE:
 			actor->setHealth(3);
 			actor->setMaxHealth(3);
 			actor->setAttack(2);
+			actor->setName("a Large Zombie");
 			break;
 		default:
 			break;
