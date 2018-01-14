@@ -6,12 +6,14 @@
 #include "../City.hpp"
 #include "../ncurses/Map.hpp"
 #include "../ncurses/Actor.hpp"
+#include "../ncurses/Window.hpp"
 #include "../../behaviour/Factory.hpp"
 
 class InGame : public State {
 	private:
 	std::shared_ptr<GameActor> m_player;
 	City m_city;
+	NCurseWindow m_gameView;
 	NCursesMap m_cityRenderer;
 	NCursesActor m_actorRenderer;
 	BehaviourFactory m_behaviourFactory;

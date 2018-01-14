@@ -10,8 +10,9 @@ InGame::InGame(UserActions &userActions) :
 	State(userActions),
 	m_player(ActorFactory::createActor(HUMAN, PLAYER)),
 	m_city(City()),
-	m_cityRenderer(NCursesMap()),
-	m_actorRenderer(NCursesActor()),
+	m_gameView(NCurseWindow()),
+	m_cityRenderer(NCursesMap(m_gameView)),
+	m_actorRenderer(NCursesActor(m_gameView)),
 	m_behaviourFactory(BehaviourFactory(userActions, m_player))
 {
 	m_camera.x = 0;
@@ -63,17 +64,23 @@ void InGame::update(StateMachine &stateMachine) {
 }
 
 void InGame::render() {
+	m_gameView.init(m_camera);
+
 	_renderGame();
+
+	m_gameView.render();
 }
 
 void InGame::_renderGame() {
-	S_Rectangle visibleArea = m_camera;
+	S_Rectangle visibleArea;
 	visibleArea.x = m_player->getLocation().x - m_camera.width / 2;
 	visibleArea.y = m_player->getLocation().y - m_camera.height / 2;
+	visibleArea.width = m_camera.width - 2;
+	visibleArea.height = m_camera.height - 2;
 	FieldOfView fov(visibleArea);
 	fov.calculate(m_city, m_player->getLocation());
-	int shiftX = m_camera.x - visibleArea.x;
-	int shiftY = m_camera.y - visibleArea.y;
+	int shiftX = 1 + m_camera.x - visibleArea.x;
+	int shiftY = 1 + m_camera.y - visibleArea.y;
 	m_cityRenderer.render(m_city, fov, shiftX, shiftY);
 	for (auto actor : m_city.getActors()) {
 		m_actorRenderer.render(actor.second, fov, shiftX, shiftY);

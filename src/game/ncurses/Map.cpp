@@ -5,13 +5,16 @@
 #include "../../Map.hpp"
 #include "../../MapContent.hpp"
 
+NCursesMap::NCursesMap(NCurseWindow &window) : m_window(window) {
+}
+
 void NCursesMap::render(Map &map, FieldOfView &fov, int shiftX, int shiftY) {
 	for (auto cell : fov.getVisibleCells(true)) {
 		int x = cell.first.x,
 			y = cell.first.y;
-		mvaddstr(
-			shiftY + y,
+		m_window.renderString(
 			shiftX + x,
+			shiftY + y,
 			_getCellDisplayValue(map, cell.second, x, y)
 		);
 	}

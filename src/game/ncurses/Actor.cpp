@@ -2,13 +2,16 @@
 #include "../Actor.hpp"
 #include <ncurses.h>
 
+NCursesActor::NCursesActor(NCurseWindow &window) : m_window(window) {
+}
+
 void NCursesActor::render(std::shared_ptr<Actor> actor, FieldOfView &fov, int displayShiftX, int displayShiftY) {
 	int x = actor->getLocation().x,
 		y = actor->getLocation().y;
 	if (!fov.isVisible(x, y)) {
 		return;
 	}
-	unsigned char c = ' ';
+	char c = ' ';
 	if (actor->getType() == PLAYER) {
 		c = '@';
 	}
@@ -31,5 +34,5 @@ void NCursesActor::render(std::shared_ptr<Actor> actor, FieldOfView &fov, int di
 				break;
 		}
 	}
-	mvaddch(displayShiftY + y, displayShiftX + x, c);
+	m_window.renderChar(displayShiftX + x, displayShiftY + y, c);
 }
