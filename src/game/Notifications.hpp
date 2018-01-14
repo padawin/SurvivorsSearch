@@ -13,6 +13,7 @@ class Notifications : public Observer {
 	Notifications();
 	~Notifications();
 	void onNotify(E_Event event, Actor &actor);
+	Queue &getMessages();
 };
 
 #endif

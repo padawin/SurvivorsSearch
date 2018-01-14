@@ -29,3 +29,7 @@ void Notifications::onNotify(E_Event event, Actor &actor) {
 		m_qMessages.push(message);
 	}
 }
+
+Queue &Notifications::getMessages() {
+	return m_qMessages;
+}

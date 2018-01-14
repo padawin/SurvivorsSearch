@@ -15,13 +15,16 @@ class InGame : public State {
 	std::shared_ptr<GameActor> m_player;
 	City m_city;
 	NCurseWindow m_gameView;
+	NCurseWindow m_messagesView;
 	NCursesMap m_cityRenderer;
 	NCursesActor m_actorRenderer;
 	BehaviourFactory m_behaviourFactory;
 	S_Rectangle m_camera = {};
+	S_Rectangle m_messagesRect = {};
 	Notifications m_notifications;
 
 	void _renderGame();
+	void _renderMessages();
 
 	public:
 	InGame(UserActions &userActions);
