@@ -21,6 +21,10 @@ void Notifications::onNotify(E_Event event, Actor &actor) {
 		sprintf(message, "You saved a survivor");
 	}
 
+	if (m_qMessages.getSize() == MAX_NB_MESSAGES) {
+		m_qMessages.pop();
+	}
+
 	if (message[0] != '\0') {
 		m_qMessages.push(message);
 	}

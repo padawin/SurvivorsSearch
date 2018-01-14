@@ -71,6 +71,10 @@ class Queue {
 			pop();
 		}
 	}
+
+	long unsigned getSize() {
+		return m_uSize;
+	}
 };
 
 #endif
