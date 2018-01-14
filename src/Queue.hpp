@@ -8,7 +8,7 @@
 #include <string.h>
 
 typedef struct S_QueueItem {
-	char value[MAX_SIZE_VALUE];
+	char value[MAX_SIZE_VALUE] = "";
 	struct S_QueueItem *next = 0;
 } S_QueueItem;
 
