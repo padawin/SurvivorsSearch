@@ -12,8 +12,10 @@ Actor::Actor(E_ActorRace race, E_ActorType type) :
 
 E_ActorType Actor::getType() { return m_eType; }
 E_ActorRace Actor::getRace() { return m_eRace; }
+std::string Actor::getName() { return m_sName; }
 
 void Actor::setBehaviour(std::shared_ptr<Behaviour> behaviour) { m_behaviour = behaviour; }
+void Actor::setName(std::string name) { m_sName = name; }
 
 S_Coordinates Actor::getLocation() { return m_location; }
 
