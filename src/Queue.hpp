@@ -22,6 +22,7 @@ class Queue {
 	public:
 	void push(const char value[MAX_SIZE_VALUE]) {
 		S_QueueItem *item = (S_QueueItem*) malloc(sizeof(S_QueueItem));
+		item->next = 0;
 		strncpy(item->value, value, MAX_SIZE_VALUE);
 		if (m_uSize == 0) {
 			m_first = item;
@@ -70,6 +71,10 @@ class Queue {
 		while (current()) {
 			pop();
 		}
+	}
+
+	long unsigned getSize() {
+		return m_uSize;
 	}
 };
 

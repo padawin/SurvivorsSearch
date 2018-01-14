@@ -85,10 +85,12 @@ bool BehaviourPlayer::_tryInteractActor(Actor *actor, Map &map, int x, int y) {
 	else if (target->getType() == FOE) {
 		AttackCommand attack = AttackCommand();
 		res = attack.execute(map, x, y, actor);
+		_notify(PLAYER_ATTACK, *target);
 	}
 	else if (target->getType() == SURVIVOR) {
 		TeleportCommand attack = TeleportCommand();
 		res = attack.execute(map, x, y);
+		_notify(SURVIVOR_SAVED, *target);
 	}
 
 	return res;

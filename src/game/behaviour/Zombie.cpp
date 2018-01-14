@@ -15,6 +15,7 @@ bool BehaviourZombie::update(Actor *actor, Map &map) {
 	if (actor->isNextTo(m_player)) {
 		AttackCommand command = AttackCommand();
 		command.execute(map, location.x, location.y, actor);
+		_notify(PLAYER_ATTACKED, *actor);
 	}
 	else if (actor->getRace() == LARGE_ZOMBIE && actor->seesActor(map, m_player)) {
 		_executeMove(actor, map, location.x, location.y);
@@ -92,5 +93,9 @@ void BehaviourZombie::_executeRandomMove(Actor *actor, Map &map) {
 		}
 
 		commandExecuted = command.execute(map, xDest, yDest, actor);
+	}
+
+	if (actor->getRace() == LARGE_ZOMBIE && actor->seesActor(map, m_player)) {
+		_notify(PLAYER_SEEN, *actor);
 	}
 }
