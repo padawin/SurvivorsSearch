@@ -6,6 +6,7 @@
 
 class NCurseWindow {
 	protected:
+	S_Rectangle m_area = {};
 	WINDOW *m_window = 0;
 
 	public:
@@ -14,6 +15,7 @@ class NCurseWindow {
 	void renderChar(int x, int y, char c);
 	void renderString(int x, int y, const char *s);
 	void render();
+	int getWidth() const;
 };
 
 #endif
