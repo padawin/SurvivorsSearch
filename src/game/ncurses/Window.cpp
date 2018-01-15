@@ -26,3 +26,7 @@ void NCurseWindow::renderString(int x, int y, const char *s) {
 void NCurseWindow::render() {
 	wrefresh(m_window);
 }
+
+int NCurseWindow::getWidth() const {
+	return m_area.width;
+}

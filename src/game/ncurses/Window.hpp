@@ -15,6 +15,7 @@ class NCurseWindow {
 	void renderChar(int x, int y, char c);
 	void renderString(int x, int y, const char *s);
 	void render();
+	int getWidth() const;
 };
 
 #endif
