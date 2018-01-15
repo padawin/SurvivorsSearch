@@ -6,6 +6,7 @@
 
 class NCurseWindow {
 	protected:
+	S_Rectangle m_area = {};
 	WINDOW *m_window = 0;
 
 	public:
