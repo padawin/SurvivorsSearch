@@ -18,11 +18,11 @@ InGame::InGame(UserActions &userActions) :
 {
 	m_camera.x = 0;
 	m_camera.y = 0;
-	m_camera.width = 79;
+	m_camera.width = 74;
 	m_camera.height = 29;
 	m_messagesRect.x = m_camera.width;
 	m_messagesRect.y = 0;
-	m_messagesRect.width = 30;
+	m_messagesRect.width = 35;
 	m_messagesRect.height = m_camera.height;
 
 	m_city.init();
