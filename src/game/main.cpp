@@ -2,6 +2,7 @@
 #include "../StateMachine.hpp"
 #include "../UserActions.hpp"
 #include "../script/Script.hpp"
+#include "../Dialogue.hpp"
 #include "state/InGame.hpp"
 #include "ncurses/Renderer.hpp"
 #include "ncurses/InputHandler.hpp"
@@ -34,8 +35,10 @@ int main(int argc, char* args[]) {
 	}
 
 	Script::setScriptPath(std::string(binaryPath) + "/scripts/");
+	Dialogue dialogues = Dialogue();
+
 	StateMachine stateMachine = StateMachine();
-	stateMachine.pushState(new InGame(userActions));
+	stateMachine.pushState(new InGame(userActions, dialogues));
 	Game g(stateMachine, renderer, inputHandler);
 	if (g.init(binaryPath)) {
 		g.mainLoop();

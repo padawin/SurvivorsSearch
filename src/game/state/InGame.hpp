@@ -4,6 +4,7 @@
 #include "../../State.hpp"
 #include "../Actor.hpp"
 #include "../City.hpp"
+#include "../../Dialogue.hpp"
 #include "../ncurses/Map.hpp"
 #include "../ncurses/Actor.hpp"
 #include "../ncurses/Window.hpp"
@@ -21,11 +22,12 @@ class InGame : public State {
 	BehaviourFactory m_behaviourFactory;
 	S_Rectangle m_camera = {};
 	S_Rectangle m_messagesRect = {};
+	Dialogue m_dialogues;
 
 	void _renderGame();
 
 	public:
-	InGame(UserActions &userActions);
+	InGame(UserActions &userActions, Dialogue &dialogues);
 	bool onEnter();
 	void update(StateMachine &stateMachine);
 	void render();

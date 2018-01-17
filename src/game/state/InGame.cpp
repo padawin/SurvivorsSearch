@@ -5,7 +5,7 @@
 #include "../ActorFactory.hpp"
 #include "InGame.hpp"
 
-InGame::InGame(UserActions &userActions) :
+InGame::InGame(UserActions &userActions, Dialogue &dialogues) :
 	State(userActions),
 	m_player(ActorFactory::createActor(HUMAN, PLAYER)),
 	m_city(City()),
@@ -13,7 +13,8 @@ InGame::InGame(UserActions &userActions) :
 	m_messagesView(NotificationWindow()),
 	m_cityRenderer(NCursesMap(m_gameView)),
 	m_actorRenderer(NCursesActor(m_gameView)),
-	m_behaviourFactory(BehaviourFactory(userActions, m_player))
+	m_behaviourFactory(BehaviourFactory(userActions, m_player)),
+	m_dialogues(dialogues)
 {
 	m_camera.x = 0;
 	m_camera.y = 0;
