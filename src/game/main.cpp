@@ -18,15 +18,19 @@ int main(int argc, char* args[]) {
 	std::shared_ptr<InputHandler> inputHandler(new NCursesInputHandler());
 	UserActions userActions(inputHandler);
 	char binaryPath[PATH_MAX];
-	char *res = realpath(dirname(args[argc - argc]), binaryPath);
-	if (!res) {
-		return 1;
+	{
+		char *res = realpath(dirname(args[argc - argc]), binaryPath);
+		if (!res) {
+			return 1;
+		}
 	}
 
-	std::string controlsMapping = std::string(binaryPath) + "/config/playercontrolsmapping.txt";
-	int actionsSet = userActions.setActionsFromFile(controlsMapping.c_str());
-	if (actionsSet != 0) {
-		return actionsSet;
+	{
+		std::string controlsMapping = std::string(binaryPath) + "/config/playercontrolsmapping.txt";
+		int actionsSet = userActions.setActionsFromFile(controlsMapping.c_str());
+		if (actionsSet != 0) {
+			return actionsSet;
+		}
 	}
 
 	Script::setScriptPath(std::string(binaryPath) + "/scripts/");
