@@ -1,6 +1,7 @@
 #include "../Game.hpp"
 #include "../StateMachine.hpp"
 #include "../UserActions.hpp"
+#include "../script/Script.hpp"
 #include "state/InGame.hpp"
 #include "ncurses/Renderer.hpp"
 #include "ncurses/InputHandler.hpp"
@@ -27,6 +28,8 @@ int main(int argc, char* args[]) {
 	if (actionsSet != 0) {
 		return actionsSet;
 	}
+
+	Script::setScriptPath(std::string(binaryPath) + "/scripts/");
 	StateMachine stateMachine = StateMachine();
 	stateMachine.pushState(new InGame(userActions));
 	Game g(stateMachine, renderer, inputHandler);
