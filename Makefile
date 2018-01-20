@@ -26,9 +26,9 @@ CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
 		-Wunreachable-code -Wunused \
 		-Wunused-parameter \
 		-Wvariadic-macros \
-		-Wwrite-strings
+		-Wwrite-strings -Wno-long-long
 LDFLAGS:=
-CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -lncursesw
+CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -lncursesw -llua -ldl
 
 SRC := $(shell find $(SRCDIR)/ -type f -name '*.cpp')
 OBJ := $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRC))
