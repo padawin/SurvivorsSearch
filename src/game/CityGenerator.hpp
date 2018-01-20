@@ -30,7 +30,7 @@ class CityGenerator {
 	void _buildPark(City& city, S_Rectangle& block);
 	void _buildPool(City& city, S_Rectangle& block);
 	void _buildInterior(City& city, S_Rectangle& block);
-	void _placeStartNPC(City &city, int *startX, int *startY);
+	bool _placeStartNPC(City &city, int *startX, int *startY);
 	void _addActor(City &city, int cell, E_ActorRace race, E_ActorType type);
 	void _addEnemies(City &city);
 

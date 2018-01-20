@@ -60,7 +60,7 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	_addEnemies(city);
 }
 
-void CityGenerator::_placeStartNPC(City &city, int *startX, int *startY) {
+bool CityGenerator::_placeStartNPC(City &city, int *startX, int *startY) {
 	int startCell = m_mTypeCells[CAN_BE_START][(unsigned) rand() % m_mTypeCells[CAN_BE_START].size()];
 	*startX = startCell % city.getWidth();
 	*startY = startCell / city.getWidth();
@@ -72,9 +72,12 @@ void CityGenerator::_placeStartNPC(City &city, int *startX, int *startY) {
 					city.getCell(*startX + x, *startY + y) == INTERIOR_TILE
 			   ) {
 				_addActor(city, startCell + 1, HUMAN, FRIEND);
+				return true;
 			}
 		}
 	}
+
+	return false;
 }
 
 void CityGenerator::_addEnemies(City &city) {
