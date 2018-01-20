@@ -46,21 +46,7 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	m_mTypeCells.empty();
 	_generateGridCity(city);
 	if (startX != 0 && startY != 0) {
-		int startCell = m_mTypeCells[CAN_BE_START][(unsigned) rand() % m_mTypeCells[CAN_BE_START].size()];
-		*startX = startCell % city.getWidth();
-		*startY = startCell / city.getWidth();
-
-		// First NPC giving the player the introduction to the game
-		for (int y = -1; y < 2; ++y) {
-			for (int x = -1; x < 2; ++x) {
-				if (!(x == 0 && y == 0) &&
-					city.getCell(*startX + x, *startY + y) == INTERIOR_TILE
-				) {
-					_addActor(city, startCell + 1, HUMAN, FRIEND);
-					break;
-				}
-			}
-		}
+		_placeStartNPC(city, startX, startY);
 	}
 
 	// add survivors
@@ -72,6 +58,26 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	}
 
 	_addEnemies(city);
+}
+
+bool CityGenerator::_placeStartNPC(City &city, int *startX, int *startY) {
+	int startCell = m_mTypeCells[CAN_BE_START][(unsigned) rand() % m_mTypeCells[CAN_BE_START].size()];
+	*startX = startCell % city.getWidth();
+	*startY = startCell / city.getWidth();
+
+	// First NPC giving the player the introduction to the game
+	for (int y = -1; y < 2; ++y) {
+		for (int x = -1; x < 2; ++x) {
+			if (!(x == 0 && y == 0) &&
+					city.getCell(*startX + x, *startY + y) == INTERIOR_TILE
+			   ) {
+				_addActor(city, startCell + 1, HUMAN, FRIEND);
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 void CityGenerator::_addEnemies(City &city) {
