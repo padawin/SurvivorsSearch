@@ -53,7 +53,7 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	std::vector<int> survivorsPossibleLocations = m_mTypeCells[CAN_HAVE_SURVIVOR];
 	for (unsigned long i = 0, nbSurvivors = (unsigned long) city.m_info.count_survivors; i < nbSurvivors; ++i) {
 		unsigned long cellIndex = i + (unsigned long) rand() % (survivorsPossibleLocations.size() - i);
-		_addActor(city, survivorsPossibleLocations[cellIndex], HUMAN, SURVIVOR);
+		_addActor(city, survivorsPossibleLocations[cellIndex], HUMAN, SURVIVOR, "teleportSurvivor");
 		std::swap(survivorsPossibleLocations[i], survivorsPossibleLocations[cellIndex]);
 	}
 
