@@ -5,7 +5,7 @@
 #include "../command/Move.hpp"
 #include "../command/Open.hpp"
 #include "../command/Attack.hpp"
-#include "../command/Teleport.hpp"
+#include "../../command/Interact.hpp"
 
 BehaviourPlayer::BehaviourPlayer(UserActions &userActions) :
 	m_userActions(userActions)
@@ -87,10 +87,12 @@ bool BehaviourPlayer::_tryInteractActor(Actor *actor, Map &map, int x, int y) {
 		res = attack.execute(map, x, y, actor);
 		_notify(PLAYER_ATTACK, *target);
 	}
-	else if (target->getType() == SURVIVOR) {
-		TeleportCommand attack = TeleportCommand();
-		res = attack.execute(map, x, y);
-		_notify(SURVIVOR_SAVED, *target);
+	else {
+		InteractCommand attack = InteractCommand();
+		res = attack.execute(map, x, y, target.get());
+		if (res && target->getType() == SURVIVOR) {
+			_notify(SURVIVOR_SAVED, *target);
+		}
 	}
 
 	return res;
