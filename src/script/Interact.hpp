@@ -10,7 +10,10 @@ class InteractScript : public Script {
 	int m_iX;
 	int m_iY;
 
+	static int _removeActor(lua_State *L);
+
 	protected:
+	void _preRun(lua_State *L);
 	void _postRun(lua_State *L);
 
 	public:
