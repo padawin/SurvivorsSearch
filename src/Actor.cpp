@@ -14,8 +14,12 @@ E_ActorType Actor::getType() { return m_eType; }
 E_ActorRace Actor::getRace() { return m_eRace; }
 std::string Actor::getName() { return m_sName; }
 
+std::string Actor::getScript() { return m_sScript; }
+
 void Actor::setBehaviour(std::shared_ptr<Behaviour> behaviour) { m_behaviour = behaviour; }
 void Actor::setName(std::string name) { m_sName = name; }
+
+void Actor::setScript(std::string script) { m_sScript = script; }
 
 S_Coordinates Actor::getLocation() { return m_location; }
 

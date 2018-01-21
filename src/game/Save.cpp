@@ -9,6 +9,8 @@
 #include "CityGenerator.hpp"
 #include "ActorFactory.hpp"
 
+#define SIZE_SCRIPT_NAME 64
+
 const char* WORLD_FILE = "world.dat";
 const char* PLAYER_FILE = "player.dat";
 
@@ -84,11 +86,12 @@ bool Save::saveCity(City &city) {
 	for (auto actor : city.getActors()) {
 		fprintf(
 			mapFile,
-			"a %d %d %d %d\n",
+			"a %d %d %d %d %s\n",
 			actor.second->getRace(),
 			actor.second->getType(),
 			actor.second->getLocation().x,
-			actor.second->getLocation().y
+			actor.second->getLocation().y,
+			actor.second->getScript().c_str()
 		);
 	}
 	fprintf(mapFile, "\n");
@@ -179,12 +182,14 @@ void Save::_loadCity(City &city, char cityName[20]) {
 			break;
 		}
 		int x, y, race, type;
-		sscanf(line, "a %d %d %d %d\n", &race, &type, &x, &y);
+		char script[SIZE_SCRIPT_NAME] = "";
+		sscanf(line, "a %d %d %d %d %s\n", &race, &type, &x, &y, script);
 		std::shared_ptr<GameActor> survivor(
 			ActorFactory::createActor((E_ActorRace) race, (E_ActorType) type)
 		);
 		survivor->setX(x);
 		survivor->setY(y);
+		survivor->setScript(script);
 		city.addActor(survivor);
 	}
 	city.m_info.visited = visited;

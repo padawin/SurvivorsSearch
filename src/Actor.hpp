@@ -13,6 +13,9 @@ class Actor {
 	E_ActorType m_eType;
 	std::string m_sName = "";
 
+	std::string m_sScript = "";
+	int m_iScriptState = 0;
+
 	protected:
 	S_Coordinates m_location = S_Coordinates();
 
@@ -22,9 +25,13 @@ class Actor {
 	void setBehaviour(std::shared_ptr<Behaviour> behaviour);
 	void setName(std::string name);
 
+	void setScript(std::string script);
+
 	E_ActorType getType();
 	E_ActorRace getRace();
 	std::string getName();
+
+	std::string getScript();
 
 	virtual bool isDead() = 0;
 	void setX(int x);

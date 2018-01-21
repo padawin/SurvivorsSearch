@@ -53,7 +53,7 @@ void CityGenerator::generate(City& city, int *startX, int *startY) {
 	std::vector<int> survivorsPossibleLocations = m_mTypeCells[CAN_HAVE_SURVIVOR];
 	for (unsigned long i = 0, nbSurvivors = (unsigned long) city.m_info.count_survivors; i < nbSurvivors; ++i) {
 		unsigned long cellIndex = i + (unsigned long) rand() % (survivorsPossibleLocations.size() - i);
-		_addActor(city, survivorsPossibleLocations[cellIndex], HUMAN, SURVIVOR);
+		_addActor(city, survivorsPossibleLocations[cellIndex], HUMAN, SURVIVOR, "teleportSurvivor");
 		std::swap(survivorsPossibleLocations[i], survivorsPossibleLocations[cellIndex]);
 	}
 
@@ -74,7 +74,7 @@ bool CityGenerator::_placeStartNPC(City &city, int *startX, int *startY) {
 				_addActor(
 					city,
 					(*startY + y) * city.getWidth() + *startX + x,
-					HUMAN, FRIEND
+					HUMAN, FRIEND, "startNPC"
 				);
 				return true;
 			}
@@ -102,10 +102,13 @@ void CityGenerator::_addEnemies(City &city) {
 	}
 }
 
-void CityGenerator::_addActor(City &city, int cell, E_ActorRace race, E_ActorType type) {
+void CityGenerator::_addActor(City &city, int cell, E_ActorRace race, E_ActorType type, const char *script) {
 	int x = cell % city.getWidth();
 	int y = cell / city.getWidth();
 	std::shared_ptr<Actor> actor(ActorFactory::createActor(race, type));
+	if (script != 0) {
+		actor->setScript(script);
+	}
 	actor->setX(x);
 	actor->setY(y);
 	city.addActor(actor);
