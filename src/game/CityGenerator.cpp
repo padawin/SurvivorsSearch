@@ -71,7 +71,11 @@ bool CityGenerator::_placeStartNPC(City &city, int *startX, int *startY) {
 			if (!(x == 0 && y == 0) &&
 					city.getCell(*startX + x, *startY + y) == INTERIOR_TILE
 			   ) {
-				_addActor(city, startCell + 1, HUMAN, FRIEND);
+				_addActor(
+					city,
+					(*startY + y) * city.getWidth() + *startX + x,
+					HUMAN, FRIEND
+				);
 				return true;
 			}
 		}
