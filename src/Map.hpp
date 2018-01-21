@@ -34,7 +34,7 @@ class Map {
 	virtual unsigned char getCell(const int x, const int y) const;
 	virtual void setCell(const int x, const int y, char c);
 	void addActor(std::shared_ptr<Actor> actor);
-	void removeActor(std::shared_ptr<Actor> actor);
+	void removeActor(int x, int y);
 	std::unordered_map<int, std::shared_ptr<Actor> > getActors();
 	std::shared_ptr<Actor> getActorAt(int x, int y) const;
 	bool moveActor(Actor* actor, int newX, int newY);

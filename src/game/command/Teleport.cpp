@@ -9,7 +9,7 @@ bool TeleportCommand::execute(Map &map, int xDest, int yDest, Actor* actor __att
 		return false;
 	}
 
-	map.removeActor(target);
+	map.removeActor(xDest, yDest);
 	map.update();
 	return true;
 }
