@@ -13,7 +13,7 @@ bool AttackCommand::execute(Map &map, int xDest, int yDest, Actor *actor) {
 
 	a->attack(target);
 	if (target->isDead()) {
-		map.removeActor(target);
+		map.removeActor(xDest, yDest);
 	}
 	return true;
 }
