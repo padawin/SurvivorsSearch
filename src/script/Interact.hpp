@@ -10,6 +10,9 @@ class InteractScript : public Script {
 	int m_iX;
 	int m_iY;
 
+	protected:
+	void _postRun(lua_State *L);
+
 	public:
 	InteractScript(Map &map, int x, int y);
 };
