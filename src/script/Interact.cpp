@@ -30,11 +30,12 @@ void InteractScript::_postRun(lua_State *L) {
 	lua_getglobal(L, "run");
 
 	/* arguments */
+	lua_pushlightuserdata(L, (void*) &m_observable);
 	lua_pushlightuserdata(L, (void*) &m_map);
 	lua_pushinteger(L, m_iX);
 	lua_pushinteger(L, m_iY);
 
-	int nbArgs = 3,
+	int nbArgs = 4,
 		nbRes = 0;
 	lua_call(L, nbArgs, nbRes);
 }
