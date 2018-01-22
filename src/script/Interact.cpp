@@ -21,8 +21,21 @@ int InteractScript::_removeActor(lua_State *L) {
 	return 0;
 }
 
+int InteractScript::_notify(lua_State *L) {
+	int n = lua_gettop(L);
+	if (n != 2) {
+		return 0;
+	}
+
+	Observable *observable = (Observable*) lua_touserdata(L, 1);
+	E_Event event = (E_Event) lua_tonumber(L, 2);
+	observable->notify(event);
+	return 0;
+}
+
 void InteractScript::_preRun(lua_State *L) {
 	lua_register(L, "map_removeActor", _removeActor);
+	lua_register(L, "notify", _notify);
 }
 
 void InteractScript::_postRun(lua_State *L) {

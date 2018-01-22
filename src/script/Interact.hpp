@@ -13,6 +13,7 @@ class InteractScript : public Script {
 	int m_iY;
 
 	static int _removeActor(lua_State *L);
+	static int _notify(lua_State *L);
 
 	protected:
 	void _preRun(lua_State *L);

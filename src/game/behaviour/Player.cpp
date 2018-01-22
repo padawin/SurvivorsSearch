@@ -93,9 +93,6 @@ bool BehaviourPlayer::_tryInteractActor(Actor *actor, Map &map, int x, int y) {
 			InteractScript s = InteractScript(*this, map, x, y);
 			s.run(scriptFile);
 		}
-		if (target->getType() == SURVIVOR) {
-			notify(SURVIVOR_SAVED, target.get());
-		}
 	}
 
 	return res;
