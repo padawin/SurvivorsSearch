@@ -3,9 +3,11 @@
 
 #include "Script.hpp"
 #include "../Map.hpp"
+#include "../Observable.hpp"
 
 class InteractScript : public Script {
 	private:
+	Observable &m_observable;
 	Map &m_map;
 	int m_iX;
 	int m_iY;
@@ -17,7 +19,7 @@ class InteractScript : public Script {
 	void _postRun(lua_State *L);
 
 	public:
-	InteractScript(Map &map, int x, int y);
+	InteractScript(Observable &observable, Map &map, int x, int y);
 };
 
 #endif

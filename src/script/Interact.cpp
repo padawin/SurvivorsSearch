@@ -1,6 +1,7 @@
 #include "Interact.hpp"
 
-InteractScript::InteractScript(Map &map, int x, int y) :
+InteractScript::InteractScript(Observable &observable, Map &map, int x, int y) :
+	m_observable(observable),
 	m_map(map),
 	m_iX(x),
 	m_iY(y)
