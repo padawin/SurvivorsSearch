@@ -7,7 +7,7 @@ class Actor;
 class Observer {
 	public:
 	virtual ~Observer() {}
-	virtual void onNotify(E_Event event, Actor &actor) = 0;
+	virtual void onNotify(E_Event event, Actor *actor) = 0;
 };
 
 #endif

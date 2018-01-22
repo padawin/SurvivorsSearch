@@ -85,7 +85,7 @@ bool BehaviourPlayer::_tryInteractActor(Actor *actor, Map &map, int x, int y) {
 	else if (target->getType() == FOE) {
 		AttackCommand attack = AttackCommand();
 		res = attack.execute(map, x, y, actor);
-		notify(PLAYER_ATTACK, *target);
+		notify(PLAYER_ATTACK, target.get());
 	}
 	else {
 		std::string scriptFile = target->getScript();
@@ -94,7 +94,7 @@ bool BehaviourPlayer::_tryInteractActor(Actor *actor, Map &map, int x, int y) {
 			s.run(scriptFile);
 		}
 		if (target->getType() == SURVIVOR) {
-			notify(SURVIVOR_SAVED, *target);
+			notify(SURVIVOR_SAVED, target.get());
 		}
 	}
 

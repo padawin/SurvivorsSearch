@@ -13,7 +13,7 @@ class Observable {
 	public:
 	virtual ~Observable() {}
 	void addObserver(Observer *observer);
-	void notify(E_Event event, Actor &actor);
+	void notify(E_Event event, Actor *actor = 0);
 };
 
 #endif
