@@ -10,12 +10,10 @@ class Observable {
 	private:
 	std::vector<Observer*> m_vObservers = {};
 
-	protected:
-	void _notify(E_Event event, Actor &actor);
-
 	public:
 	virtual ~Observable() {}
 	void addObserver(Observer *observer);
+	void notify(E_Event event, Actor &actor);
 };
 
 #endif
