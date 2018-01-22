@@ -1,5 +1,6 @@
 #include "Notifications.hpp"
 #include "../Actor.hpp"
+#include "types.hpp"
 
 const short MAX_NB_MESSAGES = 20;
 
