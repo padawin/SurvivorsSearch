@@ -1,6 +1,7 @@
 #include "Interact.hpp"
 
-InteractScript::InteractScript(Map &map, int x, int y) :
+InteractScript::InteractScript(Observable &observable, Map &map, int x, int y) :
+	m_observable(observable),
 	m_map(map),
 	m_iX(x),
 	m_iY(y)
@@ -20,8 +21,21 @@ int InteractScript::_removeActor(lua_State *L) {
 	return 0;
 }
 
+int InteractScript::_notify(lua_State *L) {
+	int n = lua_gettop(L);
+	if (n != 2) {
+		return 0;
+	}
+
+	Observable *observable = (Observable*) lua_touserdata(L, 1);
+	E_Event event = (E_Event) lua_tonumber(L, 2);
+	observable->notify(event);
+	return 0;
+}
+
 void InteractScript::_preRun(lua_State *L) {
 	lua_register(L, "map_removeActor", _removeActor);
+	lua_register(L, "notify", _notify);
 }
 
 void InteractScript::_postRun(lua_State *L) {
@@ -29,11 +43,12 @@ void InteractScript::_postRun(lua_State *L) {
 	lua_getglobal(L, "run");
 
 	/* arguments */
+	lua_pushlightuserdata(L, (void*) &m_observable);
 	lua_pushlightuserdata(L, (void*) &m_map);
 	lua_pushinteger(L, m_iX);
 	lua_pushinteger(L, m_iY);
 
-	int nbArgs = 3,
+	int nbArgs = 4,
 		nbRes = 0;
 	lua_call(L, nbArgs, nbRes);
 }

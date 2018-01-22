@@ -5,7 +5,7 @@
 #include "../command/Move.hpp"
 #include "../command/Open.hpp"
 #include "../command/Attack.hpp"
-#include "../../command/Interact.hpp"
+#include "../../script/Interact.hpp"
 
 BehaviourPlayer::BehaviourPlayer(UserActions &userActions) :
 	m_userActions(userActions)
@@ -78,20 +78,20 @@ bool BehaviourPlayer::_tryOpen(Map &map, int x, int y) {
 
 bool BehaviourPlayer::_tryInteractActor(Actor *actor, Map &map, int x, int y) {
 	std::shared_ptr<Actor> target = map.getActorAt(x, y);
-	bool res = false;
+	bool res = true;
 	if (target == NULL) {
 		res = false;
 	}
 	else if (target->getType() == FOE) {
 		AttackCommand attack = AttackCommand();
 		res = attack.execute(map, x, y, actor);
-		_notify(PLAYER_ATTACK, *target);
+		notify(PLAYER_ATTACK, target.get());
 	}
 	else {
-		InteractCommand attack = InteractCommand();
-		res = attack.execute(map, x, y, target.get());
-		if (res && target->getType() == SURVIVOR) {
-			_notify(SURVIVOR_SAVED, *target);
+		std::string scriptFile = target->getScript();
+		if (scriptFile != "") {
+			InteractScript s = InteractScript(*this, map, x, y);
+			s.run(scriptFile);
 		}
 	}
 

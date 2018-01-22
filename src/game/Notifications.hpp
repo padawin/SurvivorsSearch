@@ -12,7 +12,7 @@ class Notifications : public Observer {
 	public:
 	Notifications();
 	~Notifications();
-	void onNotify(E_Event event, Actor &actor);
+	void onNotify(E_Event event, Actor *actor = 0);
 	Queue &getMessages();
 };
 

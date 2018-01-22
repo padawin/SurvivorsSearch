@@ -3,21 +3,24 @@
 
 #include "Script.hpp"
 #include "../Map.hpp"
+#include "../Observable.hpp"
 
 class InteractScript : public Script {
 	private:
+	Observable &m_observable;
 	Map &m_map;
 	int m_iX;
 	int m_iY;
 
 	static int _removeActor(lua_State *L);
+	static int _notify(lua_State *L);
 
 	protected:
 	void _preRun(lua_State *L);
 	void _postRun(lua_State *L);
 
 	public:
-	InteractScript(Map &map, int x, int y);
+	InteractScript(Observable &observable, Map &map, int x, int y);
 };
 
 #endif
