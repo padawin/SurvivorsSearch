@@ -10,11 +10,10 @@ InGame::InGame(UserActions &userActions) :
 	m_player(ActorFactory::createActor(HUMAN, PLAYER)),
 	m_city(City()),
 	m_gameView(NCurseWindow()),
-	m_messagesView(NCurseWindow()),
+	m_messagesView(NotificationWindow()),
 	m_cityRenderer(NCursesMap(m_gameView)),
 	m_actorRenderer(NCursesActor(m_gameView)),
-	m_behaviourFactory(BehaviourFactory(userActions, m_player)),
-	m_notifications(Notifications())
+	m_behaviourFactory(BehaviourFactory(userActions, m_player))
 {
 	m_camera.x = 0;
 	m_camera.y = 0;
@@ -26,8 +25,8 @@ InGame::InGame(UserActions &userActions) :
 	m_messagesRect.height = m_camera.height;
 
 	m_city.init();
-	m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER)->addObserver(&m_notifications);
-	m_behaviourFactory.getBehaviour(BEHAVIOUR_ZOMBIE)->addObserver(&m_notifications);
+	m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER)->addObserver(&m_messagesView);
+	m_behaviourFactory.getBehaviour(BEHAVIOUR_ZOMBIE)->addObserver(&m_messagesView);
 }
 
 std::string InGame::getStateID() const {
@@ -76,7 +75,6 @@ void InGame::render() {
 	m_messagesView.init(m_messagesRect);
 
 	_renderGame();
-	_renderMessages();
 
 	m_gameView.render();
 	m_messagesView.render();
@@ -95,15 +93,5 @@ void InGame::_renderGame() {
 	m_cityRenderer.render(m_city, fov, shiftX, shiftY);
 	for (auto actor : m_city.getActors()) {
 		m_actorRenderer.render(actor.second, fov, shiftX, shiftY);
-	}
-}
-
-void InGame::_renderMessages() {
-	Queue &messages = m_notifications.getMessages();
-	S_QueueItem *message;
-	int y = 1;
-	while ((message = messages.next())) {
-		m_messagesView.renderString(1, y, message->value);
-		++y;
 	}
 }

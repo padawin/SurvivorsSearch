@@ -1,16 +1,16 @@
 #include "Notifications.hpp"
 #include "../Actor.hpp"
-#include "types.hpp"
+#include "../types.hpp"
 
 const short MAX_NB_MESSAGES = 20;
 
-Notifications::Notifications() : m_qMessages(Queue()) {}
+NotificationWindow::NotificationWindow() : m_qMessages(Queue()) {}
 
-Notifications::~Notifications() {
+NotificationWindow::~NotificationWindow() {
 	m_qMessages.clear();
 }
 
-void Notifications::onNotify(E_Event event, Actor *actor) {
+void NotificationWindow::onNotify(E_Event event, Actor *actor) {
 	char message[64] = "\0";
 	std::string name = "Someone";
 	if (actor != 0) {
@@ -36,6 +36,12 @@ void Notifications::onNotify(E_Event event, Actor *actor) {
 	}
 }
 
-Queue &Notifications::getMessages() {
-	return m_qMessages;
+void NotificationWindow::render() {
+	S_QueueItem *message;
+	int y = 1;
+	while ((message = m_qMessages.next())) {
+		renderString(1, y, message->value);
+		++y;
+	}
+	NCurseWindow::render();
 }
