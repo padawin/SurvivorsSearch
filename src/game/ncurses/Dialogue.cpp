@@ -11,7 +11,7 @@ void DialogueWindow::setDialogue(std::string dialogue) {
 
 void DialogueWindow::onNotify(E_Event event, Actor *actor __attribute__((unused))) {
 	if (event == SURVIVOR_SAVED) {
-		m_sDialogue = m_dialogues.getDialogue("SURVIVOR_SAVED");
+		setDialogue(m_dialogues.getDialogue("SURVIVOR_SAVED"));
 	}
 }
 
