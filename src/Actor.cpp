@@ -26,6 +26,10 @@ S_Coordinates Actor::getLocation() { return m_location; }
 void Actor::setX(int x) { m_location.x = x; }
 void Actor::setY(int y) { m_location.y = y; }
 
+bool Actor::isDead() {
+	return false;
+}
+
 bool Actor::update(Map &map) {
 	bool updated = true;
 	if (m_behaviour != 0) {
