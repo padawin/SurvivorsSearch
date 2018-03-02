@@ -9,6 +9,7 @@
 #include "../ncurses/Actor.hpp"
 #include "../ncurses/Window.hpp"
 #include "../ncurses/Notifications.hpp"
+#include "../ncurses/Dialogue.hpp"
 #include "../../behaviour/Factory.hpp"
 
 class InGame : public State {
@@ -17,6 +18,7 @@ class InGame : public State {
 	City m_city;
 	NCurseWindow m_gameView;
 	NotificationWindow m_messagesView;
+	DialogueWindow m_dialogueView;
 	NCursesMap m_cityRenderer;
 	NCursesActor m_actorRenderer;
 	BehaviourFactory m_behaviourFactory;

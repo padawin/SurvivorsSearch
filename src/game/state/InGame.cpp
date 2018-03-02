@@ -11,6 +11,7 @@ InGame::InGame(UserActions &userActions, Dialogue &dialogues) :
 	m_city(City()),
 	m_gameView(NCurseWindow()),
 	m_messagesView(NotificationWindow()),
+	m_dialogueView(DialogueWindow()),
 	m_cityRenderer(NCursesMap(m_gameView)),
 	m_actorRenderer(NCursesActor(m_gameView)),
 	m_behaviourFactory(BehaviourFactory(userActions, m_player)),
@@ -27,6 +28,7 @@ InGame::InGame(UserActions &userActions, Dialogue &dialogues) :
 
 	m_city.init();
 	m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER)->addObserver(&m_messagesView);
+	m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER)->addObserver(&m_dialogueView);
 	m_behaviourFactory.getBehaviour(BEHAVIOUR_ZOMBIE)->addObserver(&m_messagesView);
 }
 
