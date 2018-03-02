@@ -69,19 +69,25 @@ void InGame::update(StateMachine &stateMachine) {
 }
 
 void InGame::render() {
-	S_Rectangle messagesRec;
+	S_Rectangle messagesRect, dialoguesRect;
 	messagesRect.x = m_camera.width;
 	messagesRect.y = 0;
 	messagesRect.width = 35;
 	messagesRect.height = m_camera.height + 4;
+	dialoguesRect.x = 0;
+	dialoguesRect.y = m_camera.y + m_camera.height;
+	dialoguesRect.width = m_camera.width;
+	dialoguesRect.height = 4;
 
 	m_gameView.init(m_camera);
 	m_messagesView.init(messagesRect);
+	m_dialogueView.init(dialoguesRect);
 
 	_renderGame();
 
 	m_gameView.render();
 	m_messagesView.render();
+	m_dialogueView.render();
 }
 
 void InGame::_renderGame() {
