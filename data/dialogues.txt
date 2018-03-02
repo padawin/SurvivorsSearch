@@ -34,3 +34,7 @@ However, do not get bitten, if you are, you can count yourself as lost.
 
 I will wait for you here for a while, come back when you will have found
 everybody and we will meet the caravan. Good luck to you...
+---
+SURVIVOR_SAVED
+Thank you so much for saving me! Good luck for finding the others!
+I will see you at the raly point.
