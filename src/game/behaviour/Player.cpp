@@ -1,5 +1,4 @@
 #include "Player.hpp"
-#include "../../UserActions.hpp"
 #include "../Actor.hpp"
 #include "../../Map.hpp"
 #include "../command/Move.hpp"
