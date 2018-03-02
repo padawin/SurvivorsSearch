@@ -23,7 +23,6 @@ class InGame : public State {
 	NCursesActor m_actorRenderer;
 	BehaviourFactory m_behaviourFactory;
 	S_Rectangle m_camera = {};
-	S_Rectangle m_messagesRect = {};
 
 	void _renderGame();
 

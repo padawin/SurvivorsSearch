@@ -19,11 +19,7 @@ InGame::InGame(UserActions &userActions, Dialogue &dialogues) :
 	m_camera.x = 0;
 	m_camera.y = 0;
 	m_camera.width = 74;
-	m_camera.height = 29;
-	m_messagesRect.x = m_camera.width;
-	m_messagesRect.y = 0;
-	m_messagesRect.width = 35;
-	m_messagesRect.height = m_camera.height;
+	m_camera.height = 25;
 
 	m_city.init();
 	m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER)->addObserver(&m_messagesView);
@@ -73,8 +69,14 @@ void InGame::update(StateMachine &stateMachine) {
 }
 
 void InGame::render() {
+	S_Rectangle messagesRec;
+	messagesRect.x = m_camera.width;
+	messagesRect.y = 0;
+	messagesRect.width = 35;
+	messagesRect.height = m_camera.height + 4;
+
 	m_gameView.init(m_camera);
-	m_messagesView.init(m_messagesRect);
+	m_messagesView.init(messagesRect);
 
 	_renderGame();
 
