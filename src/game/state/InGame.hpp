@@ -24,7 +24,6 @@ class InGame : public State {
 	BehaviourFactory m_behaviourFactory;
 	S_Rectangle m_camera = {};
 	S_Rectangle m_messagesRect = {};
-	Dialogue m_dialogues;
 
 	void _renderGame();
 

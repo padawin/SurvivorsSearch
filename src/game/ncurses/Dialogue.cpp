@@ -1,6 +1,9 @@
 #include "Dialogue.hpp"
 #include "../../Actor.hpp"
 
+DialogueWindow::DialogueWindow(Dialogue &dialogues) : m_dialogues(dialogues) {
+}
+
 void DialogueWindow::setDialogue(std::string dialogue) {
 	m_sDialogue = dialogue;
 }
