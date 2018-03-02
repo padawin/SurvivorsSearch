@@ -5,11 +5,12 @@
 #include "../../Observer.hpp"
 #include "../../Dialogue.hpp"
 #include <string>
+#include <vector>
 
 class Actor;
 class DialogueWindow : public NCurseWindow, public Observer {
 	private:
-	std::string m_sDialogue = "";
+	std::vector<std::string> m_vDialogue = {};
 	Dialogue &m_dialogues;
 
 	public:
