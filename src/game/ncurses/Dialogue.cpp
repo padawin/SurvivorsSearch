@@ -1,4 +1,5 @@
 #include "Dialogue.hpp"
+#include "../../utils.hpp"
 #include "../../Actor.hpp"
 #include "../types.hpp"
 
@@ -23,6 +24,7 @@ void DialogueWindow::setDialogue(std::string dialogue) {
 			end += (unsigned) (m_area.width - 2);
 		}
 		std::string line = dialogue.substr(start, end - start);
+		trim(line);
 		m_vDialogue.push_back(line);
 	}
 }
