@@ -7,21 +7,29 @@ DialogueWindow::DialogueWindow(Dialogue &dialogues) : m_dialogues(dialogues) {
 }
 
 void DialogueWindow::setDialogue(std::string dialogue) {
-	unsigned start = 0,
-			 end = 0;
+	unsigned long start = 0,
+				  end = 0;
+	unsigned int maxWidth = (unsigned) (m_area.width - 2);
+	// splits the dialogue into lines fitting into the window
 	while (end < dialogue.size()) {
 		start = end;
-		end += (unsigned) (m_area.width - 2);
-		while (
-			end < dialogue.size()
-			&& end > start
-			&& dialogue[end] != ' ' && dialogue[end] != '\n'
-		) {
-			end--;
+		size_t nextCR = dialogue.find('\n', (size_t) start + 1);
+		if (nextCR - start < maxWidth) {
+			end = nextCR;
 		}
+		else {
+			end += maxWidth;
+			while (
+					end < dialogue.size()
+					&& end > start
+					&& dialogue[end] != ' ' && dialogue[end] != '\n'
+				  ) {
+				end--;
+			}
 
-		if (end == start) {
-			end += (unsigned) (m_area.width - 2);
+			if (end == start) {
+				end += maxWidth;
+			}
 		}
 		std::string line = dialogue.substr(start, end - start);
 		trim(line);
