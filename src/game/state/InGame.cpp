@@ -53,6 +53,11 @@ void InGame::update(StateMachine &stateMachine) {
 		return;
 	}
 
+	if (m_dialogueView.hasDialogue()) {
+		m_dialogueView.update();
+		return;
+	}
+
 	if (!m_player->update(m_city)) {
 		return;
 	}

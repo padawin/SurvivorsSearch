@@ -17,8 +17,10 @@ class DialogueWindow : public NCurseWindow, public Observer {
 
 	public:
 	DialogueWindow(UserActions &userActions, Dialogue &dialogues);
+	bool hasDialogue();
 	void setDialogue(std::string dialogue);
 	void onNotify(E_Event event, Actor *actor);
+	void update();
 	void render();
 };
 

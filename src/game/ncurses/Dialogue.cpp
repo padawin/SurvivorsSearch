@@ -9,6 +9,10 @@ DialogueWindow::DialogueWindow(UserActions &userActions, Dialogue &dialogues) :
 {
 }
 
+bool DialogueWindow::hasDialogue() {
+	return m_vDialogue.size() > 0;
+}
+
 void DialogueWindow::setDialogue(std::string dialogue) {
 	unsigned long start = 0,
 				  end = 0;
@@ -43,6 +47,16 @@ void DialogueWindow::setDialogue(std::string dialogue) {
 void DialogueWindow::onNotify(E_Event event, Actor *actor __attribute__((unused))) {
 	if (event == SURVIVOR_SAVED) {
 		setDialogue(m_dialogues.getDialogue("SURVIVOR_SAVED"));
+	}
+}
+
+void DialogueWindow::update() {
+	if (m_userActions.getActionState("NEXT_DIALOGUE_PAGE")) {
+		// remove the first lines of m_vDialogue
+		m_vDialogue.erase(
+			m_vDialogue.begin(),
+			m_vDialogue.begin() + m_area.height - 2
+		);
 	}
 }
 
