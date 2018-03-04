@@ -48,6 +48,9 @@ void DialogueWindow::onNotify(E_Event event, Actor *actor __attribute__((unused)
 	if (event == SURVIVOR_SAVED) {
 		setDialogue(m_dialogues.getDialogue("SURVIVOR_SAVED"));
 	}
+	else if (event == INTRO_DIALOGUE) {
+		setDialogue(m_dialogues.getDialogue("INTRO_DIALOGUE"));
+	}
 }
 
 void DialogueWindow::update() {
