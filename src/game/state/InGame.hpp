@@ -4,10 +4,12 @@
 #include "../../State.hpp"
 #include "../Actor.hpp"
 #include "../City.hpp"
+#include "../../Dialogue.hpp"
 #include "../ncurses/Map.hpp"
 #include "../ncurses/Actor.hpp"
 #include "../ncurses/Window.hpp"
 #include "../ncurses/Notifications.hpp"
+#include "../ncurses/Dialogue.hpp"
 #include "../../behaviour/Factory.hpp"
 
 class InGame : public State {
@@ -16,16 +18,16 @@ class InGame : public State {
 	City m_city;
 	NCurseWindow m_gameView;
 	NotificationWindow m_messagesView;
+	DialogueWindow m_dialogueView;
 	NCursesMap m_cityRenderer;
 	NCursesActor m_actorRenderer;
 	BehaviourFactory m_behaviourFactory;
 	S_Rectangle m_camera = {};
-	S_Rectangle m_messagesRect = {};
 
 	void _renderGame();
 
 	public:
-	InGame(UserActions &userActions);
+	InGame(UserActions &userActions, Dialogue &dialogues);
 	bool onEnter();
 	void update(StateMachine &stateMachine);
 	void render();

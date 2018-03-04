@@ -2,6 +2,8 @@
 #include "../StateMachine.hpp"
 #include "../UserActions.hpp"
 #include "../script/Script.hpp"
+#include "../Dialogue.hpp"
+#include "../DialogueParser.hpp"
 #include "state/InGame.hpp"
 #include "ncurses/Renderer.hpp"
 #include "ncurses/InputHandler.hpp"
@@ -18,20 +20,34 @@ int main(int argc, char* args[]) {
 	std::shared_ptr<InputHandler> inputHandler(new NCursesInputHandler());
 	UserActions userActions(inputHandler);
 	char binaryPath[PATH_MAX];
-	char *res = realpath(dirname(args[argc - argc]), binaryPath);
-	if (!res) {
-		return 1;
+	{
+		char *res = realpath(dirname(args[argc - argc]), binaryPath);
+		if (!res) {
+			return 1;
+		}
 	}
 
-	std::string controlsMapping = std::string(binaryPath) + "/config/playercontrolsmapping.txt";
-	int actionsSet = userActions.setActionsFromFile(controlsMapping.c_str());
-	if (actionsSet != 0) {
-		return actionsSet;
+	{
+		std::string controlsMapping = std::string(binaryPath) + "/config/playercontrolsmapping.txt";
+		int actionsSet = userActions.setActionsFromFile(controlsMapping.c_str());
+		if (actionsSet != 0) {
+			return actionsSet;
+		}
 	}
 
 	Script::setScriptPath(std::string(binaryPath) + "/scripts/");
+	Dialogue dialogues = Dialogue();
+	{
+		DialogueParser dialogParser(dialogues);
+		std::string dialoguesFile = std::string(binaryPath) + "/data/dialogues.txt";
+		E_FileParsingResult res = dialogParser.parseFile(dialoguesFile.c_str());
+		if (res != OK) {
+			return res;
+		}
+	}
+
 	StateMachine stateMachine = StateMachine();
-	stateMachine.pushState(new InGame(userActions));
+	stateMachine.pushState(new InGame(userActions, dialogues));
 	Game g(stateMachine, renderer, inputHandler);
 	if (g.init(binaryPath)) {
 		g.mainLoop();

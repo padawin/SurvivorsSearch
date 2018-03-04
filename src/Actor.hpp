@@ -33,7 +33,7 @@ class Actor {
 
 	std::string getScript();
 
-	virtual bool isDead() = 0;
+	virtual bool isDead();
 	void setX(int x);
 	void setY(int y);
 	S_Coordinates getLocation();

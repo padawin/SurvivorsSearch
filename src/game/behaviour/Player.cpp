@@ -1,5 +1,4 @@
 #include "Player.hpp"
-#include "../../UserActions.hpp"
 #include "../Actor.hpp"
 #include "../../Map.hpp"
 #include "../command/Move.hpp"
@@ -90,7 +89,11 @@ bool BehaviourPlayer::_tryInteractActor(Actor *actor, Map &map, int x, int y) {
 	else {
 		std::string scriptFile = target->getScript();
 		if (scriptFile != "") {
-			InteractScript s = InteractScript(*this, map, x, y);
+			InteractScript s = InteractScript(
+				*this,
+				*actor, *target,
+				map, x, y
+			);
 			s.run(scriptFile);
 		}
 	}

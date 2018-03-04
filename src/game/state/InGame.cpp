@@ -5,12 +5,13 @@
 #include "../ActorFactory.hpp"
 #include "InGame.hpp"
 
-InGame::InGame(UserActions &userActions) :
+InGame::InGame(UserActions &userActions, Dialogue &dialogues) :
 	State(userActions),
 	m_player(ActorFactory::createActor(HUMAN, PLAYER)),
 	m_city(City()),
 	m_gameView(NCurseWindow()),
 	m_messagesView(NotificationWindow()),
+	m_dialogueView(DialogueWindow(userActions, dialogues)),
 	m_cityRenderer(NCursesMap(m_gameView)),
 	m_actorRenderer(NCursesActor(m_gameView)),
 	m_behaviourFactory(BehaviourFactory(userActions, m_player))
@@ -18,14 +19,11 @@ InGame::InGame(UserActions &userActions) :
 	m_camera.x = 0;
 	m_camera.y = 0;
 	m_camera.width = 74;
-	m_camera.height = 29;
-	m_messagesRect.x = m_camera.width;
-	m_messagesRect.y = 0;
-	m_messagesRect.width = 35;
-	m_messagesRect.height = m_camera.height;
+	m_camera.height = 25;
 
 	m_city.init();
 	m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER)->addObserver(&m_messagesView);
+	m_behaviourFactory.getBehaviour(BEHAVIOUR_PLAYER)->addObserver(&m_dialogueView);
 	m_behaviourFactory.getBehaviour(BEHAVIOUR_ZOMBIE)->addObserver(&m_messagesView);
 }
 
@@ -55,6 +53,11 @@ void InGame::update(StateMachine &stateMachine) {
 		return;
 	}
 
+	if (m_dialogueView.hasDialogue()) {
+		m_dialogueView.update();
+		return;
+	}
+
 	if (!m_player->update(m_city)) {
 		return;
 	}
@@ -71,13 +74,27 @@ void InGame::update(StateMachine &stateMachine) {
 }
 
 void InGame::render() {
+	S_Rectangle messagesRect, dialoguesRect;
+	messagesRect.x = m_camera.width;
+	messagesRect.y = 0;
+	messagesRect.width = 35;
+	messagesRect.height = m_camera.height + 7;
+	dialoguesRect.x = 0;
+	dialoguesRect.y = m_camera.y + m_camera.height;
+	dialoguesRect.width = m_camera.width;
+	dialoguesRect.height = 7;
+
 	m_gameView.init(m_camera);
-	m_messagesView.init(m_messagesRect);
+	m_messagesView.init(messagesRect);
+	m_dialogueView.init(dialoguesRect);
 
-	_renderGame();
 
-	m_gameView.render();
+	if (!m_dialogueView.hasDialogue()) {
+		_renderGame();
+		m_gameView.render();
+	}
 	m_messagesView.render();
+	m_dialogueView.render();
 }
 
 void InGame::_renderGame() {

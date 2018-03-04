@@ -1,7 +1,13 @@
 #include "Interact.hpp"
 
-InteractScript::InteractScript(Observable &observable, Map &map, int x, int y) :
+InteractScript::InteractScript(
+	Observable &observable,
+	Actor &interactor, Actor &interacted,
+	Map &map, int x, int y
+) :
 	m_observable(observable),
+	m_interactor(interactor),
+	m_interacted(interacted),
 	m_map(map),
 	m_iX(x),
 	m_iY(y)
