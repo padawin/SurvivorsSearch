@@ -3,6 +3,7 @@
 -- - notify
 -- - map_removeActor(x, y)
 function run(observer, map, x, y)
+	SURVIVOR_SAVED = 3
+	notify(observer, SURVIVOR_SAVED)
 	map_removeActor(map, x, y)
-	notify(observer, 3)
 end
