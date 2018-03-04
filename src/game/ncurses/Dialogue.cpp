@@ -3,7 +3,10 @@
 #include "../../Actor.hpp"
 #include "../types.hpp"
 
-DialogueWindow::DialogueWindow(Dialogue &dialogues) : m_dialogues(dialogues) {
+DialogueWindow::DialogueWindow(UserActions &userActions, Dialogue &dialogues) :
+	m_dialogues(dialogues),
+	m_userActions(userActions)
+{
 }
 
 void DialogueWindow::setDialogue(std::string dialogue) {
