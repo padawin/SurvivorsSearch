@@ -88,9 +88,11 @@ void InGame::render() {
 	m_messagesView.init(messagesRect);
 	m_dialogueView.init(dialoguesRect);
 
-	_renderGame();
 
-	m_gameView.render();
+	if (!m_dialogueView.hasDialogue()) {
+		_renderGame();
+		m_gameView.render();
+	}
 	m_messagesView.render();
 	m_dialogueView.render();
 }
