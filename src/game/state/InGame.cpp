@@ -78,11 +78,11 @@ void InGame::render() {
 	messagesRect.x = m_camera.width;
 	messagesRect.y = 0;
 	messagesRect.width = 35;
-	messagesRect.height = m_camera.height + 4;
+	messagesRect.height = m_camera.height + 7;
 	dialoguesRect.x = 0;
 	dialoguesRect.y = m_camera.y + m_camera.height;
 	dialoguesRect.width = m_camera.width;
-	dialoguesRect.height = 4;
+	dialoguesRect.height = 7;
 
 	m_gameView.init(m_camera);
 	m_messagesView.init(messagesRect);
