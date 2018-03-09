@@ -29,6 +29,10 @@ typedef struct {
 	int to;
 } S_EnemyProbability;
 
-enum E_Event : short {PLAYER_ATTACK, PLAYER_ATTACKED, PLAYER_SEEN, SURVIVOR_SAVED};
+enum E_Event : short {
+	PLAYER_ATTACK, PLAYER_ATTACKED, PLAYER_SEEN,
+	SURVIVOR_SAVED,
+	INTRO_DIALOGUE
+};
 
 #endif

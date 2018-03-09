@@ -2,38 +2,23 @@
 INTRO_DIALOGUE
 Ha! at last you wake up, you probably got quite a hit on the head...
 ...
-You don't remember? Oh... Ok, let me sum the situation up for you then.
-Two weeks ago, some sort of pandemic appeared, affecting everybody... turning
-people into... creatures, bit like the zombies from the stories of our youth.
+You don't remember? Oh... Ok, let me sum the situation up for you then.  Two weeks ago, some sort of pandemic appeared, affecting everybody... turning people into... creatures, bit like the zombies from the stories of our youth.
 
-Anyway, We managed to gather a cell of survivors and heard about a caravan
-which will pass nearby soon. All the others went to a camp we mounted to meet
-the caravan, all but us. We got attacked though, and you got hit and passed
-out.
+Anyway, We managed to gather a cell of survivors and heard about a caravan which will pass nearby soon. All the others went to a camp we mounted to meet the caravan, all but us. We got attacked though, and you got hit and passed out.
 
-Why did we stay behind you ask? Simple. We heard of a bunch of survivors
-scattered around in this city and in the nearby cities. And guess who
-volunteered to help them? Yep, you did.
----
-TUTORIAL
-I don't have much to give you but this Teleportation Remote Control© - or TRC
-for short - from our Prof. Use it to bring the survivors you find to safety.
+Why did we stay behind you ask? Simple. We heard of a bunch of survivors scattered around in this city and in the nearby cities. And guess who volunteered to help them? Yep, you did.
 
-If you find a survivor, just head toward him, or her, and the TRC will do the
-rest.
+I don't have much to give you but this Teleportation Remote Control© - or TRC for short - from our Prof. Use it to bring the survivors you find to safety.
 
-For the less fun part, outside is hectic, the streets are infested with
-zombies, most will ignore you unless you end up in their arms, but some might
-decide to chase you.
+If you find a survivor, just head toward him, or her, and the TRC will do the rest.
 
-If you decide to be brave, or have not much choice, you are trained to fight
-them. Take this knife, it might come in handy. To use it, just head towards
-your target and the knife will do the rest.
+For the less fun part, outside is hectic, the streets are infested with zombies, most will ignore you unless you end up in their arms, but some might decide to chase you.
+
+If you decide to be brave, or have not much choice, you are trained to fight them. Take this knife, it might come in handy. To use it, just head towards your target and the knife will do the rest.
 
 However, do not get bitten, if you are, you can count yourself as lost.
 
-I will wait for you here for a while, come back when you will have found
-everybody and we will meet the caravan. Good luck to you...
+I will wait for you here for a while, come back when you will have found everybody and we will meet the caravan. Good luck to you...
 ---
 SURVIVOR_SAVED
 Thank you so much for saving me! Good luck for finding the others!
