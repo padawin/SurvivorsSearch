@@ -27,7 +27,7 @@ CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
 		-Wunused-parameter \
 		-Wvariadic-macros \
 		-Wwrite-strings -Wno-long-long
-LDFLAGS:=
+LDFLAGS:=-I/home/ghislain/.self/include -L/home/ghislain/.self/lib
 CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -lncursesw -llua -ldl
 
 SRC := $(shell find $(SRCDIR)/ -type f -name '*.cpp')

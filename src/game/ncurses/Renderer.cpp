@@ -1,5 +1,6 @@
 #include "../../Game.hpp"
 #include "Renderer.hpp"
+#include "renderData.hpp"
 #include <ncurses.h>
 #include <signal.h>
 #include <sys/time.h>
@@ -11,12 +12,25 @@ const int DELAY_TIME = 1000000 / FPS;
 bool NCursesRenderer::init(void) const {
 	signal(SIGINT, _closeNCurses);
 	initscr();
+	if (has_colors() && can_change_color()) {
+		printf("Has color: %d, can change color: %d\n", has_colors(), can_change_color());
+		start_color();
+		_initColors();
+	}
 	cbreak();
 	keypad(stdscr, TRUE);
 	nodelay(stdscr, TRUE);
 	noecho();
 	curs_set(FALSE);
 	return true;
+}
+
+void NCursesRenderer::_initColors() const {
+	// for (int c = 0; c < NB_GAME_COLORS; ++c) {
+	// 	const short int* color = GAME_COLORS[c];
+	// 	init_color(color[0], color[1], color[2], color[3]);
+	// }
+	init_pair(1, COLOR_RED, COLOR_BLACK);
 }
 
 void NCursesRenderer::frame(Game* game) const {

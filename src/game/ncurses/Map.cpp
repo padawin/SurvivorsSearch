@@ -12,11 +12,13 @@ void NCursesMap::render(Map &map, FieldOfView &fov, int shiftX, int shiftY) {
 	for (auto cell : fov.getVisibleCells(true)) {
 		int x = cell.first.x,
 			y = cell.first.y;
+		attron(COLOR_PAIR(1));
 		m_window.renderString(
 			shiftX + x,
 			shiftY + y,
 			_getCellDisplayValue(map, cell.second, x, y)
 		);
+		attroff(COLOR_PAIR(1));
 	}
 }
 

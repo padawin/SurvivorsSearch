@@ -1,0 +1,13 @@
+			visible			not visible
+door		117, 62, 2		68, 36, 1
+pavement	104, 104, 104	73, 73, 73
+road		94, 94, 94		61, 61, 61
+wall		40, 40, 40		22, 22, 22
+interior	173, 95, 10		130, 71, 7
+tree		31, 99, 8		20, 66, 5
+grass		23, 140, 8		17, 102, 6
+water		35, 127, 219	21, 93, 165
+enemy		211, 12, 12		N/A
+enemy hurt	145, 8, 8		N/A
+enemy dying	71, 3, 3		N/A
+ally		0, 33, 168		N/A

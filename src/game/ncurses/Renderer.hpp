@@ -4,6 +4,9 @@
 #include "../../renderer/Renderer.hpp"
 
 class NCursesRenderer : public Renderer {
+	private:
+	void _initColors() const;
+
 	public:
 	bool init(void) const;
 	void frame(Game* game) const;

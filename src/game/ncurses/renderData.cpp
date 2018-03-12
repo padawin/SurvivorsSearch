@@ -1,0 +1,38 @@
+#include "renderData.hpp"
+
+const char* MAP_TILES[] = {
+	"█",
+	".",
+	"·",
+	",",
+	"♠",
+	"~",
+	".",
+	"-",
+	"|",
+	"/"
+};
+
+const int NB_GAME_COLORS = 20;
+const short GAME_COLORS[][4] = {
+	{DOOR_VISIBLE, 117, 62, 2},
+	{PAVEMENT_VISIBLE, 104, 104, 104},
+	{ROAD_VISIBLE, 94, 94, 94},
+	{WALL_VISIBLE, 40, 40, 40},
+	{INTERIOR_VISIBLE, 173, 95, 10},
+	{TREE_VISIBLE, 31, 99, 8},
+	{GRASS_VISIBLE, 23, 140, 8},
+	{WATER_VISIBLE, 35, 127, 219},
+	{ENEMY, 211, 12, 12},
+	{ENEMY_HURT, 145, 8, 8},
+	{ENEMY_DYING, 71, 3, 3},
+	{ALLY, 0, 33, 168},
+	{DOOR_NOT_VISIBLE, 68, 36, 1},
+	{PAVEMENT_NOT_VISIBLE, 73, 73, 73},
+	{ROAD_NOT_VISIBLE, 61, 61, 61},
+	{WALL_NOT_VISIBLE, 22, 22, 22},
+	{INTERIOR_NOT_VISIBLE, 130, 71, 7},
+	{TREE_NOT_VISIBLE, 20, 66, 5},
+	{GRASS_NOT_VISIBLE, 17, 102, 6},
+	{WATER_NOT_VISIBLE, 21, 93, 165}
+};

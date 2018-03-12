@@ -1,17 +1,30 @@
 #ifndef __RENDER_DATA__
 #define __RENDER_DATA__
 
-const char* MAP_TILES[] = {
-	"█",
-	".",
-	"·",
-	",",
-	"♠",
-	"~",
-	".",
-	"-",
-	"|",
-	"/"
-};
+#define DOOR_VISIBLE 8
+#define PAVEMENT_VISIBLE 9
+#define ROAD_VISIBLE 10
+#define WALL_VISIBLE 11
+#define INTERIOR_VISIBLE 12
+#define TREE_VISIBLE 13
+#define GRASS_VISIBLE 14
+#define WATER_VISIBLE 15
+#define ENEMY 16
+#define ENEMY_HURT 17
+#define ENEMY_DYING 18
+#define ALLY 19
+#define DOOR_NOT_VISIBLE 20
+#define PAVEMENT_NOT_VISIBLE 21
+#define ROAD_NOT_VISIBLE 22
+#define WALL_NOT_VISIBLE 23
+#define INTERIOR_NOT_VISIBLE 24
+#define TREE_NOT_VISIBLE 25
+#define GRASS_NOT_VISIBLE 26
+#define WATER_NOT_VISIBLE 27
+
+extern const char* MAP_TILES[];
+
+extern const int NB_GAME_COLORS;
+extern const short GAME_COLORS[][4];
 
 #endif
