@@ -69,7 +69,7 @@ int UserActions::setActionsFromFile(const char* mappingFile) {
 
 		// @TODO Check buffer overflow
 		token = strtok(buf, DELIMITER);
-		strncpy(commandName, token, MAX_CHAR_COMMAND);
+		strncpy(commandName, token, MAX_CHAR_COMMAND - 1);
 
 		// @TODO check missing values
 		token = strtok(0, DELIMITER);
