@@ -14,7 +14,7 @@ Game::Game(
 
 bool Game::init(char binaryPath[PATH_MAX]) {
 	bool res;
-	strncpy(m_sBinaryPath, binaryPath, PATH_MAX);
+	strncpy(m_sBinaryPath, binaryPath, PATH_MAX - 1);
 	res = m_renderer->init();
 	m_bIsRunning = res;
 	return res;
