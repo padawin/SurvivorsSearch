@@ -56,10 +56,13 @@ void DialogueWindow::onNotify(E_Event event, Actor *actor __attribute__((unused)
 void DialogueWindow::update() {
 	if (m_userActions.getActionState("NEXT_DIALOGUE_PAGE")) {
 		// remove the first lines of m_vDialogue
-		m_vDialogue.erase(
-			m_vDialogue.begin(),
-			m_vDialogue.begin() + m_area.height - 2
-		);
+		long nbLinesToErase = m_area.height - 2;
+		if (m_vDialogue.size() < (unsigned) nbLinesToErase) {
+			m_vDialogue.clear();
+		}
+		else {
+			m_vDialogue.erase(m_vDialogue.begin(), m_vDialogue.begin() + nbLinesToErase);
+		}
 	}
 }
 
