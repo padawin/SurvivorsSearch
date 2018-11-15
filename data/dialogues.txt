@@ -1,6 +1,20 @@
 ---
+TUTORIAL
+Welcome to Survivor Search.
+
+First, in dialogues like now, you have to go through the whole dialog to carry on playing. Also, you can scroll through the text with the SPACE key. Go on, try it.
+Good. Now a bit about your surroundings.
+
+You are the @ in the center of the screen. You can move with the arrows of your keyboard.
+
+Most of the actions in the world can be executed by moving towards the character, enemy, object, activator, etc... that you want to interact with. For example, this man, looking like a "H" is here to help you, so go towards him to hear what he has to say.
+
+You might have a lot of questions, about what you are doing here, and what is your goal... Don't worry, all will be answered soon.
+
+Finally, you can quit the game at any time by pressing ESCAPE.
+---
 INTRO_DIALOGUE
-Ha! at last you wake up, you probably got quite a hit on the head...
+Ha! at last you woke up, you probably got quite a hit on the head...
 ...
 You don't remember? Oh... Ok, let me sum the situation up for you then.  Two weeks ago, some sort of pandemic appeared, affecting everybody... turning people into... creatures, bit like the zombies from the stories of our youth.
 
