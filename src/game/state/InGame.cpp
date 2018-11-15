@@ -85,6 +85,7 @@ void InGame::update(StateMachine &stateMachine) {
 	}
 
 	if (m_player->isDead()) {
+		Save::clean();
 		stateMachine.clean();
 	}
 }
