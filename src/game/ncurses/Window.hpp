@@ -10,6 +10,7 @@ class NCurseWindow {
 	WINDOW *m_window = 0;
 
 	public:
+	void prepareWindow();
 	virtual ~NCurseWindow();
 	void init(S_Rectangle area);
 	void renderChar(int x, int y, char c);

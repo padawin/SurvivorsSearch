@@ -32,6 +32,20 @@ std::string InGame::getStateID() const {
 }
 
 bool InGame::onEnter() {
+	S_Rectangle messagesRect, dialoguesRect;
+	messagesRect.x = m_camera.width;
+	messagesRect.y = 0;
+	messagesRect.width = 35;
+	messagesRect.height = m_camera.height + 7;
+	dialoguesRect.x = 0;
+	dialoguesRect.y = m_camera.y + m_camera.height;
+	dialoguesRect.width = m_camera.width;
+	dialoguesRect.height = 7;
+
+	m_gameView.init(m_camera);
+	m_messagesView.init(messagesRect);
+	m_dialogueView.init(dialoguesRect);
+
 	if (!Save::exists()) {
 		Save::clean();
 		Save::create(m_player, m_city);
@@ -74,20 +88,9 @@ void InGame::update(StateMachine &stateMachine) {
 }
 
 void InGame::render() {
-	S_Rectangle messagesRect, dialoguesRect;
-	messagesRect.x = m_camera.width;
-	messagesRect.y = 0;
-	messagesRect.width = 35;
-	messagesRect.height = m_camera.height + 7;
-	dialoguesRect.x = 0;
-	dialoguesRect.y = m_camera.y + m_camera.height;
-	dialoguesRect.width = m_camera.width;
-	dialoguesRect.height = 7;
-
-	m_gameView.init(m_camera);
-	m_messagesView.init(messagesRect);
-	m_dialogueView.init(dialoguesRect);
-
+	m_gameView.prepareWindow();
+	m_messagesView.prepareWindow();
+	m_dialogueView.prepareWindow();
 
 	if (!m_dialogueView.hasDialogue()) {
 		_renderGame();

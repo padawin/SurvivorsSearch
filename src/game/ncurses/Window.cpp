@@ -7,11 +7,14 @@ NCurseWindow::~NCurseWindow() {
 }
 
 void NCurseWindow::init(S_Rectangle area) {
+	m_area = area;
+}
+
+void NCurseWindow::prepareWindow() {
 	if (m_window != 0) {
 		delwin(m_window);
 	}
-	m_area = area;
-	m_window = newwin(area.height, area.width, area.y, area.x);
+	m_window = newwin(m_area.height, m_area.width, m_area.y, m_area.x);
 	box(m_window, 0 , 0);
 }
 
