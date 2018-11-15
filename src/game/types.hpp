@@ -32,7 +32,7 @@ typedef struct {
 enum E_Event : short {
 	PLAYER_ATTACK, PLAYER_ATTACKED, PLAYER_SEEN,
 	SURVIVOR_SAVED,
-	INTRO_DIALOGUE
+	INTRO_DIALOGUE, TUTORIAL
 };
 
 #endif

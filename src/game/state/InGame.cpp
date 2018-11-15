@@ -49,6 +49,7 @@ bool InGame::onEnter() {
 	if (!Save::exists()) {
 		Save::clean();
 		Save::create(m_player, m_city);
+		m_dialogueView.onNotify(TUTORIAL, NULL);
 	}
 	else {
 		Save::load(m_player, m_city);

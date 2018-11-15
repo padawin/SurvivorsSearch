@@ -51,6 +51,9 @@ void DialogueWindow::onNotify(E_Event event, Actor *actor __attribute__((unused)
 	else if (event == INTRO_DIALOGUE) {
 		setDialogue(m_dialogues.getDialogue("INTRO_DIALOGUE"));
 	}
+	else if (event == TUTORIAL) {
+		setDialogue(m_dialogues.getDialogue("TUTORIAL"));
+	}
 }
 
 void DialogueWindow::update() {
