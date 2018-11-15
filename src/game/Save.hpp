@@ -24,6 +24,7 @@ class Save {
 
 	static void create(std::shared_ptr<GameActor> player, City &city);
 	static void load(std::shared_ptr<GameActor> player, City &city);
+	static void save(std::shared_ptr<GameActor> player, City &city);
 };
 
 #endif

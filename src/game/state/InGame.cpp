@@ -64,6 +64,7 @@ bool InGame::onEnter() {
 
 void InGame::update(StateMachine &stateMachine) {
 	if (m_userActions.getActionState("QUIT")) {
+		Save::save(m_player, m_city);
 		stateMachine.clean();
 		return;
 	}

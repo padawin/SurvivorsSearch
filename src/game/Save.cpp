@@ -124,6 +124,11 @@ void Save::load(std::shared_ptr<GameActor> player, City &city) {
 	_loadCity(city, cityName);
 }
 
+void Save::save(std::shared_ptr<GameActor> player, City &city) {
+	_savePlayer(player, city);
+	_saveCity(city);
+}
+
 void Save::_loadPlayer(std::shared_ptr<GameActor> player, char cityInternalName[20]) {
 	std::ifstream fin;
 	std::string file = Utils::getDataPath() + "/" + PLAYER_FILE;
