@@ -29,7 +29,7 @@ void Save::create(std::shared_ptr<GameActor> player, City &city) {
 	Utils::createFolder(Utils::getDataPath().c_str());
 	WorldGenerator worldGenerator;
 	worldGenerator.generate(world);
-	saveWorld(world);
+	_saveWorld(world);
 
 	city.init();
 	city.m_info = world.m_vCities[(unsigned) rand() % world.m_vCities.size()];
@@ -37,15 +37,15 @@ void Save::create(std::shared_ptr<GameActor> player, City &city) {
 	int startX = 0,
 		startY = 0;
 	cityGenerator.generate(city, &startX, &startY);
-	saveCity(city);
+	_saveCity(city);
 
 	// Create player save file
 	player->m_location.x = startX;
 	player->m_location.y = startY;
-	savePlayer(player, city);
+	_savePlayer(player, city);
 }
 
-void Save::_saveCity(FILE *mapFile, S_CityInfo &city) {
+void Save::_saveCityLine(FILE *mapFile, S_CityInfo &city) {
 	fprintf(
 		mapFile,
 		"c %s %s %d %d %d %d\n",
@@ -58,7 +58,7 @@ void Save::_saveCity(FILE *mapFile, S_CityInfo &city) {
 	);
 }
 
-bool Save::saveWorld(World &world) {
+bool Save::_saveWorld(World &world) {
 	std::string worldPath = Utils::getDataPath() + "/" + WORLD_FILE;
 	FILE *mapFile = fopen(worldPath.c_str(), "w");
 	if (mapFile == NULL) {
@@ -66,14 +66,14 @@ bool Save::saveWorld(World &world) {
 	}
 
 	for (auto city : world.m_vCities) {
-		_saveCity(mapFile, city);
+		_saveCityLine(mapFile, city);
 	}
 
 	fclose(mapFile);
 	return true;
 }
 
-bool Save::saveCity(City &city) {
+bool Save::_saveCity(City &city) {
 	char cityFile[30];
 	snprintf(cityFile, 30, "city.%s.dat", city.m_info.internalName);
 	std::string cityPath = Utils::getDataPath() + "/" + cityFile;
@@ -82,7 +82,7 @@ bool Save::saveCity(City &city) {
 		return false;
 	}
 
-	_saveCity(mapFile, city.m_info);
+	_saveCityLine(mapFile, city.m_info);
 	for (auto actor : city.getActors()) {
 		fprintf(
 			mapFile,
@@ -103,7 +103,7 @@ bool Save::saveCity(City &city) {
 	return true;
 }
 
-bool Save::savePlayer(std::shared_ptr<GameActor> player, City &city) {
+bool Save::_savePlayer(std::shared_ptr<GameActor> player, City &city) {
 	std::string playerPath = Utils::getDataPath() + "/" + PLAYER_FILE;
 	FILE *playerFile = fopen(playerPath.c_str(), "w");
 	if (playerFile == NULL) {
@@ -122,6 +122,11 @@ void Save::load(std::shared_ptr<GameActor> player, City &city) {
 	char cityName[20];
 	_loadPlayer(player, cityName);
 	_loadCity(city, cityName);
+}
+
+void Save::save(std::shared_ptr<GameActor> player, City &city) {
+	_savePlayer(player, city);
+	_saveCity(city);
 }
 
 void Save::_loadPlayer(std::shared_ptr<GameActor> player, char cityInternalName[20]) {
