@@ -1,23 +1,22 @@
+#include <SDL2/SDL.h>
 #include "../Game.hpp"
-#include "../StateMachine.hpp"
-#include "../UserActions.hpp"
 #include "../script/Script.hpp"
+#include "../globals.hpp"
 #include "../Dialogue.hpp"
 #include "../DialogueParser.hpp"
-#include "state/InGame.hpp"
-#include "ncurses/Renderer.hpp"
-#include "ncurses/InputHandler.hpp"
-#include <locale.h>
-#include <memory>
-#include <limits.h>
-#include <libgen.h>
+#include "scene/Play.hpp"
+#include <memory> // shared_ptr
+#include <libgen.h> // dirname
+#include "sdl2/InputHandler.hpp"
+#include "sdl2/Renderer.hpp"
 
 int main(int argc, char* args[]) {
 	setlocale(LC_ALL,"");
 	time_t t;
 	srand((unsigned int) time(&t));
-	std::shared_ptr<Renderer> renderer(new NCursesRenderer());
-	std::shared_ptr<InputHandler> inputHandler(new NCursesInputHandler());
+	std::shared_ptr<SDL2Renderer> renderer(new SDL2Renderer());
+	renderer->setWindowInfo("rRpg", 100, 100, SCREEN_WIDTH, SCREEN_HEIGHT, FULL_SCREEN);
+	std::shared_ptr<SDL2InputHandler> inputHandler(new SDL2InputHandler());
 	UserActions userActions(inputHandler);
 	char binaryPath[PATH_MAX];
 	{
@@ -47,7 +46,7 @@ int main(int argc, char* args[]) {
 	}
 
 	StateMachine stateMachine = StateMachine();
-	stateMachine.pushState(new InGame(userActions, dialogues));
+	stateMachine.pushState(new PlayScene(userActions));
 	Game g(stateMachine, renderer, inputHandler);
 	if (g.init(binaryPath)) {
 		g.mainLoop();

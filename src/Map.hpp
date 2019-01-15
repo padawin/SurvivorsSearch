@@ -3,17 +3,6 @@
 
 #include "MapContent.hpp"
 
-const char WALL_TILE = 0;
-const char ROAD_TILE = 1;
-const char PAVEMENT_TILE = 2;
-const char GRASS_TILE = 3;
-const char TREE_TILE = 4;
-const char WATER_TILE = 5;
-const char INTERIOR_TILE = 6;
-const char HORIZ_DOOR_TILE = 7;
-const char VERTIC_DOOR_TILE = 8;
-const char OPEN_DOOR_TILE = 9;
-
 class Map {
 	protected:
 	unsigned int m_iSize = 0;

@@ -2,7 +2,7 @@ SRCDIR := src
 BUILDDIR := build
 BINDIR := bin
 
-PROG   := survivors
+PROG   := rrpg
 TARGET := $(PROG)
 CC     := $(CROSS_COMPILE)g++ -std=c++11
 INCL   :=
@@ -28,7 +28,7 @@ CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
 		-Wvariadic-macros \
 		-Wwrite-strings -Wno-long-long
 LDFLAGS:=
-CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -lncursesw -llua -ldl
+CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -I/home/ghislain/home_conf/.self/include -L/home/ghislain/home_conf/.self/lib  -lSDL2 -lSDL2_image -llua -ldl
 
 SRC := $(shell find $(SRCDIR)/ -type f -name '*.cpp')
 OBJ := $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRC))

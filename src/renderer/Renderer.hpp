@@ -6,7 +6,7 @@ class Game;
 class Renderer {
 	public:
 	virtual ~Renderer() {}
-	virtual bool init(void) const = 0;
+	virtual bool init(void) = 0;
 	virtual void frame(Game* game) const = 0;
 	virtual void shutdown(void) const = 0;
 };
