@@ -33,6 +33,17 @@ class SDL2Renderer : public Renderer {
 	bool m_bFullScreen = false;
 
 	/**
+	 * List of files to use as graphic resources, each file is a pair composed
+	 * of a resource name and of the file path.
+	 */
+	std::vector<std::pair<std::string, std::string>> m_vResourceFiles = {};
+
+	/**
+	 * Number of resources used by the game
+	 */
+	unsigned long m_iNbFiles = 0;
+
+	/**
 	 * Method to initialise the SDL. It takes in arguments the window's title,
 	 * its position and dimensions, and a boolean to create it full screen or
 	 * not.
@@ -51,6 +62,11 @@ class SDL2Renderer : public Renderer {
 	 */
 	bool _loadResources();
 
+	/**
+	 * Method to free the game's resources.
+	 */
+	void _cleanResources();
+
 	public:
 	void setWindowInfo(
 		const char* title,
@@ -62,7 +78,9 @@ class SDL2Renderer : public Renderer {
 	);
 	bool init(void);
 	void frame(Game* game) const;
-	void shutdown(void) const;
+	void shutdown(void);
+
+	void addResource(std::string resourceName, std::string resourcePath);
 };
 
 #endif

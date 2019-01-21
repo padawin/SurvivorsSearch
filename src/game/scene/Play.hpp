@@ -1,17 +1,23 @@
 #ifndef __GAME_STATE__
 #define __GAME_STATE__
 
+#include "../../State.hpp"
+#include "../../Actor.hpp"
+#include "../sdl2/Map.hpp"
+#include "../sdl2/Actor.hpp"
+
 class PlayScene : public State {
 	private:
-	//std::shared_ptr<GameActor> m_player;
-	// City m_city;
+	std::shared_ptr<Actor> m_player;
+	std::shared_ptr<Map> m_map;
+	//rRpg m_engine;
 	// NCurseWindow m_gameView;
 	// NotificationWindow m_messagesView;
 	// DialogueWindow m_dialogueView;
-	// NCursesMap m_cityRenderer;
-	// NCursesActor m_actorRenderer;
+	SDL2Map m_mapRenderer;
+	SDL2Actor m_actorRenderer;
 	// BehaviourFactory m_behaviourFactory;
-	// S_Rectangle m_camera = {};
+	S_Rectangle m_camera = {};
 
 	void _renderGame();
 

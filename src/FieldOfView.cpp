@@ -27,8 +27,8 @@ long FieldOfView::_getRelativeIndex(int x, int y) {
 	return relativeY * m_visibleArea.width + relativeX;
 }
 
-void FieldOfView::_setCellVisible(Map &map, int x, int y) {
-	map.setCellVisited(x, y);
+void FieldOfView::_setCellVisible(Map *map, int x, int y) {
+	map->setCellVisited(x, y);
 	long index = _getRelativeIndex(x, y);
 	if (index >= 0) {
 		m_vVisibleCells[(unsigned) index] = 1;
@@ -40,7 +40,7 @@ bool FieldOfView::isVisible(int x, int y) {
 	return index >= 0 && m_vVisibleCells[(unsigned) index] == 1;
 }
 
-void FieldOfView::calculate(Map &map, S_Coordinates location) {
+void FieldOfView::calculate(Map *map, S_Coordinates location) {
 	m_vVisibleCells.clear();
 	long unsigned sizeView = (unsigned) (m_visibleArea.width * m_visibleArea.height);
 	m_vVisibleCells.assign(sizeView, 0);
@@ -63,7 +63,7 @@ void FieldOfView::calculate(Map &map, S_Coordinates location) {
 // Björn Bergström algorithm,
 // http://www.roguebasin.com/index.php?title=FOV_using_recursive_shadowcasting
 void FieldOfView::_lightQuadrant(
-	Map &map,
+	Map *map,
 	S_Coordinates location, int row,
 	double startSlope, double endSlope,
 	int xx, int xy, int yx, int yy
@@ -95,7 +95,7 @@ void FieldOfView::_lightQuadrant(
 			}
 			int ax = x + sax;
 			int ay = y + say;
-			if (!map.areCoordinatesValid(ax, ay) ||
+			if (!map->areCoordinatesValid(ax, ay) ||
 				ax < m_visibleArea.x ||
 				ay < m_visibleArea.y ||
 				ax >= m_visibleArea.x + m_visibleArea.width ||
@@ -113,7 +113,7 @@ void FieldOfView::_lightQuadrant(
 				_setCellVisible(map, ax, ay);
 			}
 
-			bool cellIsObstructingView = map.isCellObstructingView(ax, ay);
+			bool cellIsObstructingView = map->isCellObstructingView(ax, ay);
 			if (blocked) {
 				if (cellIsObstructingView) {
 					nextStartSlope = rSlope;

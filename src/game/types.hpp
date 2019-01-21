@@ -1,38 +1,83 @@
 #ifndef __TYPES__
 #define __TYPES__
 
-#include <string>
-#include "../types.hpp"
+#include <cstring>
+#include <type_traits>
+#include <functional>
+#include <unordered_map>
+#include <vector>
 
-typedef struct {
-	char name[20];
-	char internalName[20];
-	S_Coordinates location = S_Coordinates();
-	bool visited = false;
-	int count_survivors = 0;
-} S_CityInfo;
+#include "dataTypes.hpp"
 
-typedef struct {
-	int city1Index;
-	int city2Index;
-	bool visited;
-} S_CityConnection;
+#define MAX_LENGTH_MAP_NAME 128
+#define MAX_LENGTH_TILESET_NAME 32
+#define MAX_CHAR_RESOURCE_PATH 255
 
-enum E_ActorType : short {PLAYER, SURVIVOR, FOE, FRIEND};
-enum E_ActorRace : short {HUMAN, ZOMBIE, LARGE_ZOMBIE};
-enum E_Behaviours : short {BEHAVIOUR_PLAYER, BEHAVIOUR_ZOMBIE};
+struct EnumClassHash {
+	template <typename T>
+	std::size_t operator()(T t) const {
+		return static_cast<std::size_t>(t);
+	}
+};
+template <typename Key>
+using HashType = typename std::conditional<std::is_enum<Key>::value, EnumClassHash, std::hash<Key>>::type;
+
+template <typename Key, typename T>
+using MyUnorderedMap = std::unordered_map<Key, T, HashType<Key>>;
+
+struct S_TileData {
+	char tileset[MAX_LENGTH_TILESET_NAME];
+	int width;
+	int height;
+	int x;
+	int y;
+};
+
+struct S_TilesetMapping {
+	char tileset[MAX_LENGTH_TILESET_NAME];
+	char filePath[MAX_CHAR_RESOURCE_PATH];
+};
+
+struct S_ActorRaceData {
+	char tileset[MAX_LENGTH_TILESET_NAME];
+	int level1HP;
+	int level1Defence;
+	int level1Attack;
+	int timePerFrame;
+	int spriteX;
+	int spriteY;
+};
+
+
+struct S_ObjectData {
+	char tileset[MAX_LENGTH_TILESET_NAME];
+	int spriteX;
+	int spriteY;
+	unsigned int flags;
+};
+
+struct S_MapChangeEventData {
+	char mapName[MAX_LENGTH_MAP_NAME + 1];
+	int mapLevel;
+};
 
 // int is the perthousand of chance of encounter
-typedef struct {
-	E_ActorRace race;
-	int from;
-	int to;
-} S_EnemyProbability;
+struct S_EnemyProbability {
+	E_ActorRaces race;
+	int probaRangeFrom;
+	int probaRangeTo;
+};
 
-enum E_Event : short {
-	PLAYER_ATTACK, PLAYER_ATTACKED, PLAYER_SEEN,
-	SURVIVOR_SAVED,
-	INTRO_DIALOGUE, TUTORIAL
+
+enum E_MapType {DEFAULT, CAVE};
+
+struct S_MapSpecs {
+	char name[MAX_LENGTH_MAP_NAME + 1];
+	int level;
+	E_MapType type;
+	int width;
+	int height;
+	bool hasEnemies;
 };
 
 #endif

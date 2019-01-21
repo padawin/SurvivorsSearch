@@ -1,0 +1,10 @@
+# format:
+# tileName x y flags
+# OBJECT_STAIR_UP
+floorTiles 5 3 1
+# OBJECT_STAIR_DOWN
+floorTiles 7 3 1
+# OBJECT_EXIT
+floorTiles 6 1 1
+# ITEM_SCROLL
+scrolls 1 0 3

@@ -1,5 +1,6 @@
 #include "../../Game.hpp"
 #include "Renderer.hpp"
+#include "TextureManager.hpp"
 #include <iostream>
 
 const char FPS = 60;
@@ -76,46 +77,62 @@ bool SDL2Renderer::_initSDL(
 	return ret;
 }
 
+void SDL2Renderer::addResource(std::string resourceName, std::string resourcePath) {
+	m_vResourceFiles.push_back(std::make_pair(resourceName, resourcePath));
+	m_iNbFiles = m_vResourceFiles.size();
+}
+
 /**
  * Loads each resource. Returns false if a resource is failed to be loaded (for
  * example if the file does not exist or is not readable).
  */
 bool SDL2Renderer::_loadResources() {
-	// const char errorPattern[] = "An error occured while loading the file %s";
+	const char errorPattern[] = "An error occured while loading the file %s";
 
 	bool ret = true;
-	std::cout << "Load resources \n";
-	//  for (unsigned long i = 0; i < m_iNbFiles; ++i) {
-	//   char* errorMessage = (char*) calloc(
-	//   	strlen(errorPattern) + m_vResourceFiles[i].second.length(), sizeof(char)
-	//   );
-	//   std::cout << "Load resource " << m_vResourceFiles[i].second << "\n";
-	//   bool textureLoaded = TextureManager::Instance()->load(
-	//   	m_vResourceFiles[i].second,
-	//   	m_vResourceFiles[i].first,
-	//   	m_renderer
-	//   );
+	for (unsigned long i = 0; i < m_iNbFiles; ++i) {
+		char* errorMessage = (char*) calloc(
+			strlen(errorPattern) + m_vResourceFiles[i].second.length(), sizeof(char)
+		);
+		std::cout << "Load resource " << m_vResourceFiles[i].second << "\n";
+		bool textureLoaded = TextureManager::Instance()->load(
+			m_vResourceFiles[i].second,
+			m_vResourceFiles[i].first,
+			m_renderer
+		);
 
-	//   if (!textureLoaded) {
-	//   	sprintf(errorMessage, errorPattern, m_vResourceFiles[i].second.c_str());
-	//   	std::cout << errorMessage << "\n";
-	//   	std::cout << strerror(errno) << "\n";
-	//   	ret = false;
-	//   }
-	//   else {
-	//   	std::cout << "Resource " << m_vResourceFiles[i].second << " loaded\n";
-	//   }
-	//   free(errorMessage);
-	// }
+		if (!textureLoaded) {
+			sprintf(errorMessage, errorPattern, m_vResourceFiles[i].second.c_str());
+			std::cout << errorMessage << "\n";
+			std::cout << strerror(errno) << "\n";
+			ret = false;
+		}
+		else {
+			std::cout << "Resource " << m_vResourceFiles[i].second << " loaded\n";
+		}
+		free(errorMessage);
+	}
 
 	return ret;
+}
+
+/**
+ * Clean every resources.
+ */
+void SDL2Renderer::_cleanResources() {
+	std::cout << "Clean resources\n";
+	for (unsigned long i = 0; i < m_iNbFiles; ++i) {
+		std::cout << "Clean resource " << m_vResourceFiles[i].second << "\n";
+		TextureManager::Instance()->clearFromTextureMap(m_vResourceFiles[i].first.c_str());
+	}
 }
 
 void SDL2Renderer::frame(Game* game) const {
 	game->loopFrame();
 }
 
-void SDL2Renderer::shutdown(void) const {
+void SDL2Renderer::shutdown(void) {
+	_cleanResources();
 	SDL_DestroyWindow(m_window);
 	SDL_DestroyRenderer(m_renderer);
 	SDL_Quit();

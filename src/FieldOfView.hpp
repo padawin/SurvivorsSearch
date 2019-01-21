@@ -16,17 +16,17 @@ class FieldOfView {
 	S_Rectangle m_visibleArea;
 
 	void _lightQuadrant(
-		Map &map,
+		Map *map,
 		S_Coordinates location, int row,
 		double startSlope, double endSlope,
 		int xx, int xy, int yx, int yy
 	);
 	long _getRelativeIndex(int x, int y);
-	void _setCellVisible(Map &map, int x, int y);
+	void _setCellVisible(Map *map, int x, int y);
 
 	public:
 	FieldOfView(S_Rectangle visibleArea);
-	void calculate(Map &map, S_Coordinates location);
+	void calculate(Map *map, S_Coordinates location);
 	std::vector<std::pair<S_Coordinates, int>> getVisibleCells(bool full);
 	S_Rectangle &getVisibleArea();
 	bool isVisible(int x, int y);

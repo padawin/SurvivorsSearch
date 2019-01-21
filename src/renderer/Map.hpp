@@ -9,7 +9,7 @@ class MapContent;
 class MapRenderer {
 	public:
 	virtual	~MapRenderer() {}
-	virtual void render(Map &map, FieldOfView &fov, int shiftX, int shiftY) = 0;
+	virtual void render(Map *map, FieldOfView &fov, int shiftX, int shiftY) = 0;
 };
 
 #endif

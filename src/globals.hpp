@@ -1,6 +1,9 @@
 #ifndef __GLOBALS__
 #define __GLOBALS__
 
+const int TILE_WIDTH = 16;
+const int TILE_HEIGHT = 16;
+
 #if GCW
 const bool FULL_SCREEN = true;
 const int SCREEN_WIDTH = 320;

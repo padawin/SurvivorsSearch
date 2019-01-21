@@ -7,6 +7,7 @@
 #include <memory>
 
 class Actor {
+	friend class Save;
 	private:
 	std::shared_ptr<Behaviour> m_behaviour = 0;
 	E_ActorRace m_eRace;
@@ -15,6 +16,10 @@ class Actor {
 
 	std::string m_sScript = "";
 	int m_iScriptState = 0;
+
+	int m_iHealth = 0;
+	int m_iMaxHealth = 0;
+	int m_iAttack = 0;
 
 	protected:
 	S_Coordinates m_location = S_Coordinates();
@@ -33,15 +38,25 @@ class Actor {
 
 	std::string getScript();
 
-	virtual bool isDead();
 	void setX(int x);
 	void setY(int y);
 	S_Coordinates getLocation();
 
-	bool update(Map &map);
+	bool update(Map *map);
 
 	bool isNextTo(std::shared_ptr<Actor> actor);
 	bool seesActor(Map &map, std::shared_ptr<Actor> actor);
+
+	int getHealth();
+	int getMaxHealth();
+	int getAttack();
+	void setHealth(int health);
+	void setMaxHealth(int maxHealth);
+	void setAttack(int attack);
+
+	bool isDead();
+
+	void attack(std::shared_ptr<Actor> target);
 };
 
 #endif
