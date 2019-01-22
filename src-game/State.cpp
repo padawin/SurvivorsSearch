@@ -5,7 +5,7 @@ State::State(UserActions &userActions) :
 {
 }
 
-void State::render() {
+void State::render(const Renderer *renderer __attribute__((unused))) {
 }
 
 bool State::onEnter() {

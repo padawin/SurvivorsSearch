@@ -25,7 +25,7 @@ class PlayScene : public State {
 	PlayScene(UserActions &userActions);
 	bool onEnter();
 	void update(StateMachine &stateMachine);
-	void render();
+	void render(const Renderer *renderer);
 	std::string getStateID() const;
 };
 

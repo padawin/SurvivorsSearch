@@ -3,13 +3,14 @@
 
 #include "../types.hpp"
 #include "../FieldOfView.hpp"
+#include "../renderer/Renderer.hpp"
 
 class Map;
 class MapContent;
 class MapRenderer {
 	public:
 	virtual	~MapRenderer() {}
-	virtual void render(Map *map, FieldOfView &fov, int shiftX, int shiftY) = 0;
+	virtual void render(const Renderer *renderer, Map *map, FieldOfView &fov, int shiftX, int shiftY) = 0;
 };
 
 #endif

@@ -6,6 +6,7 @@
 #include "../DialogueParser.hpp"
 #include "../ResourceManager.hpp"
 #include "scene/Play.hpp"
+#include "types.hpp"
 #include <iostream>
 #include <memory> // shared_ptr
 #include <libgen.h> // dirname

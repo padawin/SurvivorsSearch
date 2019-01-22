@@ -52,8 +52,7 @@ void PlayScene::update(StateMachine &stateMachine) {
 	}
 }
 
-void PlayScene::render() {
-	return;
+void PlayScene::render(const Renderer *renderer) {
 	S_Coordinates center = m_player->getLocation();
 	// x,y coords in the grid
 	int cameraWidthGrid = m_camera.width / TILE_WIDTH;
@@ -69,7 +68,7 @@ void PlayScene::render() {
 	fov.calculate(m_map.get(), m_player->getLocation());
 	int shiftX = 1 + m_camera.x - visibleArea.x;
 	int shiftY = 1 + m_camera.y - visibleArea.y;
-	m_mapRenderer.render(m_map.get(), fov, shiftX, shiftY);
+	m_mapRenderer.render(renderer, m_map.get(), fov, shiftX, shiftY);
 	for (auto actor : m_map->getActors()) {
 		m_actorRenderer.render(actor.second, fov, shiftX, shiftY);
 	}

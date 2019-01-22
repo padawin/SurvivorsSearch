@@ -26,12 +26,12 @@ void Game::mainLoop() {
 	}
 }
 
-void Game::loopFrame() {
+void Game::loopFrame(const Renderer *renderer) {
 	if (m_inputHandler->update() == QUIT) {
 		m_stateMachine.clean();
 	}
 	m_stateMachine.update();
-	m_stateMachine.render();
+	m_stateMachine.render(renderer);
 }
 
 void Game::shutdown() const {

@@ -68,6 +68,7 @@ class SDL2Renderer : public Renderer {
 	void _cleanResources();
 
 	public:
+	SDL_Renderer *getRenderer() const;
 	void setWindowInfo(
 		const char* title,
 		const int x,
