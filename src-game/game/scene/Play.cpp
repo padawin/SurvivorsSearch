@@ -2,6 +2,7 @@
 #include "../../StateMachine.hpp"
 #include "../../Game.hpp"
 #include "../../globals.hpp"
+#include "../Cave.hpp"
 #include "Play.hpp"
 #include "GameOver.hpp"
 #include <iostream>
@@ -10,7 +11,7 @@
 PlayScene::PlayScene(UserActions &userActions) :
 	State(userActions),
 	m_player(nullptr),
-	m_map(nullptr),
+	m_map(std::shared_ptr<Map>(new Cave())),
 	m_mapRenderer(SDL2Map()),
 	m_actorRenderer(SDL2Actor())
 {
@@ -35,7 +36,6 @@ void PlayScene::update(StateMachine &stateMachine) {
 		return;
 	}
 
-	return;
 	auto actors = m_map->getActors();
 
 	if (!m_player->update(m_map.get())) {
@@ -65,7 +65,7 @@ void PlayScene::render(const Renderer *renderer) {
 	visibleArea.width = cameraWidthGrid;
 	visibleArea.height = cameraHeightGrid;
 	FieldOfView fov(visibleArea);
-	fov.calculate(m_map.get(), m_player->getLocation());
+	fov.calculate(m_map.get(), center);
 	int shiftX = 1 + m_camera.x - visibleArea.x;
 	int shiftY = 1 + m_camera.y - visibleArea.y;
 	m_mapRenderer.render(renderer, m_map.get(), fov, shiftX, shiftY);

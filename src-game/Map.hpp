@@ -14,15 +14,17 @@ const int CURRENT_CELL = 16;
 
 class Map {
 	protected:
+	int m_iWidth = 0;
+	int m_iHeight = 0;
 	unsigned int m_iSize = 0;
-	std::vector<E_TerrainType> grid;
+	std::vector<E_TerrainType> grid = {};
 	char *visitedGrid = 0;
 
 	// Caching of the tiles data
-	MyUnorderedMap<E_TerrainTile, S_TileData> m_mTerrainsTileData;
+	MyUnorderedMap<E_TerrainTile, S_TileData> m_mTerrainsTileData = {};
 
 	MapContent m_content = MapContent();
-	ResourceManager<S_TileData> m_tilesManager;
+	ResourceManager<S_TileData> m_tilesManager = ResourceManager<S_TileData>();
 
 	unsigned long _getCoordsKey(int x, int y) const;
 	int _getSameNeighbours(int x, int y);
@@ -31,9 +33,9 @@ class Map {
 
 	public:
 	virtual ~Map();
-	virtual void init();
-	virtual int getWidth() const = 0;
-	virtual int getHeight() const = 0;
+	virtual void init(int width, int height);
+	virtual int getWidth() const;
+	virtual int getHeight() const;
 	virtual unsigned int getSize() const;
 	virtual E_TerrainType getCell(const int x, const int y) const;
 	virtual void setCell(const int x, const int y, E_TerrainType c);
@@ -44,6 +46,7 @@ class Map {
 	bool moveActor(Actor* actor, int newX, int newY);
 	bool areCoordinatesValid(int x, int y) const;
 	bool isCellWalkable(int x, int y) const;
+	//bool isCellWalkable(int x, int y, unsigned int walkableConstraint = 0);
 	bool isCellObstructingView(int x, int y) const;
 	bool isCellVisited(int x, int y) const;
 	void setCellVisited(int x, int y);

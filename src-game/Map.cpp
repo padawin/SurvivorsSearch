@@ -9,14 +9,24 @@ Map::~Map() {
 	}
 }
 
-void Map::init() {
-	m_iSize = (unsigned) (getWidth() * getHeight());
+void Map::init(int width, int height) {
+	m_iWidth = width;
+	m_iHeight = height;
+	m_iSize = (unsigned) (width * height);
 	visitedGrid = (char*) malloc(m_iSize * sizeof (char));
 	memset(visitedGrid, 0, m_iSize);
 }
 
 unsigned int Map::getSize() const {
 	return m_iSize;
+}
+
+int Map::getWidth() const {
+	return m_iWidth;
+}
+
+int Map::getHeight() const {
+	return m_iHeight;
 }
 
 E_TerrainType Map::getCell(const int x, const int y) const {
