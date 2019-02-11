@@ -6,11 +6,11 @@
 #include "Play.hpp"
 #include "GameOver.hpp"
 #include <iostream>
-#include <unordered_map>
 
 PlayScene::PlayScene(UserActions &userActions) :
 	State(userActions),
-	m_player(nullptr),
+	m_actorFactory(ActorFactory()),
+	m_player(m_actorFactory.createActor(RACE_HUMAN, PLAYER)),
 	m_map(std::shared_ptr<Map>(new Cave())),
 	m_mapRenderer(SDL2Map()),
 	m_actorRenderer(SDL2Actor())

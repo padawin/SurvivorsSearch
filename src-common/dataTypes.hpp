@@ -1,7 +1,8 @@
 #ifndef __DATA_TYPES__
 #define __DATA_TYPES__
 
-enum E_ActorRaces {RACE_HUMAN, RACE_DEMON, RACE_RAT, NB_RACES};
+enum E_ActorRace : short {RACE_HUMAN, RACE_DEMON, RACE_RAT, NB_RACES};
+enum E_ActorType : short {PLAYER, FOE, FRIEND, NB_TYPES};
 
 enum E_TerrainType {
 	TERRAIN_GRASS_NORMAL,

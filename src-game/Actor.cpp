@@ -4,14 +4,14 @@
 
 #define LIMIT_FIELD_OF_VIEW 6
 
-Actor::Actor(E_ActorRace race, E_ActorType type) :
-	m_eRace(race),
+Actor::Actor(ActorRace race, E_ActorType type) :
+	m_race(race),
 	m_eType(type)
 {
 }
 
 E_ActorType Actor::getType() { return m_eType; }
-E_ActorRace Actor::getRace() { return m_eRace; }
+ActorRace Actor::getRace() { return m_race; }
 std::string Actor::getName() { return m_sName; }
 
 std::string Actor::getScript() { return m_sScript; }
@@ -99,10 +99,12 @@ bool Actor::seesActor(Map &map, std::shared_ptr<Actor> actor) {
 
 void Actor::setHealth(int health) { m_iHealth = health; }
 void Actor::setMaxHealth(int maxHealth) { m_iMaxHealth = maxHealth; }
+void Actor::setDefence(int defence) { m_iDefence = defence; }
 void Actor::setAttack(int attackValue) { m_iAttack = attackValue; }
-int Actor::getHealth() { return m_iHealth; }
-int Actor::getMaxHealth() { return m_iMaxHealth; }
-int Actor::getAttack() { return m_iAttack; }
+int Actor::getHealth() const { return m_iHealth; }
+int Actor::getMaxHealth() const { return m_iMaxHealth; }
+int Actor::getDefence() const { return m_iDefence; }
+int Actor::getAttack() const { return m_iAttack; }
 
 bool Actor::isDead() {
 	return m_iHealth == 0;

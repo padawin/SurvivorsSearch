@@ -3,11 +3,13 @@
 
 #include "../../State.hpp"
 #include "../../Actor.hpp"
+#include "../../ActorFactory.hpp"
 #include "../sdl2/Map.hpp"
 #include "../sdl2/Actor.hpp"
 
 class PlayScene : public State {
 	private:
+	ActorFactory m_actorFactory;
 	std::shared_ptr<Actor> m_player;
 	std::shared_ptr<Map> m_map;
 	//rRpg m_engine;

@@ -63,7 +63,7 @@ struct S_MapChangeEventData {
 
 // int is the perthousand of chance of encounter
 struct S_EnemyProbability {
-	E_ActorRaces race;
+	E_ActorRace race;
 	int probaRangeFrom;
 	int probaRangeTo;
 };

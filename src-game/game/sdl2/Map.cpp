@@ -9,6 +9,7 @@ SDL2Map::SDL2Map() :
 
 void SDL2Map::render(const Renderer *renderer, Map *map, FieldOfView &fov, int shiftX, int shiftY) {
 	TextureManager *manager = TextureManager::Instance();
+	std::cout << "Render map\n";
 
 	int displayShiftX = m_camera.x - shiftX;
 	int displayShiftY = m_camera.y - shiftY;

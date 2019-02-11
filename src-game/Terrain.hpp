@@ -2,7 +2,6 @@
 #define __TERRAIN__
 
 #include "types.hpp"
-#include <unordered_map>
 #include <vector>
 #include "dataTypes.hpp"
 #include "commonTypes.hpp"
