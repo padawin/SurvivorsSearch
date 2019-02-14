@@ -1,28 +1,47 @@
-#ifndef __GAME_ACTOR__
-#define __GAME_ACTOR__
+#ifndef __ACTOR__
+#define __ACTOR__
 
-#include "types.hpp"
-#include "../Actor.hpp"
+#include "./types.hpp"
+#include "behaviour/Behaviour.hpp"
+#include "Map.hpp"
+#include <memory>
 
-class GameActor : public Actor {
-	friend class Save;
+class Actor {
 	private:
-	int m_iHealth = 0;
-	int m_iMaxHealth = 0;
-	int m_iAttack = 0;
+	std::shared_ptr<Behaviour> m_behaviour = 0;
+	E_ActorRace m_eRace;
+	E_ActorType m_eType;
+	std::string m_sName = "";
+
+	std::string m_sScript = "";
+	int m_iScriptState = 0;
+
+	protected:
+	S_Coordinates m_location = S_Coordinates();
 
 	public:
-	GameActor(E_ActorRace race, E_ActorType type) : Actor(race, type) {}
-	int getHealth();
-	int getMaxHealth();
-	int getAttack();
-	void setHealth(int health);
-	void setMaxHealth(int maxHealth);
-	void setAttack(int attack);
+	Actor(E_ActorRace race, E_ActorType type);
+	virtual ~Actor() {}
+	void setBehaviour(std::shared_ptr<Behaviour> behaviour);
+	void setName(std::string name);
 
-	bool isDead();
+	void setScript(std::string script);
 
-	void attack(std::shared_ptr<GameActor> target);
+	E_ActorType getType();
+	E_ActorRace getRace();
+	std::string getName();
+
+	std::string getScript();
+
+	virtual bool isDead();
+	void setX(int x);
+	void setY(int y);
+	S_Coordinates getLocation();
+
+	bool update(Map &map);
+
+	bool isNextTo(std::shared_ptr<Actor> actor);
+	bool seesActor(Map &map, std::shared_ptr<Actor> actor);
 };
 
 #endif
