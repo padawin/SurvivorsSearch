@@ -1,15 +1,14 @@
 #include "../../FieldOfView.hpp"
 #include "../../StateMachine.hpp"
-#include "../../Game.hpp"
 #include "../../globals.hpp"
 #include "../Cave.hpp"
 #include "Play.hpp"
 #include "GameOver.hpp"
 #include <iostream>
 
-PlayScene::PlayScene(UserActions &userActions) :
+PlayScene::PlayScene(UserActions &userActions, ActorFactory &actorFactory) :
 	State(userActions),
-	m_actorFactory(ActorFactory()),
+	m_actorFactory(actorFactory),
 	m_player(m_actorFactory.createActor(RACE_HUMAN, PLAYER)),
 	m_map(std::shared_ptr<Map>(new Cave())),
 	m_mapRenderer(SDL2Map()),
@@ -27,6 +26,12 @@ bool PlayScene::onEnter() {
 	m_camera.width = SCREEN_WIDTH;
 	m_camera.height = SCREEN_HEIGHT;
 	m_mapRenderer.setCamera(m_camera);
+	if (Save::exists()) {
+		Save::load(m_player, m_map);
+	}
+	else {
+		Save::create(m_player, m_map);
+	}
 	return 1;
 }
 

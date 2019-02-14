@@ -128,7 +128,7 @@ void SDL2Renderer::_cleanResources() {
 }
 
 void SDL2Renderer::frame(Game* game) const {
-	game->loopFrame(this);
+	game->loopFrame();
 }
 
 void SDL2Renderer::shutdown(void) {

@@ -1,12 +1,14 @@
+#include <iostream>
 #include "ActorFactory.hpp"
 
 ActorFactory::ActorFactory()
 {
 }
 
-bool ActorFactory::parseTaxonomy(const char* taxonomyFile) {
+bool ActorFactory::parseTaxonomy(std::string taxonomyFile) {
 	ResourceManager<S_ActorRaceData> resourceManager;
-	if (!resourceManager.setResourceFile(taxonomyFile)) {
+	if (!resourceManager.setResourceFile(taxonomyFile.c_str())) {
+		std::cout << "error parsing taxonomy" << std::endl;
 		return false;
 	}
 
@@ -17,6 +19,7 @@ bool ActorFactory::parseTaxonomy(const char* taxonomyFile) {
 		m_mTaxonomy.insert(std::make_pair(raceID, race));
 	}
 
+	std::cout << "Taxonomy parsed\n";
 	return true;
 }
 

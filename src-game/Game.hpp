@@ -24,7 +24,7 @@ class Game {
 	~Game() { }
 	bool init(char binaryPath[PATH_MAX]);
 	void mainLoop();
-	void loopFrame(const Renderer *renderer);
+	void loopFrame();
 	void shutdown() const;
 	const char* getBinaryPath() const;
 };

@@ -9,7 +9,7 @@
 
 class PlayScene : public State {
 	private:
-	ActorFactory m_actorFactory;
+	ActorFactory &m_actorFactory;
 	std::shared_ptr<Actor> m_player;
 	std::shared_ptr<Map> m_map;
 	//rRpg m_engine;
@@ -24,7 +24,7 @@ class PlayScene : public State {
 	void _renderGame();
 
 	public:
-	PlayScene(UserActions &userActions);
+	PlayScene(UserActions &userActions, ActorFactory &actorFactory);
 	bool onEnter();
 	void update(StateMachine &stateMachine);
 	void render(const Renderer *renderer);

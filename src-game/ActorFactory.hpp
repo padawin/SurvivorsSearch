@@ -15,7 +15,7 @@ class ActorFactory {
 
 	public:
 	ActorFactory();
-	bool parseTaxonomy(const char* taxonomyFile);
+	bool parseTaxonomy(std::string taxonomyFile);
 	std::shared_ptr<Actor> createActor(E_ActorRace race, E_ActorType type);
 };
 

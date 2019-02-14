@@ -50,8 +50,11 @@ int main(int argc, char* args[]) {
 		}
 	}
 
+	ActorFactory actorFactory = ActorFactory();
+	actorFactory.parseTaxonomy(std::string(binaryPath) + "/../resources/taxonomy.dat");
+
 	StateMachine stateMachine = StateMachine();
-	stateMachine.pushState(new PlayScene(userActions));
+	stateMachine.pushState(new PlayScene(userActions, actorFactory));
 	Game g(stateMachine, renderer, inputHandler);
 	_prepareTilesets(binaryPath, renderer);
 	if (g.init(binaryPath)) {
