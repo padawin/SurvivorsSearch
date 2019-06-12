@@ -27,10 +27,10 @@ CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
 		-Wunused-parameter \
 		-Wvariadic-macros \
 		-Wwrite-strings -Wno-long-long
-LDFLAGS:=-I$(SRCDIR)/game -I$(SRCDIR)/survivor-search 
+LDFLAGS:=-I$(SRCDIR)/game -I$(SRCDIR)/survivor-search -I$(SRCDIR)/ncurses -I$(SRCDIR)/survivor-search -I/home/ghislain/home_conf/.self/include/ -L/home/ghislain/home_conf/.self/lib/
 CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -lncursesw -llua -ldl
 
-SRC := $(shell find $(SRCDIR)/survivor-search $(SRCDIR)/game -type f -name '*.cpp')
+SRC := $(shell find $(SRCDIR)/game $(SRCDIR)/survivor-search $(SRCDIR)/ncurses -type f -name '*.cpp')
 OBJ := $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRC))
 DEP := $(patsubst %.o,%.deps,$(OBJ))
 

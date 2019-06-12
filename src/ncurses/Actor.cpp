@@ -1,5 +1,6 @@
-#include "Actor.hpp"
-#include "../Actor.hpp"
+#include "../game/Actor.hpp"
+#include "../survivor-search/types.hpp"
+#include "./Actor.hpp"
 #include <ncurses.h>
 
 NCursesActor::NCursesActor(NCurseWindow &window) : m_window(window) {

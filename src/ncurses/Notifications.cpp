@@ -1,6 +1,6 @@
 #include "Notifications.hpp"
-#include "../Actor.hpp"
-#include "../types.hpp"
+#include "../game/Actor.hpp"
+#include "../survivor-search/types.hpp"
 
 const short MAX_NB_MESSAGES = 20;
 

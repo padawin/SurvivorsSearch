@@ -5,7 +5,7 @@
 
 class NCursesInputHandler : public InputHandler {
 	protected:
-	void _processEvents();
+	InputUpdateResult _processEvents();
 };
 
 #endif

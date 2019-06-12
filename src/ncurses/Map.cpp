@@ -1,6 +1,6 @@
 #include "../game/Map.hpp"
 #include "../game/MapContent.hpp"
-#include "../Actor.hpp"
+#include "../survivor-search/Actor.hpp"
 #include "Map.hpp"
 #include "renderData.hpp"
 #include <ncurses.h>
