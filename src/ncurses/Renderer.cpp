@@ -8,7 +8,7 @@
 const char FPS = 60;
 const int DELAY_TIME = 1000000 / FPS;
 
-bool NCursesRenderer::init(void) const {
+bool NCursesRenderer::init(void) {
 	signal(SIGINT, _closeNCurses);
 	initscr();
 	cbreak();
@@ -25,7 +25,7 @@ void NCursesRenderer::frame(Game* game) const {
 	gettimeofday(&tv,NULL);
 	currTime = 1000000 * tv.tv_sec + tv.tv_usec;
 
-	game->loopFrame();
+	game->frame();
 	refresh();
 
 	// use a delay to cap the fps
@@ -37,7 +37,7 @@ void NCursesRenderer::frame(Game* game) const {
 	}
 }
 
-void NCursesRenderer::shutdown(void) const {
+void NCursesRenderer::shutdown(void) {
 	_closeNCurses(0);
 }
 

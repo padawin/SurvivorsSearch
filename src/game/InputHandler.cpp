@@ -3,8 +3,8 @@
 /**
  * Processes the SDL events and acts accordingly depending on the event type.
  */
-void InputHandler::update() {
-	_processEvents();
+InputUpdateResult InputHandler::update() {
+	return _processEvents();
 }
 
 /**

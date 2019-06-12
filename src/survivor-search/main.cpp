@@ -4,9 +4,9 @@
 #include "../game/script/Script.hpp"
 #include "../game/Dialogue.hpp"
 #include "../game/DialogueParser.hpp"
+#include "../ncurses/Renderer.hpp"
+#include "../ncurses/InputHandler.hpp"
 #include "state/InGame.hpp"
-#include "ncurses/Renderer.hpp"
-#include "ncurses/InputHandler.hpp"
 #include <locale.h>
 #include <memory>
 #include <limits.h>

@@ -26,8 +26,10 @@ void Game::mainLoop() {
 	}
 }
 
-void Game::loopFrame() {
-	m_inputHandler->update();
+void Game::frame() {
+	if (m_inputHandler->update() == QUIT) {
+		m_stateMachine.clean();
+	}
 	m_stateMachine.update();
 	m_stateMachine.render();
 }

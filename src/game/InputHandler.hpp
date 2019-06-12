@@ -3,7 +3,11 @@
 
 #include <map>
 
-enum InputType {KEYBOARD_KEY, NULL_TYPE};
+enum JoystickControl {LEFT_STICK_X, LEFT_STICK_Y, RIGHT_STICK_X, RIGHT_STICK_Y, NULL_CONTROL};
+
+enum InputType {KEYBOARD_KEY, CONTROLLER_BUTTON, CONTROLLER_STICK, NULL_TYPE};
+
+enum InputUpdateResult {QUIT, HAS_EVENT, HAS_NO_EVENT};
 
 class InputHandler {
 	protected:
@@ -17,7 +21,7 @@ class InputHandler {
 	 */
 	std::map<int, bool> m_mKeysStates = {};
 
-	virtual void _processEvents() = 0;
+	virtual InputUpdateResult _processEvents() = 0;
 
 	/**
 	 * Method called when a keyboard key is pressed or released.
@@ -30,7 +34,7 @@ class InputHandler {
 	/**
 	 * Method used to process the events poll.
 	 */
-	void update();
+	InputUpdateResult update();
 
 	/**
 	 * Returns true if the provided key (from the keyboard) is pressed, false

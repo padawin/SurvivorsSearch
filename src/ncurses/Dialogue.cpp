@@ -1,6 +1,6 @@
 #include "../game/utils.hpp"
 #include "../game/Actor.hpp"
-#include "../types.hpp"
+#include "../survivor-search/types.hpp"
 #include "Dialogue.hpp"
 
 DialogueWindow::DialogueWindow(UserActions &userActions, Dialogue &dialogues) :
