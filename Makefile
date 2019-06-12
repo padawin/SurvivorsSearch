@@ -1,6 +1,4 @@
-SRC_GAME_DIR := src-game
-SRC_TOOLS_DIR := src-tools
-SRC_COMMON_DIR := src-common
+SRCDIR := src
 BUILDDIR := build
 BINDIR := bin
 
@@ -29,10 +27,10 @@ CFLAGS := -g -O2 -Wall -Wmissing-declarations -Weffc++ \
 		-Wunused-parameter \
 		-Wvariadic-macros \
 		-Wwrite-strings -Wno-long-long
-LDFLAGS:=-Isrc-common -Isrc-game
+LDFLAGS:=-I$(SRCDIR)/common -I$(SRCDIR)/game -I$(SRCDIR)/rrpg -I$(SRCDIR)/sdl2
 CCDYNAMICFLAGS := ${CFLAGS} ${LDFLAGS} -I/home/ghislain/home_conf/.self/include -L/home/ghislain/home_conf/.self/lib  -lSDL2 -lSDL2_image -llua -ldl
 
-SRC := $(shell find $(SRC_COMMON_DIR)/ $(SRC_GAME_DIR)/ -type f -name '*.cpp')
+SRC := $(shell find $(SRCDIR)/common/ $(SRCDIR)/game/ $(SRCDIR)/rrpg $(SRCDIR)/sdl2 -type f -name '*.cpp')
 OBJ := $(patsubst %.cpp,$(BUILDDIR)/%.o,$(SRC))
 DEP := $(patsubst %.o,%.deps,$(OBJ))
 
@@ -65,7 +63,7 @@ $(PROG): $(OBJ)
 
 tools:
 	@mkdir -p $(BINDIR)/tools
-	$(CC) ${CFLAGS} ${CFLAGS} ${LDFLAGS} $(shell find $(SRC_TOOLS_DIR)/dataCompiler/ $(SRC_COMMON_DIR) -name "*.cpp") \
+	$(CC) ${CFLAGS} ${CFLAGS} ${LDFLAGS} $(shell find $(SRCDIR)/tools/dataCompiler/ $(SRCDIR)/common -name "*.cpp") \
 		-o $(BINDIR)/tools/data-compiler
-	$(CC) ${CFLAGS} ${CFLAGS} ${LDFLAGS} $(shell find $(SRC_TOOLS_DIR)/dataDecompiler/ $(SRC_COMMON_DIR)/ -name "*.cpp") \
+	$(CC) ${CFLAGS} ${CFLAGS} ${LDFLAGS} $(shell find $(SRCDIR)/tools/dataDecompiler/ $(SRCDIR)/common/ -name "*.cpp") \
 		-o $(BINDIR)/tools/data-decompiler

@@ -1,4 +1,4 @@
-#include "../Collision.hpp"
+#include "../game/Collision.hpp"
 
 const char STONE_WALL_TILE = 0;
 const char STONE_FLOOR_TILE = 1;

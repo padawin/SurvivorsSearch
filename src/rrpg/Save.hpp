@@ -2,7 +2,7 @@
 #define __SAVE__
 
 #include <memory>
-#include "../Save.hpp"
+#include "../game/Save.hpp"
 
 class Save : public AbstractSave {
 	private:
